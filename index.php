@@ -112,6 +112,110 @@
                 }
 
             /*3. Buttons and inputs*/
+            input {
+                width: 480px;
+                min-height: 50px;
+                padding: 15px;
+
+                border: none;
+                border-radius: 8px 8px 0px 0px;
+                border-bottom: 2px solid #FFF;
+
+                background: rgba(255, 255, 255, 0.50);
+            }
+            input[type=checkbox] {
+                height: 20px;
+                width: 20px;
+                min-height: 0;
+            }
+            input[type="submit"], input[type="button"], button {
+                min-height: 40px;
+                width: auto;
+                padding: 15px 25px;
+
+                border: none;
+                border-radius: 12px;
+
+                background: #FFF;
+
+                font-size: 16px;
+                font-weight: 700;
+
+                cursor: pointer;
+            }
+            input[type="submit"]:hover, input[type="button"]:hover, button:hover {
+                background: #EEE;
+            }
+            label.checkbox {
+                display: block;
+                position: relative;
+                padding-left: 25px;
+                padding-top: 1px;
+                cursor: pointer;
+                font-size: 16px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                margin-bottom: 0px;
+            }
+            label.checkbox input {
+                position: absolute;
+                opacity: 0;
+                cursor: pointer;
+                height: 0;
+                width: 0;
+            }
+            .checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 16px;
+                width: 16px;
+                
+                border-radius: 4px;
+                border: 2px solid #FFF;
+                background: rgba(255, 255, 255, 0.50);
+            }
+            .checkbox:hover input ~ .checkmark {
+                background: #0000;
+            }
+            .checkbox input:checked ~ .checkmark {
+                background: #0000;
+            }
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+            .checkbox input:checked ~ .checkmark:after {
+                display: block;
+            }
+            .checkbox .checkmark:after {
+                left: 5px;
+                top: 2px;
+                width: 4px;
+                height: 8px;
+                border: solid white;
+                border-width: 0 3px 3px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+
+            /*4. Flex params */
+            .flex-dir-row-left {
+                flex-direction: row;
+            }
+            .flex-dir-row-right {
+                flex-direction: row-reverse;
+            }
+            .flex-dir-column-down {
+                flex-direction: column;
+            }
+            .flex-dir-column-up {
+                flex-direction: column-reverse;
+            }
 
             /*5. Navigation bar*/
             nav {
