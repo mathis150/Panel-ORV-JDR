@@ -119,7 +119,7 @@
                 height: 72px;
 
                 display: grid;
-                grid-template-columns: 300px auto 300px;
+                grid-template-columns: 320px auto 320px;
 
                 background: #6D7FA8;
             }
@@ -136,6 +136,14 @@
 
                 gap: 25px;
                 padding: 0px 25px;
+            }
+            nav > .navigation_info {
+                display: flex;
+                flex-direction: row;
+                justify-content: left;
+                align-items: center;
+
+                gap: 10px;
             }
             .nav-button {
                 font-size: 16px;
@@ -164,6 +172,8 @@
                 background-clip: text;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
+
+                font-size: 16px;
             }
 
             /*6. Cards*/
