@@ -20,6 +20,12 @@
 
                 background: linear-gradient(107deg, #26314F 1.63%, #2B3758 17.13%, #2D3A5D 32.22%, #313F65 50.56%, #384874 78.71%, #44588E 95.17%, #5770B5 100.35%);
             }
+
+            /*2. Text*/
+
+            /*3. Buttons and inputs*/
+
+            /*4. Navigation bar*/
         </style>
     </head>
     <body>
