@@ -23,8 +23,11 @@
             hr {}
 
             /*2. Textes*/
+                h1,h2,h3,h4,h5,h6,p {
+                    margin-block-start: 0;
+                    margin-block-end: 0;
+                }
                 /*Titres*/
-                h1,h2,h3 {}
                 h1 {
                     font-size: 32px;
                     font-family: "Koh Santepheap";
