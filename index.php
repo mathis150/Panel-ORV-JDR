@@ -149,25 +149,9 @@
             <section class="navigation_container">
                 <a class="nav-button" href="./"><img src="./img/generic/LogoOrv.png" width="60px"></a>
                 <a class="nav-button nav-title" href="./">Panneau de gestion du Jdr ORV</a>
-                <a class="nav-button" href="./">Panneau de gestion du Jdr ORV</a>
-                <a class="nav-button nav-active" href="./">Panneau de gestion du Jdr ORV</a>
             </section>
             <section></section>
         </nav>
-        <section>
-            <h1 class="text-black">eeeeeeeeeeee</h1>
-            <h2 class="text-black">eeeeeeeeeeee</h2>
-            <h3 class="text-black">eeeeeeeeeeee</h3>
-            <h4 class="text-black">eeeeeeeeeeee</h4>
-            <h5 class="text-black">eeeeeeeeeeee</h5>
-            <h6 class="text-black">eeeeeeeeeeee</h6>
-            <p class="text-black">eeeeeeeeeeee</p>
-            <a class="text-black">eeeeeeeeeeee</a>
-            <blockquote class="text-black">eeeeeeeeeeee</blockquote>
-            <cite class="text-black">eeeeeeeeeeee</cite><br><br>
-            <p class="text-white">eeeeeeeeeeee</p>
-            <p class="important-black">eeeeeeeeeeee</p>
-            <p class="important-white">eeeeeeeeeeee</p>
         </section>
     </body>
 </html>
