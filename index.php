@@ -98,7 +98,7 @@
 
             /*3. Buttons and inputs*/
 
-            /*4. Navigation bar*/
+            /*5. Navigation bar*/
             nav {
                 width: 100%;
                 height: 72px;
@@ -125,7 +125,7 @@
             .nav-button {
                 font-size: 16px;
                 font-family: "Koh Santepheap";
-                font-weight: 600;
+                font-weight: 700;
 
                 background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
                 background-clip: text;
@@ -151,7 +151,7 @@
                 -webkit-text-fill-color: transparent;
             }
 
-            /*5. Cards*/
+            /*6. Cards*/
             .cards {
                 border-radius: 16px;
 
@@ -171,12 +171,12 @@
     </head>
     <body>
         <nav>
-            <section></section>
+            <section  class="navigation_container"></section>
             <section class="navigation_container">
                 <a class="nav-button" href="./"><img src="./img/generic/LogoOrv.png" width="60px"></a>
                 <a class="nav-button nav-title" href="./">Panneau de gestion du Jdr ORV</a>
             </section>
-            <section></section>
+            <section class="navigation_container"></section>
         </nav>
         <section class="container container-center">
             <div class="cards cards-login">
