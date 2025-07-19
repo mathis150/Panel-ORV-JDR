@@ -20,6 +20,15 @@
 
                 background: linear-gradient(107deg, #26314F 1.63%, #2B3758 17.13%, #2D3A5D 32.22%, #313F65 50.56%, #384874 78.71%, #44588E 95.17%, #5770B5 100.35%);
             }
+            .container {
+                width: 100%;
+                height: calc(100vh - 72px);
+            }
+            .container-center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
             hr {}
 
             /*2. Textes*/
@@ -152,6 +161,7 @@
             </section>
             <section></section>
         </nav>
+        <section class="container container-center">
         </section>
     </body>
 </html>
