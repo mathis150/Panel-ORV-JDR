@@ -150,6 +150,23 @@
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
+
+            /*5. Cards*/
+            .cards {
+                border-radius: 16px;
+
+                background: rgba(255, 255, 255, 0.50);
+
+                overflow: hidden;
+            }
+            .cards-login {
+                width: 550px;
+            }
+            .cards-header {
+                padding: 25px 30px;
+                background: #FFF;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
@@ -162,6 +179,10 @@
             <section></section>
         </nav>
         <section class="container container-center">
+            <div class="cards cards-login">
+                <div class="cards-header"><h2>Veuillez vous connecter.</h2></div>
+                <div>eee</div>
+            </div>
         </section>
     </body>
 </html>
