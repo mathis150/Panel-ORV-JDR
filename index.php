@@ -99,12 +99,16 @@
                     background-clip: text;
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
+
+                    font-weight: 700;
                 }
                 .important-white {
                     background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
                     background-clip: text;
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
+
+                    font-weight: 700;
                 }
 
             /*3. Buttons and inputs*/
