@@ -167,6 +167,10 @@
                 background: #FFF;
                 text-align: center;
             }
+            .cards-body {
+                padding: 25px;
+            }
+
         </style>
     </head>
     <body>
@@ -181,7 +185,8 @@
         <section class="container container-center">
             <div class="cards cards-login">
                 <div class="cards-header"><h2>Veuillez vous connecter.</h2></div>
-                <div>eee</div>
+                <div class="cards-body container-center flex-dir-column-down">
+                </div>
             </div>
         </section>
     </body>
