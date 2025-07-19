@@ -20,8 +20,69 @@
 
                 background: linear-gradient(107deg, #26314F 1.63%, #2B3758 17.13%, #2D3A5D 32.22%, #313F65 50.56%, #384874 78.71%, #44588E 95.17%, #5770B5 100.35%);
             }
+            hr {}
 
-            /*2. Text*/
+            /*2. Textes*/
+                /*Titres*/
+                h1,h2,h3 {}
+                h1 {
+                    font-size: 32px;
+                    font-family: "Koh Santepheap";
+                }
+                h2 {
+                    font-size: 24px;
+                    font-family: "Koh Santepheap";
+                }
+                h3 {
+                    font-size: 18px;
+                    font-family: "Koh Santepheap";
+                }
+                h4 {
+                    font-size: 16px;
+                    font-family: "Koh Santepheap";
+                }
+                h5 {
+                    font-size: 14px;
+                    font-family: "Koh Santepheap";
+                }
+                h6 {
+                    font-size: 12px;
+                    font-family: "Koh Santepheap";
+                }
+                /*Textes classiques*/
+                p {
+                    font-size: 14px;
+                }
+                a {
+                    font-size: 14px;
+                }
+                /*Citations et autre*/
+                blockquote {
+                    font-size: 12px;
+                }
+                cite {
+                    font-size: 12px;
+                }
+                
+                /*Variations*/
+                .text-black {
+                    color: #000000;
+                }
+                .text-white {
+                    color: #FFFFFF;
+                }
+                .important-black {
+                    background: linear-gradient(180deg, #000 0%, #999 190%);
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                .important-white {
+                    background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
 
             /*3. Buttons and inputs*/
 
@@ -91,7 +152,19 @@
             <section></section>
         </nav>
         <section>
-
+            <h1 class="text-black">eeeeeeeeeeee</h1>
+            <h2 class="text-black">eeeeeeeeeeee</h2>
+            <h3 class="text-black">eeeeeeeeeeee</h3>
+            <h4 class="text-black">eeeeeeeeeeee</h4>
+            <h5 class="text-black">eeeeeeeeeeee</h5>
+            <h6 class="text-black">eeeeeeeeeeee</h6>
+            <p class="text-black">eeeeeeeeeeee</p>
+            <a class="text-black">eeeeeeeeeeee</a>
+            <blockquote class="text-black">eeeeeeeeeeee</blockquote>
+            <cite class="text-black">eeeeeeeeeeee</cite><br><br>
+            <p class="text-white">eeeeeeeeeeee</p>
+            <p class="important-black">eeeeeeeeeeee</p>
+            <p class="important-white">eeeeeeeeeeee</p>
         </section>
     </body>
 </html>
