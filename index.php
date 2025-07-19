@@ -65,8 +65,19 @@
                 p {
                     font-size: 14px;
                 }
-                a {
+                a, a:visited, a:link, a:visited {
                     font-size: 14px;
+                    font-weight: 700;
+                    
+                    background: var(--Links-color, linear-gradient(180deg, #09F 0%, #0069AE 190%));
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                }
+                label {
+                    font-size: 14px;
+
+                    margin-bottom: 15px;
                 }
                 /*Citations et autre*/
                 blockquote {
