@@ -200,12 +200,12 @@
     </head>
     <body>
         <nav>
-            <section  class="navigation_container"></section>
+            <section  class="navigation_info"></section>
             <section class="navigation_container">
                 <a class="nav-button" href="./"><img src="./img/generic/LogoOrv.png" width="60px"></a>
                 <a class="nav-button nav-title" href="./">Panneau de gestion du Jdr ORV</a>
             </section>
-            <section class="navigation_container"></section>
+            <section class="navigation_info"></section>
         </nav>
         <section class="container container-center">
             <div class="cards cards-login">
