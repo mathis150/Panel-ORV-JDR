@@ -26,8 +26,41 @@
             /*3. Buttons and inputs*/
 
             /*4. Navigation bar*/
+            nav {
+                width: 100%;
+                height: 72px;
+
+                display: grid;
+                grid-template-columns: 300px auto 300px;
+
+                background: #6D7FA8;
+            }
+            nav > section {
+                margin: 0px 10px;
+            }
+            nav > .navigation_container {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-content: center;
+                justify-content: center;
+                align-items: center;
+
+                gap: 25px;
+                padding: 0px 25px;
+            }
         </style>
     </head>
     <body>
+        <nav>
+            <section></section>
+            <section class="navigation_container">
+                <a href="./"><img src="./img/generic/LogoOrv.png" width="60px"></a>
+            </section>
+            <section></section>
+        </nav>
+        <section>
+
+        </section>
     </body>
 </html>
