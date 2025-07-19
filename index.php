@@ -196,6 +196,29 @@
                 padding: 25px;
             }
 
+            /*7. Login unique*/
+            .login_field {
+                display: flex;
+                flex-direction: column;
+
+                text-align: center;
+
+                margin: 15px 0;
+            }
+            .login_label {
+                font-size: 16px;
+            }
+            .login_help {
+                display: grid;
+                grid-template-columns: 240px 240px;
+
+                margin-bottom: 30px;
+            }
+            .login_lost_password {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+            }
         </style>
     </head>
     <body>
@@ -211,6 +234,23 @@
             <div class="cards cards-login">
                 <div class="cards-header"><h2>Veuillez vous connecter.</h2></div>
                 <div class="cards-body container-center flex-dir-column-down">
+                    <div class="login_field">
+                        <label class="important-black login_label">Identifiant (Pseudo ou E-Mail) :</label>
+                        <input type="text" name="identifiant" placeholder="Pseudonyme OU e-mail@example.xyz">
+                    </div>
+                    <div class="login_field">
+                        <label class="important-black login_label">Mot de passe :</label>
+                        <input type="text" name="identifiant" placeholder="Votre mot de passe">
+                    </div>
+                    <div class="login_help">
+                        <div><label class="important-black checkbox">Se souvenir de moi
+                                <input type="checkbox" name="remember">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="login_lost_password"><a href="./">Mot de passe oublié ?</a></div>
+                    </div>
+                    <input type="submit" name="submit" value="Connexion">
                 </div>
             </div>
         </section>
