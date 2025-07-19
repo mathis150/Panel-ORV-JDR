@@ -49,13 +49,44 @@
                 gap: 25px;
                 padding: 0px 25px;
             }
+            .nav-button {
+                font-size: 16px;
+                font-family: "Koh Santepheap";
+                font-weight: 600;
+
+                background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .nav-button:hover {
+                background: var(--Important-text-color-2, linear-gradient(180deg, #CCC 0%, #999 190%));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .nav-active {
+                background: var(--Active, linear-gradient(180deg, #263150 0%, #0069AE 190%));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .nav-title:link, .nav-title:visited, .nav-title:hover, .nav-title:active {
+                background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
         </style>
     </head>
     <body>
         <nav>
             <section></section>
             <section class="navigation_container">
-                <a href="./"><img src="./img/generic/LogoOrv.png" width="60px"></a>
+                <a class="nav-button" href="./"><img src="./img/generic/LogoOrv.png" width="60px"></a>
+                <a class="nav-button nav-title" href="./">Panneau de gestion du Jdr ORV</a>
+                <a class="nav-button" href="./">Panneau de gestion du Jdr ORV</a>
+                <a class="nav-button nav-active" href="./">Panneau de gestion du Jdr ORV</a>
             </section>
             <section></section>
         </nav>
