@@ -1,0 +1,89 @@
+# Activer la réécriture d'URL
+RewriteEngine On
+
+# -------------------------------------
+# Supprimer le .php dans les URLs
+# Exemple : /contact au lieu de /contact.php
+# -------------------------------------
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^([^/]+)$ $1.php [L]
+
+# -------------------------------------
+# Rediriger les dossiers vers index.php automatiquement
+# (Comportement par défaut d'Apache avec DirectoryIndex, mais précisé ici)
+# -------------------------------------
+DirectoryIndex index.php
+
+# -------------------------------------
+# Sécuriser les fichiers sensibles
+# -------------------------------------
+
+# Interdire l'accès à env.php
+<Files "env.php">
+  Order allow,deny
+  Deny from all
+</Files>
+
+# Autoriser l'accès à env.php.example
+<Files "env.php.example">
+  Order allow,deny
+  Allow from all
+</Files>
+
+# Interdire l'accès aux fichiers de configuration cachés ou sensibles
+<FilesMatch "^\.env|composer\.(json|lock)|package\.json|webpack\.config\.js|\.git|\.htaccess$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+# -------------------------------------
+# Sécurité HTTP Headers
+# -------------------------------------
+<IfModule mod_headers.c>
+  # Protection contre le clickjacking
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # Protection contre le XSS
+  Header always set X-XSS-Protection "1; mode=block"
+
+  # Protection contre le MIME sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Cacher le nom du serveur
+  Header unset Server
+</IfModule>
+
+# -------------------------------------
+# Interdire l'indexation des dossiers
+# -------------------------------------
+Options -Indexes
+
+# -------------------------------------
+# Forcer l'encodage UTF-8
+# -------------------------------------
+AddDefaultCharset UTF-8
+
+# -------------------------------------
+# Limiter les méthodes HTTP autorisées
+# -------------------------------------
+<LimitExcept GET POST HEAD>
+  Deny from all
+</LimitExcept>
+
+# -------------------------------------
+# Pages d'erreurs personnalisées
+# -------------------------------------
+ErrorDocument 400 /errors/400.php
+ErrorDocument 401 /errors/401.php
+ErrorDocument 403 /errors/403.php
+ErrorDocument 404 /errors/404.php
+ErrorDocument 405 /errors/405.php
+ErrorDocument 500 /errors/500.php
+ErrorDocument 502 /errors/502.php
+ErrorDocument 503 /errors/503.php
+
+# -------------------------------------
+# (Optionnel) Forcer HTTPS
+# -------------------------------------
+#RewriteCond %{HTTPS} off
+#RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
