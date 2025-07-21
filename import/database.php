@@ -14,6 +14,8 @@
             try {
                 $this->connect = new PDO('mysql:host='.$this->ENV_DB_HOST.';dbname='.$this->ENV_DB_DATABASE, $this->ENV_DB_USER, $this->ENV_DB_PASSWORD);
                 $this->connect->exec('SET NAMES utf8');
+
+                $this->initializedDatabase();
             } catch (PDOException $e) {
                 echo "Une erreur est survenue... " . $e->getMessage() . "<br>" ;
                 die();
@@ -45,6 +47,26 @@
             } elseif($type = ORV_SQL_REQUEST) {
                 return $request;
             }
+        }
+
+        private function initializedDatabase() {
+            $this->makeSQLRequest("
+            --
+            -- Structure de la table `users`
+            --
+
+            CREATE TABLE IF NOT EXISTS `users` (
+            `uuid` varchar(64) COLLATE utf8mb3_bin NOT NULL,
+            `pseudonyme` varchar(64) COLLATE utf8mb3_bin NOT NULL,
+            `email` varchar(256) COLLATE utf8mb3_bin NOT NULL,
+            `password` text COLLATE utf8mb3_bin NOT NULL,
+            `admin` tinyint(1) NOT NULL DEFAULT '0',
+            `last_activity` int DEFAULT NULL,
+            `registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`uuid`)
+            ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
+            COMMIT;
+            ");
         }
     }
 
