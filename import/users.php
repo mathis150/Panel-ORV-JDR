@@ -31,11 +31,42 @@
             return password_hash($password, $this->hash);
         }
 
+        public function loginUser($identification, $password, $remember = true) {
+            $returned = $this->database->makeSQLRequest("SELECT * FROM users WHERE pseudonyme = ? OR email= ?", array($this->filtrerTexteSQL($identification), $this->filtrerTexteSQL($identification)), ORV_SQL_REQUEST);
+
+            if($returned->rowCount() == 1) {
+                $returned = $returned->fetch(PDO::FETCH_ASSOC);
+                if($this->isPasswordValid($password, $returned['password'])) {
+                    
+                }
+            }
+        }
+
         public function changeUserPassword($uuid, $newPassword) {
             $passwordHash = $this->hashPasswordTo($newPassword);
 
             $this->database->makeSQLRequest("UPDATE users SET password=? WHERE uuid = ?", array($passwordHash, $uuid));
         }
+
+        public function generateSession($uuid, $remember) {
+            $token = $this->generateCustomUUID();
+            $date = time() + (isset($remember) && $remember) ? 60*60*24*31 : (60*60*24);
+
+            $this->database->makeSQLRequest("INSERT INTO sessions(token, user_uuid, date_expiration)", array($token, $uuid, $date));
+
+            return $token;
+        }
+
+        public function verifySession($token) {
+            $count = $this->database->makeSQLRequest("SELECT * FROM sessions WHERE token = ? AND date_expiration > ?", array($token, time()), ORV_SQL_COUNT);
+
+            if($count == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         public function getUserDataBySession($token) {}
 
         public function editUserByUUID($uuid, $pseudo = "", $email = "", $password = "") {}
