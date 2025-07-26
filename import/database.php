@@ -9,8 +9,11 @@
     class Database extends Environnement {
 
         private PDO $connect;
+        public $hash;
 
         public function __construct() {
+            $this->hash = $this->ENV_ENCRYPT;
+            
             try {
                 $this->connect = new PDO('mysql:host='.$this->ENV_DB_HOST.';dbname='.$this->ENV_DB_DATABASE, $this->ENV_DB_USER, $this->ENV_DB_PASSWORD);
                 $this->connect->exec('SET NAMES utf8');
