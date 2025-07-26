@@ -71,6 +71,29 @@
             COMMIT;
             ");
         }
+        
+        function generateCustomUUID() {
+            $date = date('ymd');
+            $time = date('Hi');
+
+            $random1 = strtoupper(bin2hex(random_bytes(3)));
+            $random2 = strtoupper(bin2hex(random_bytes(4)));
+            $random3 = strtoupper(bin2hex(random_bytes(3)));
+            $random4 = strtoupper(bin2hex(random_bytes(3)));
+
+            // Créer l'UUID final
+            $uuid = sprintf(
+                "%s-%s%s-%s-%s%s",
+                substr($random1, 0, 6),
+                $date,
+                substr($random2, 0, 4),
+                substr($random3, 0, 6),
+                substr($random4, 0, 6),
+                $time
+            );
+
+            return $uuid;
+        }
     }
 
 ?>
