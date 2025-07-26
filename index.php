@@ -1,3 +1,10 @@
+<?php
+    require_once("./env.php");
+    require_once("./import/database.php");
+    require_once("./import/users.php");
+
+    $userManagement = new UsersManager();
+?>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
