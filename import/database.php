@@ -94,6 +94,35 @@
 
             return $uuid;
         }
+
+        public function filtrerTexteSQL(string $texte): string {
+            $texte = trim($texte);
+
+            $caracteres_dangereux = [
+                "'",
+                '"', 
+                ';', 
+                '\\',
+                '--',
+                '#',
+                '/*', '*/',
+                '`'
+            ];
+
+            $texte = str_replace($caracteres_dangereux, '', $texte);
+
+            $mots_interdits = [
+                'select', 'insert', 'update', 'delete',
+                'drop', 'truncate', 'exec', 'union',
+                'create', 'alter', 'rename', 'replace'
+            ];
+
+            foreach ($mots_interdits as $mot) {
+                $texte = preg_replace('/\b' . preg_quote($mot, '/') . '\b/i', '', $texte);
+            }
+
+            return $texte;
+        }
     }
 
 ?>
