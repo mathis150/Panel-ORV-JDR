@@ -3,9 +3,6 @@
     class UsersManager extends Database {
         private Database $database;
 
-        public String $userId = "";
-        public Array $userData = array();
-
         public function __construct() {
             $this->database = new Database();
         }
@@ -60,9 +57,15 @@
             if($returned->rowCount() == 1) {
                 $returned = $returned->fetch(PDO::FETCH_ASSOC);
                 if($this->isPasswordValid($password, $returned['password'])) {
-                    
+                    $date = time() + (isset($remember) && $remember) ? 60*60*24*31 : (60*60*24);
+
+                    $token = $this->generateSession($returned['uuid'], $date);
+
+                    setcookie("USER_SESSION", $token, $date);
+                    return true;
                 }
             }
+            return false;
         }
 
         public function changeUserPassword($uuid, $newPassword) {
@@ -71,9 +74,8 @@
             $this->database->makeSQLRequest("UPDATE users SET password=? WHERE uuid = ?", array($passwordHash, $uuid));
         }
 
-        public function generateSession($uuid, $remember) {
+        public function generateSession($uuid, $date) {
             $token = $this->generateCustomUUID();
-            $date = time() + (isset($remember) && $remember) ? 60*60*24*31 : (60*60*24);
 
             $this->database->makeSQLRequest("INSERT INTO sessions(token, user_uuid, date_expiration)", array($token, $uuid, $date));
 
