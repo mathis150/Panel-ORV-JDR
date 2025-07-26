@@ -92,7 +92,11 @@
             }
         }
 
-        public function getUserDataBySession($token) {}
+        public function getUserDataBySession($token) {
+            $session = $this->database->makeSQLRequest("SELECT * FROM sessions WHERE token = ? AND date_expiration > ?", array($token, time()), ORV_SQL_FETCH_ONE);
+
+            return $this->getUserByUUID($session['user_uuid']);
+        }
 
         public function editUserByUUID($uuid, $pseudo = "", $email = "", $password = "") {}
 
