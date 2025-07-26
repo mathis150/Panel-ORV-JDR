@@ -9,6 +9,29 @@
         public function __construct() {
             $this->database = new Database();
         }
+
+        public function registerUser(String $pseudo, String $email, String $password, String $passwordConfirm){
+            if(!empty($pseudo) && !empty($email) && !empty($password) && !empty($passwordConfirm)) {
+                if($this->checkIfUserExist($pseudo)) {
+                    if($this->checkIfUserExist(email: $email)) {
+                        if($password === $passwordConfirm) {
+                            $passwordHash = $this->hashPasswordTo($password);
+
+                            $this->database->makeSQLRequest("INSERT INTO users (pseudonyme, email, password) VALUES (?,?,?)", array($this->filtrerTexteSQL($pseudo), $this->filtrerTexteSQL($email), $passwordHash));
+
+                            return "Utilisateur créé !";
+                        } else {
+                            return "Mots de passes invalide.";
+                        }
+                    } else {
+                        return "E-Mail déjà utilisé.";
+                    }
+                } else {
+                    return "Pseudonyme déjà utilisé.";
+                }
+            }
+        }
+
         public function checkIfUserExist($pseudo = "", $email = "") {
             if(isset($pseudo)) {
                 $returned = $this->database->makeSQLRequest("SELECT * FROM users WHERE pseudonyme = ?", array($this->filtrerTexteSQL($pseudo)), ORV_SQL_COUNT);
