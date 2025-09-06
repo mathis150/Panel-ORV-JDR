@@ -31,6 +31,9 @@
   font-style: normal;
 }
 
+
+/* Nommation : <type>_<subtype>-<variation> */
+
 /*1. Bases*/
 body {
     margin: 0;
