@@ -272,10 +272,12 @@ nav > .navigation_info {
 
     gap: 10px;
 }
-.nav-button {
+.nav-button, .nav-button:link, .nav-button:visited {
     font-size: 16px;
     font-family: "Koh Santepheap";
     font-weight: 700;
+
+    cursor: pointer;
 
     background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
     background-clip: text;
@@ -289,10 +291,10 @@ nav > .navigation_info {
     -webkit-text-fill-color: transparent;
 }
 .nav-active {
-    background: var(--Active, linear-gradient(180deg, #263150 0%, #0069AE 190%));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    background: var(--Active, linear-gradient(180deg, #263150 0%, #0069AE 190%)) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 .nav-title:link, .nav-title:visited, .nav-title:hover, .nav-title:active {
     background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
@@ -301,6 +303,34 @@ nav > .navigation_info {
     -webkit-text-fill-color: transparent;
 
     font-size: 16px;
+}
+.nav-profil {
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.25) !important;
+
+    width: 100%;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.nav-profil:hover {
+    background: rgba(255, 255, 255, 0.40) !important;
+}
+.nav-profil_text {
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+
+    background: linear-gradient(180deg, #FFF 0%, #999 190%);
+
+    font-size: 16px;
+
+    margin-left: 10px;
+
+    font-family: "Koh Santepheap";
 }
 
 /*6. Cards*/
@@ -313,6 +343,18 @@ nav > .navigation_info {
 }
 .cards-login {
     width: 550px;
+}
+.container-logs {
+    height: calc(100% - (72px + 72px + 30px));
+
+    display: grid;
+    column-gap: 20px;
+    row-gap: 20px;
+
+    grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+    width: calc(100% - 60px);
+
+    padding:15px 30px;
 }
 .cards-header {
     padding: 25px 30px;
@@ -345,4 +387,40 @@ nav > .navigation_info {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+}
+
+/*8. Tables*/
+table {
+    width: 100%;
+    border-spacing: 0;
+}
+tr {
+    background: rgba(255, 255, 255, 0.10);
+    height: 46px;
+}
+tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.25);
+}
+td {
+    padding: 10px;
+    color: white;
+}
+
+/*9. Footer*/
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent;
+
+    background: linear-gradient(180deg, #FFF 0%, #999 190%);
+
+    font-family: "Koh Santepheap";
+    font-size: 16px;
+    font-weight: 700;
+
+    height: 72px;
 }
