@@ -1,3 +1,5 @@
+/* Nommation : <type>_<subtype>-<variation> */
+
 /*Important font*/
 .koh-santepheap-thin {
   font-family: "Koh Santepheap", serif;
@@ -28,7 +30,6 @@
   font-weight: 900;
   font-style: normal;
 }
-
 
 /* Nommation : <type>_<subtype>-<variation> */
 
@@ -270,13 +271,14 @@ nav > .navigation_info {
 
     gap: 10px;
 }
+
 .nav-button, .nav-button:link, .nav-button:visited {
     font-size: 16px;
     font-family: "Koh Santepheap";
     font-weight: 700;
 
     cursor: pointer;
-
+  
     background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
     background-clip: text;
     -webkit-background-clip: text;
