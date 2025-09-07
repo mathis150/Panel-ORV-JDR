@@ -2,7 +2,9 @@
     class WebPageBases {
 
         private $pagesNames = array (
-            "dashboard" => "Dashboard"
+            "dashboard" => "Dashboard",
+            "files" => "Vos fiches",
+            "sessions" => "Gestion des sessions"
         );
         private $pagesList = array(
             0 => array(
@@ -76,6 +78,12 @@
                     <a href="#" class="nav-profil"><img src="./img/generic/LogoOrv.png" width="60px"> <div class="nav-profil_text">Administrateur</div></a>
                 </section>
             </nav>
+            <?php
+        }
+
+        public function footer() {
+            ?>
+            <footer>Copyright © <?php echo date("Y");?> - Mathis Lenoir</footer>
             <?php
         }
 
