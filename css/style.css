@@ -296,11 +296,11 @@ nav > .navigation_info {
     -webkit-background-clip: text !important;
     -webkit-text-fill-color: transparent !important;
 }
-.nav-title:link, .nav-title:visited, .nav-title:hover, .nav-title:active {
-    background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.nav-title, .nav-title:link, .nav-title:visited, .nav-title:hover, .nav-title:active {
+    background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%)) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 
     font-size: 16px;
 }
