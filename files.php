@@ -75,24 +75,31 @@
         .left-menu_dead:hover {
             background: #703f3fff !important;
         }
+        .right-menu {
+            position: relative;
+        }
         .menu-right-container {
-            height: calc(100% - 72px);
-
+            height: calc(100vh - 72px);
+            max-width: calc(100vw - 300px);
+            
             overflow-y: auto;
             overflow-x: hidden;
 
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
         }
         .orv-menu {
             width: 1225px;
+
+            margin-top: 20px;
+            margin-bottom: 80px;
 
             border-radius: 16px 0;
             border: 2px solid #D9FFFF;
 
             background: rgba(55, 174, 254, 0.80);
-            color: #FFFFFF;
+            color: #D9FFFF;
         }
         .orv-menu_header {
             height: 60px;
@@ -102,7 +109,6 @@
 
             background: rgba(255, 255, 255, 0.25);
             font-weight: 700;
-            color: #D9FFFF;
 
             display: flex;
             justify-content: center;
@@ -114,13 +120,9 @@
         }
         .orv-menu_stats-general {
             padding: 20px;
-
-            color: #D9FFFF;
         }
         .orv-menu_stats-personnals {
             background: rgba(255, 255, 255, 0.15);
-
-            color: #D9FFFF;
         }
         .orv-menu_stats-personnals_content {
             padding: 20px;
@@ -167,6 +169,112 @@
         .orv-menu_stats_info:hover {
             background: rgba(255, 255, 255, 0.25);
         }
+        .data-popup {
+            background: rgba(0, 0, 0, 0.40);
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .data-popup_popup {
+            border-radius: 16px 0;
+            border: 2px solid #D9FFFF;
+
+            background: rgba(55, 174, 254, 0.80);
+            color: #D9FFFF;
+        }
+        .data-popup_popup-header {
+            background: rgba(255, 255, 255, 0.25);
+
+            padding: 20px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+            font-weight: 700;
+            font-size: 24px;
+
+            position: relative;
+        }
+        .data-popup_popup-body_grid {
+            display: grid;
+            grid-template-columns: 400px 400px;
+        }
+        .data-popup_popup-body_content {
+            padding: 20px;
+
+            font-size: 18px;
+        }
+        .button-close {
+            width: 20px;
+            min-height: 20px;
+            height: 20px;
+
+            color: #D9FFFF;
+
+            cursor: pointer;
+            
+            border-radius: 4px;
+            border: 2px solid #D9FFFF;
+
+            background: rgba(255, 255, 255, 0.25);
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 0;
+        }
+        .button-close:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+        .data-popup_close-position {
+            position: absolute;
+            right: 20px;
+        }
+        .hidden {
+            visibility: hidden;
+        }
+        .footer_background {
+            width: 100%;
+            height: fit-content;
+
+            background-color: #00000022;
+            backdrop-filter: blur(10px);
+
+            bottom: 0;
+            position: absolute;
+        }
+        .right-menu > .footer_background  > footer  {
+            width: 100%;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #00000000;
+            border-radius: 9px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #313f65;
+            border-radius: 9px;
+        }
+
+        @supports not selector(::-webkit-scrollbar) {
+            body {
+                scrollbar-color: var(#313f65)
+                                var(#00000000);
+            }
+        }
     </style>
     <body>
         <?php $bases->navigation(); ?>
@@ -196,7 +304,32 @@
                     <div class="left-menu_page_text">Lvl.99</div>
                 </a>
             </section>
-            <section>
+            <section class="right-menu">
+                <div class="data-popup hidden">
+                    <div class="data-popup_popup">
+                        <div class="data-popup_popup-header">
+                            &lt;Information de la compétence&gt;
+                            <button class="button-close data-popup_close-position">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                        <div class="data-popup_popup-body_grid">
+                            <div class="data-popup_popup-body_content">
+                                <b>Nom de la compétence :</b> &lt;Nom&gt;<br>
+                                <br>
+                                <b>Description :</b><br>
+                                XXX
+                            </div>
+                            <div class="data-popup_popup-body_content">
+                                <b>Niveau :</b> 1/10<br>
+                                <b>Coût en mana :</b>  XX<br>
+                                <b>Dégât causés :</b>  XX ou [XdXX]<br>
+                                <br>
+                                [Prochain niveau dans : XX/XX] (A)
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="menu-right-container">
                     <div class="orv-menu">
                         <div class="orv-menu_header">&lt;Information du personnage&gt;</div>
