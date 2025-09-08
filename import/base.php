@@ -50,6 +50,8 @@
                     <link href="https://fonts.googleapis.com/css2?family=Koh+Santepheap:wght@100;300;400;700;900&display=swap" rel="stylesheet">
                     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900italic,900' rel='stylesheet' type='text/css'>
                     <link href="./css/style.css" rel="stylesheet">
+
+                    <script src="https://kit.fontawesome.com/7f499188c8.js" crossorigin="anonymous"></script>
                 </head>
             <?php
         }
@@ -83,7 +85,9 @@
 
         public function footer() {
             ?>
-            <footer>Copyright © <?php echo date("Y");?> - Mathis Lenoir</footer>
+            <section class="footer_background">
+                <footer>Copyright © <?php echo date("Y");?> - Mathis Lenoir</footer>
+            </section>
             <?php
         }
 
