@@ -330,6 +330,12 @@
                             </div>
                         </div>
                     </div>
+                    <div class="orv-menu hidden" id="baluch-dokka">
+                        <div class="orv-menu_header">&lt;Baluchon des Dokkaebi&gt;</div>
+                        <div class="orv-menu_container">
+                            <center>Pas disponible.</center>
+                        </div>
+                    </div>
                 </div>
                 <?php $bases->footer(); ?>
             </section>
