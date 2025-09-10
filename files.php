@@ -262,6 +262,74 @@
                             </div>
                         </div>
                     </div>
+                    <div class="orv-menu hidden" id="gest-perso">
+                        <div class="orv-menu_header">&lt;Fenêtre de gestion du personnage&gt;</div>
+                        <div class="orv-menu_container">
+                            <div class="orv-menu_coins">
+                                <b>Coins en banque :</b> 0 C
+                            </div>
+                            <div class="orv-menu_form">
+                                <div>
+                                    <h2 class="classic-title">Gestion des compétences générales :</h2>
+                                    <cite>Pour quand vous utilisez un sort ou prennez des dégâts, et inversement quand vous régénérez ! (Ne dépasse pas les limites, le MJ te vois.)</cite>
+                                </div>
+                                <div class="orv-menu_form-elements">
+                                    <div class="orv-menu_form-inputs-list">
+                                        <div class="orv-menu_form-input">
+                                            <label>Ajouter des HPs :</label>
+                                            <input type="number">
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Retirer des HPs :</label>
+                                            <input type="number">
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Ajouter des MPs :</label>
+                                            <input type="number">
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Retirer des MPs :</label>
+                                            <input type="number">
+                                        </div>
+                                    </div>
+                                    <div class="orv-menu_form-valid"><button>Valider</button></div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="orv-menu_form">
+                                <div>
+                                    <h2 class="classic-title">Augmenter les compétences générales :</h2>
+                                    <cite>Pour faire évoluer votre personnage ! (Attention : Coûte des pièces, vous ne pouvez pas être en négatif.)</cite>
+                                </div>
+                                <div class="orv-menu_form-elements">
+                                    <div class="orv-menu_form-inputs-list">
+                                        <div class="orv-menu_form-input">
+                                            <label>Force vitale :</label>
+                                            <input type="number">
+                                            <cite>Niveau actuelle : X</cite>
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Force physique :</label>
+                                            <input type="number">
+                                            <cite>Niveau actuelle : X</cite>
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Agilité :</label>
+                                            <input type="number">
+                                            <cite>Niveau actuelle : X</cite>
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Force magique :</label>
+                                            <input type="number">
+                                            <cite>Niveau actuelle : X</cite>
+                                        </div>
+                                    </div>
+                                    <div class="orv-menu_form-valid"><button>Valider</button></div>
+                                </div>
+                                <div class="orv-menu_form-info"><b>Prix total à payer :</b> <span>0</span> C</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <?php $bases->footer(); ?>
             </section>
