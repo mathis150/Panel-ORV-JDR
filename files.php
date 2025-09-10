@@ -10,7 +10,7 @@
         <section class="container container-menus">
             <section class="left-menu">
                 <a href="#" class="left-menu_button">
-                    Créer une nouvelle fiche
+                    <i class="fa-solid fa-plus"></i> Créer une nouvelle fiche
                 </a>
                 <a href="#" class="left-menu_page">
                     <div class="left-menu_page_text">Nom du personnage</div>
