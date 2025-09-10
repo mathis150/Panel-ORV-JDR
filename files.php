@@ -336,6 +336,79 @@
                             <center>Pas disponible.</center>
                         </div>
                     </div>
+                    <div class="orv-menu" id="edit-perso">
+                        <div class="orv-menu_header">&lt;Fenêtre d'édition du personnage&gt;</div>
+                        <div class="orv-menu_container">
+                            <div class="orv-menu_form">
+                                <div>
+                                    <h2 class="classic-title">Informations générales du personnage :</h2>
+                                    <cite>Quel est sont identité ?</cite>
+                                </div>
+                                <div class="orv-menu_form-elements">
+                                    <div class="orv-menu_form-inputs-list">
+                                        <div class="orv-menu_form-input">
+                                            <label>Nom du personnage :</label>
+                                            <input type="number">
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Prénom du personnage :</label>
+                                            <input type="number">
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Date d'anniversaire du personnage :</label>
+                                            <input type="number">
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Nationnalité du personnage :</label>
+                                            <input type="number">
+                                        </div>
+                                        <div class="orv-menu_form-input">
+                                            <label>Métier du personnage :</label>
+                                            <input type="number">
+                                        </div>
+                                    </div>
+                                    <div class="orv-menu_form-valid"><button>Sauvegarder</button></div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="orv-menu_form">
+                                <div>
+                                    <h2 class="classic-title">Psychologie du personnage :</h2>
+                                    <cite>Comment est votre personnage ?</cite>
+                                </div>
+                                <div class="orv-menu_form-elements">
+                                    <div class="orv-menu_form-inputs-list">
+                                        <div class="orv-menu_form-input" style="width: 325px;">
+                                            <label>Psyché du personnage :</label>
+                                            <textarea></textarea>
+                                        </div>
+                                        <div class="orv-menu_form-input" style="width: 325px;">
+                                            <label>Vertu du personnage :</label>
+                                            <textarea></textarea>
+                                        </div>
+                                        <div class="orv-menu_form-input" style="width: 325px;">
+                                            <label>Vice du personnage :</label>
+                                            <textarea></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="orv-menu_form-valid"><button>Sauvegarder</button></div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="orv-menu_form">
+                                <div>
+                                    <h2 class="classic-title">Histoire :</h2>
+                                    <cite>Qu'a-t-il vécu ?</cite>
+                                </div>
+                                <div class="orv-menu_form-elements">
+                                    <div class="orv-menu_form-inputs-list">
+                                        <textarea style="width: calc(100% - 20px); height: 200px;"></textarea>
+                                    </div>
+                                    <div class="orv-menu_form-valid" style="padding-top: 0px;"><button>Sauvegarder</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <?php $bases->footer(); ?>
             </section>
