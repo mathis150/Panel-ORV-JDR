@@ -105,6 +105,6 @@
                 </div>
             </div>
         </section>
-        <footer>Copyright © 2025 - Mathis Lenoir</footer>
+        <?php $bases->footer(); ?>
     </body>
 </html>
