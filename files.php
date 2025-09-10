@@ -60,7 +60,14 @@
                     </div>
                 </div>
                 <div class="menu-right-container">
-                    <div class="orv-menu">
+                    <div class="orv-buttons">
+                        <button class="orv-edit"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="button-actif">Votre fiche de personnage</button>
+                        <button>Inventaire du personnage</button>
+                        <button>Gestion du personnage</button>
+                        <button>Baluchon du Dokkaebi</button>
+                    </div>
+                    <div class="orv-menu hidden" id="info-perso">
                         <div class="orv-menu_header">&lt;Information du personnage&gt;</div>
                         <div class="orv-menu_double-grid">
                             <div class="orv-menu_stats-general">
