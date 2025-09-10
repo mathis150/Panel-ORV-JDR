@@ -143,6 +143,125 @@
                             </div>
                         </div>
                     </div>
+                    <div class="orv-menu hidden" id="inv-perso">
+                        <div class="orv-menu_header">&lt;Inventaire du personnage&gt;</div>
+                        <div class="orv-menu_double-grid">
+                            <div class="orv-menu_equipement">
+                                <div class="orv-menu_equipement_title"><h2>Éléments équipés</h2></div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/sword.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/helmet.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/chestplate.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/gants.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/legging.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/boots.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/star.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="orv-menu_stats-personnals">
+                                <div class="orv-menu_equipement_title"><h2>Vos poches</h2></div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/sword.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/helmet.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/chestplate.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/gants.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/legging.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/boots.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/star.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Nom de l'équipement [Force +XX; Mana +XX]</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/consum.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Xx Nom du consommable</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/materials.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Xx Nom du matériaux</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/key.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Xx Nom de l'objet clés</h3>
+                                    </div>
+                                </div>
+                                <div class="orv-menu_equipement-item">
+                                    <div class="orv-menu_content-center"><img src="./img/icons/lamp.svg" width="40px"></div>
+                                    <div class="orv-menu_content-center">
+                                        <h3>Xx Nom de l'objet simple</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <?php $bases->footer(); ?>
             </section>
