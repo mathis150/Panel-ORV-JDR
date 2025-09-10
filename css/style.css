@@ -157,7 +157,7 @@ input[type=checkbox] {
     min-height: 0;
 }
 input[type="submit"], input[type="button"], button {
-    min-height: 40px;
+    min-height: 48px;
     width: auto;
     padding: 15px 25px;
 
