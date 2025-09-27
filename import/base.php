@@ -4,7 +4,9 @@
         private $pagesNames = array (
             "dashboard" => "Dashboard",
             "files" => "Vos fiches",
-            "sessions" => "Gestion des sessions"
+            "sessions" => "Gestion des sessions",
+            "fights" => "Combats",
+            "jdr-params" => "Paramètres"
         );
         private $pagesList = array(
             0 => array(
