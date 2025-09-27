@@ -60,6 +60,23 @@
             </section>
             <section class="right-menu">
                 <div class="menu-right-container">
+                    <?php
+                        if(empty($_GET['page'])) {
+                            try {
+                                require_once("./sub-pages/users.list.php");
+                            } catch(error) {
+                                echo "Page introuvable.";
+                            }
+                        }else{
+                            try {
+                                if($_GET['sub-page']){$_GET['sub-page'];}
+
+                                require_once("./sub-pages/".$_GET['page'].".".$_GET['sub-page'].".php");
+                            } catch(error) {
+                                echo "<h3 style='color: #FFF'>Page introuvable.</h3>";
+                            }
+                        }
+                    ?>
                 </div>
                 <?php $bases->footer(); ?>
             </section>
