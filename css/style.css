@@ -140,7 +140,7 @@ hr {}
     }
 
 /*3. Buttons and inputs*/
-input {
+input, select {
     width: 480px;
     min-height: 50px;
     padding: 15px;
