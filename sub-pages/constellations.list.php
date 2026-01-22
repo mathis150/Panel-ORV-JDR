@@ -1,6 +1,9 @@
 
 <div class="orv-buttons" style="justify-content: flex-end;">
-    <button class="orv-edit"><i class="fa-solid fa-plus"></i> <span style="font-size: 18px;">Créer un utilisateur</span></button>
+    <button class="orv-edit" onclick="window.location.href='jdr-params?page=constellations&sub-page=create';">
+        <i class="fa-solid fa-plus"></i>
+        <span style="font-size: 18px;">Créer un constellation</span>
+    </button>
 </div>
 <div class="orv-menu" id="edit-perso">
     <div class="orv-menu_header">&lt;Liste des Constellations&gt;</div>
