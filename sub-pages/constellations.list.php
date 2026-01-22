@@ -25,8 +25,8 @@
                     <td>ee</td>
                     <td>ee</td>
                     <td>
-                        <a href="#" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-pen"></i></a> 
-                        <a href="#" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-trash"></i></a>
+                        <a href="jdr-params?page=constellations&sub-page=modify&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-pen"></i></a> 
+                        <a href="jdr-params?page=constellations&sub-page=delete&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
                 <tr>
@@ -35,8 +35,8 @@
                     <td>ee</td>
                     <td>ee</td>
                     <td>
-                        <a href="#" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-pen"></i></a> 
-                        <a href="#" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-trash"></i></a>
+                        <a href="jdr-params?page=constellations&sub-page=modify&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-pen"></i></a> 
+                        <a href="jdr-params?page=constellations&sub-page=delete&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
                 <tr>
@@ -45,8 +45,8 @@
                     <td>ee</td>
                     <td>ee</td>
                     <td>
-                        <a href="#" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-pen"></i></a> 
-                        <a href="#" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-trash"></i></a>
+                        <a href="jdr-params?page=constellations&sub-page=modify&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-pen"></i></a> 
+                        <a href="jdr-params?page=constellations&sub-page=delete&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-trash"></i></a>
                     </td>
                 </tr>
             </tbody>
