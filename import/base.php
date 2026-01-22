@@ -4,7 +4,9 @@
         private $pagesNames = array (
             "dashboard" => "Dashboard",
             "files" => "Vos fiches",
-            "sessions" => "Gestion des sessions"
+            "sessions" => "Gestion des sessions",
+            "fights" => "Combats",
+            "jdr-params" => "Paramètres"
         );
         private $pagesList = array(
             0 => array(
@@ -86,7 +88,7 @@
         public function footer() {
             ?>
             <section class="footer_background">
-                <footer>Copyright © <?php echo date("Y");?> - Mathis Lenoir</footer>
+                <footer>Copyright © <?php echo date("Y");?> - Mathis Lenoir, Version 1.0.0</footer>
             </section>
             <?php
         }
