@@ -61,30 +61,6 @@
         <hr>
         <div class="orv-menu_form">
             <div>
-                <h2 class="classic-title">Histoire :</h2>
-                <cite>Qu'a-t-il vécu ?</cite>
-            </div>
-            <div class="orv-menu_form-elements">
-                <div class="orv-menu_form-inputs-list">
-                    <textarea style="width: calc(100% - 20px); height: 200px;"></textarea>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="orv-menu_form">
-            <div>
-                <h2 class="classic-title">Estimations générales :</h2>
-                <cite>Qu'a-t-il vécu ?</cite>
-            </div>
-            <div class="orv-menu_form-elements">
-                <div class="orv-menu_form-inputs-list">
-                    <textarea style="width: calc(100% - 20px); height: 200px;"></textarea>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="orv-menu_form">
-            <div>
                 <h2 class="classic-title">Informations relatifs au JDR :</h2>
                 <cite>Comment est votre personnage ?</cite>
             </div>
@@ -112,7 +88,7 @@
                 <div class="orv-menu_form-inputs-list">
                     <div class="orv-menu_form-input" style="width: 325px;">
                         <label>Constellation sponsor :</label>
-                        <select>
+                        <select style="width: 300px;">
                             <option value="option1">Option 1</option>
                             <option value="option2">Option 2</option>
                         </select>
@@ -131,6 +107,30 @@
                             <option value="option2">Option 2</option>
                         </select>
                     </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="orv-menu_form">
+            <div>
+                <h2 class="classic-title">Histoire :</h2>
+                <cite>Qu'a-t-il vécu ?</cite>
+            </div>
+            <div class="orv-menu_form-elements">
+                <div class="orv-menu_form-inputs-list">
+                    <textarea style="width: calc(100% - 20px); height: 200px;"></textarea>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="orv-menu_form">
+            <div>
+                <h2 class="classic-title">Estimations générales :</h2>
+                <cite>Qu'a-t-il vécu ?</cite>
+            </div>
+            <div class="orv-menu_form-elements">
+                <div class="orv-menu_form-inputs-list">
+                    <textarea style="width: calc(100% - 20px); height: 200px;"></textarea>
                 </div>
             </div>
         </div>
