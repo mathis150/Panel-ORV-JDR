@@ -3,34 +3,39 @@
     <button class="orv-edit"><i class="fa-solid fa-xmark"></i> <span style="font-size: 18px;">Annuler</span></button>
 </div>
 <div class="orv-menu" id="gest-perso">
-    <div class="orv-menu_header">&lt;Création d'un personnage&gt;</div>
+    <div class="orv-menu_header">&lt;Création d'une capacité&gt;</div>
     <div class="orv-menu_container">
         <div class="orv-menu_form">
             <div>
-                <h2 class="classic-title">Informations générales du personnage :</h2>
+                <h2 class="classic-title">Informations générales de la capacité :</h2>
                 <cite>Quel est sont identité ?</cite>
             </div>
             <div class="orv-menu_form-elements">
                 <div class="orv-menu_form-inputs-list">
                     <div class="orv-menu_form-input">
-                        <label>Nom du personnage :</label>
+                        <label>Nom de la compétence :</label>
                         <input type="number">
                     </div>
-                    <div class="orv-menu_form-input">
-                        <label>Prénom du personnage :</label>
-                        <input type="number">
+                    <div class="orv-menu_form-input" style="width: 300px;">
+                        <label>Rang de la compétence :</label>
+                        <select style="width: 300px;">
+                            <option value="option1">Rang E</option>
+                            <option value="option1">Rang D</option>
+                            <option value="option1">Rang C</option>
+                            <option value="option1">Rang B</option>
+                            <option value="option1">Rang A</option>
+                            <option value="option1">Rang S</option>
+                        </select>
                     </div>
                     <div class="orv-menu_form-input">
-                        <label>Date d'anniversaire du personnage :</label>
-                        <input type="number">
-                    </div>
-                    <div class="orv-menu_form-input">
-                        <label>Nationnalité du personnage :</label>
-                        <input type="number">
-                    </div>
-                    <div class="orv-menu_form-input">
-                        <label>Métier du personnage :</label>
-                        <input type="number">
+                        <label>Effets de la compétence :</label>
+                        <select id="example-multi-select2" data-placeholder="Select options" multiple="multiple">
+                            <option value="option1">Damage</option>
+                            <option value="option2">Boost</option>
+                            <option value="option2">Analyse</option>
+                            <option value="option2">Soin</option>
+                            <option value="option2">Debuffs</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -38,11 +43,25 @@
         <hr>
         <div class="orv-menu_form">
             <div>
-                <h2 class="classic-title">Psychologie du personnage :</h2>
-                <cite>Comment est votre personnage ?</cite>
+                <h2 class="classic-title">Gestion des effets :</h2>
+                <cite>Effets réelles de la compétence ?</cite>
             </div>
             <div class="orv-menu_form-elements">
                 <div class="orv-menu_form-inputs-list">
+                    <div class="orv-menu_form-input" style="width: 300px;">
+                        <label>Dégâts générés par la compétences :</label>
+                    </div>
+                </div>
+            </div>
+            <div class="orv-menu_form-elements">
+                <div class="orv-menu_form-inputs-list">
+                    <div class="orv-menu_form-input" style="width: 200px;">
+                        <label>Type :</label>
+                        <select style="width: 200px;">
+                            <option value="option1">Addition</option>
+                            <option value="option1">Jet de dès</option>
+                        </select>
+                    </div>
                     <div class="orv-menu_form-input" style="width: 325px;">
                         <label>Psyché du personnage :</label>
                         <textarea></textarea>
@@ -113,8 +132,8 @@
         <hr>
         <div class="orv-menu_form">
             <div>
-                <h2 class="classic-title">Histoire :</h2>
-                <cite>Qu'a-t-il vécu ?</cite>
+                <h2 class="classic-title">Description de la compétence :</h2>
+                <cite>Décrivez la compétence en détail.</cite>
             </div>
             <div class="orv-menu_form-elements">
                 <div class="orv-menu_form-inputs-list">
