@@ -63,25 +63,6 @@
    ================================================================= */
 *, *::before, *::after { box-sizing: border-box; }
 
-<<<<<<< HEAD
-.koh-santepheap-bold {
-  font-family: "Koh Santepheap", serif;
-  font-weight: 700;
-  font-style: normal;
-}
-
-.koh-santepheap-black {
-  font-family: "Koh Santepheap", serif;
-  font-weight: 900;
-  font-style: normal;
-}
-
-
-/* Nommation : <type>_<subtype>-<variation> */
-
-/*1. Bases*/
-=======
->>>>>>> 0c2bfdb (Rework all css design)
 body {
     margin: 0;
     padding: 0;
@@ -437,8 +418,6 @@ nav > .navigation_info {
     align-items: center;
     gap: 12px;
 }
-<<<<<<< HEAD
-=======
 
 .nav-logo {
     filter: drop-shadow(0 0 7px rgba(55, 174, 254, 0.45));
@@ -447,18 +426,12 @@ nav > .navigation_info {
 }
 .nav-logo:hover { filter: drop-shadow(0 0 14px rgba(55, 174, 254, 0.75)); }
 
->>>>>>> 0c2bfdb (Rework all css design)
 .nav-button, .nav-button:link, .nav-button:visited {
     font-size: 15px;
     font-family: "Koh Santepheap", serif;
     font-weight: 700;
     cursor: pointer;
-<<<<<<< HEAD
-
-    background: var(--Important-text-color-2, linear-gradient(180deg, #FFF 0%, #999 190%));
-=======
     background: linear-gradient(180deg, #D9FFFF 0%, #89CEFF 180%);
->>>>>>> 0c2bfdb (Rework all css design)
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
