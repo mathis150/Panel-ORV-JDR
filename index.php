@@ -1,3 +1,22 @@
+<?php
+    $loginError = null;
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        require_once './import/users.php';
+        $um     = new UsersManager();
+        $result = $um->login(
+            trim($_POST['identification'] ?? ''),
+            $_POST['password']            ?? '',
+            isset($_POST['remember'])
+        );
+
+        if ($result['success']) {
+            header('Location: ./dashboard');
+            exit;
+        }
+        $loginError = $result['message'];
+    }
+?>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
@@ -22,23 +41,36 @@
             <div class="cards cards-login">
                 <div class="cards-header"><h2>Veuillez vous connecter.</h2></div>
                 <div class="cards-body container-center flex-dir-column-down">
-                    <div class="login_field">
-                        <label class="important-white login_label">Identifiant (Pseudo ou E-Mail) :</label>
-                        <input type="text" name="identifiant" placeholder="Pseudonyme OU e-mail@example.xyz">
-                    </div>
-                    <div class="login_field">
-                        <label class="important-white login_label">Mot de passe :</label>
-                        <input type="text" name="identifiant" placeholder="Votre mot de passe">
-                    </div>
-                    <div class="login_help">
-                        <div><label class="important-white checkbox">Se souvenir de moi
-                                <input type="checkbox" name="remember">
-                                <span class="checkmark"></span>
-                            </label>
+
+                    <?php if ($loginError): ?>
+                        <div class="login-error">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <?php echo htmlspecialchars($loginError); ?>
                         </div>
-                        <div class="login_lost_password"><a href="./">Mot de passe oublié ?</a></div>
-                    </div>
-                    <input type="submit" name="submit" value="Connexion">
+                    <?php endif; ?>
+
+                    <form method="POST" action="./" style="display:contents;">
+                        <div class="login_field">
+                            <label class="important-white login_label">Identifiant (Pseudo ou E-Mail) :</label>
+                            <input type="text" name="identification" placeholder="Pseudonyme OU e-mail@example.xyz"
+                                   value="<?php echo htmlspecialchars($_POST['identification'] ?? ''); ?>" autocomplete="username">
+                        </div>
+                        <div class="login_field">
+                            <label class="important-white login_label">Mot de passe :</label>
+                            <input type="password" name="password" placeholder="Votre mot de passe" autocomplete="current-password">
+                        </div>
+                        <div class="login_help">
+                            <div>
+                                <label class="important-white checkbox">Se souvenir de moi
+                                    <input type="checkbox" name="remember">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="login_lost_password"><a href="./">Mot de passe oublié ?</a></div>
+                        </div>
+                        <input type="submit" name="submit" value="Connexion">
+                    </form>
+
                 </div>
             </div>
         </section>
