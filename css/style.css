@@ -1,31 +1,2703 @@
-/*Important font*/
-.koh-santepheap-thin {
-  font-family: "Koh Santepheap", serif;
-  font-weight: 100;
-  font-style: normal;
+/* =================================================================
+   ORV JDR — Interface du Système Omniscient
+   Thème : Lecteur Omniscient (Omniscient Reader's Viewpoint)
+   ================================================================= */
+
+/* --- Variables CSS --- */
+:root {
+    --nav-height: 72px;
+    --footer-height: 56px;
+    --sidebar-width: 280px;
+
+    /* Palette cosmique */
+    --c-bg-1: #050c18;
+    --c-bg-2: #08112a;
+    --c-bg-3: #0b1838;
+    --c-bg-4: #0e1f45;
+
+    --c-nav: rgba(5, 12, 28, 0.97);
+    --c-sidebar: #080f22;
+    --c-sidebar-item: #0c1530;
+    --c-sidebar-item-alt: #0a122b;
+    --c-sidebar-hover: #111e40;
+    --c-sidebar-active: #0d2b58;
+    --c-sidebar-dead: #280c0c;
+
+    /* Accent cyan — couleur système ORV */
+    --c-accent: #37AEFE;
+    --c-accent-light: #89CEFF;
+    --c-accent-xlight: #D9FFFF;
+    --c-accent-dark: #0069AE;
+    --c-accent-glow: rgba(55, 174, 254, 0.4);
+
+    /* Panneaux (style interface Dokkaebi) */
+    --c-panel: rgba(6, 16, 42, 0.90);
+    --c-panel-border: rgba(55, 174, 254, 0.35);
+    --c-panel-header: rgba(55, 174, 254, 0.10);
+    --c-panel-text: #D9FFFF;
+
+    /* Effets lumineux */
+    --glow-accent:    0 0 28px rgba(55, 174, 254, 0.50);
+    --glow-accent-sm: 0 0 14px rgba(55, 174, 254, 0.35);
+    --glow-accent-xs: 0 0  7px rgba(55, 174, 254, 0.22);
+
+    /* Transitions */
+    --t:      0.18s ease;
+    --t-slow: 0.32s ease;
+
+    /* Rayons */
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 14px;
 }
 
-.koh-santepheap-light {
-  font-family: "Koh Santepheap", serif;
-  font-weight: 300;
-  font-style: normal;
+/* --- Classes de polices --- */
+.koh-santepheap-thin    { font-family: "Koh Santepheap", serif; font-weight: 100; font-style: normal; }
+.koh-santepheap-light   { font-family: "Koh Santepheap", serif; font-weight: 300; font-style: normal; }
+.koh-santepheap-regular { font-family: "Koh Santepheap", serif; font-weight: 400; font-style: normal; }
+.koh-santepheap-bold    { font-family: "Koh Santepheap", serif; font-weight: 700; font-style: normal; }
+.koh-santepheap-black   { font-family: "Koh Santepheap", serif; font-weight: 900; font-style: normal; }
+
+/* =================================================================
+   1. BASE
+   ================================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    padding: 0;
+    max-width: 100vw;
+    max-height: 100vh;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(140deg,
+        var(--c-bg-1)  0%,
+        var(--c-bg-2) 28%,
+        var(--c-bg-3) 58%,
+        var(--c-bg-4) 100%
+    );
+    position: relative;
 }
 
-.koh-santepheap-regular {
-  font-family: "Koh Santepheap", serif;
-  font-weight: 400;
-  font-style: normal;
+/* Champ d'étoiles — constellations en arrière-plan */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    background: rgba(217, 255, 255, 0.9);
+    border-radius: 50%;
+    box-shadow:
+        /* Étoiles blanches / cyan dispersées */
+        148px  38px 0 0 rgba(217,255,255,0.80),
+        312px 124px 0 0 rgba(55,174,254,0.75),
+        487px  62px 0 0 rgba(217,255,255,0.65),
+        634px 198px 0 0 rgba(137,206,255,0.70),
+        801px  45px 0 0 rgba(217,255,255,0.80),
+        958px 272px 0 0 rgba(55,174,254,0.70),
+       1145px  88px 0 0 rgba(217,255,255,0.75),
+       1312px 342px 0 0 rgba(137,206,255,0.65),
+       1524px  72px 0 0 rgba(55,174,254,0.80),
+       1698px 214px 0 0 rgba(217,255,255,0.70),
+       1834px  98px 0 0 rgba(217,255,255,0.75),
+       1912px 288px 0 0 rgba(55,174,254,0.65),
+          72px 412px 0 0 rgba(217,255,255,0.60),
+        234px 534px 0 0 rgba(55,174,254,0.70),
+        412px 478px 0 0 rgba(217,255,255,0.75),
+        578px 612px 0 0 rgba(137,206,255,0.60),
+        745px 445px 0 0 rgba(55,174,254,0.65),
+        918px 578px 0 0 rgba(217,255,255,0.80),
+       1088px 412px 0 0 rgba(55,174,254,0.70),
+       1256px 545px 0 0 rgba(217,255,255,0.65),
+       1445px 478px 0 0 rgba(137,206,255,0.75),
+       1612px 612px 0 0 rgba(217,255,255,0.60),
+       1778px 435px 0 0 rgba(55,174,254,0.70),
+       1892px 578px 0 0 rgba(217,255,255,0.65),
+          38px 745px 0 0 rgba(55,174,254,0.75),
+        198px 812px 0 0 rgba(217,255,255,0.70),
+        378px 678px 0 0 rgba(137,206,255,0.65),
+        545px 845px 0 0 rgba(217,255,255,0.80),
+        712px 712px 0 0 rgba(55,174,254,0.70),
+        888px 878px 0 0 rgba(217,255,255,0.65),
+       1068px 745px 0 0 rgba(55,174,254,0.75),
+       1245px 912px 0 0 rgba(217,255,255,0.60),
+       1412px 778px 0 0 rgba(137,206,255,0.70),
+       1578px 845px 0 0 rgba(217,255,255,0.75),
+       1745px 712px 0 0 rgba(55,174,254,0.65),
+       1912px 878px 0 0 rgba(217,255,255,0.70),
+         112px 945px 0 0 rgba(55,174,254,0.60),
+         288px 1012px 0 0 rgba(217,255,255,0.75),
+         478px 978px 0 0 rgba(137,206,255,0.65),
+         645px 1045px 0 0 rgba(55,174,254,0.70),
+         822px 1012px 0 0 rgba(217,255,255,0.80),
+         998px 945px 0 0 rgba(55,174,254,0.65),
+        1178px 1012px 0 0 rgba(217,255,255,0.70),
+        1368px 978px 0 0 rgba(137,206,255,0.60),
+        1545px 1045px 0 0 rgba(217,255,255,0.75),
+        1722px 945px 0 0 rgba(55,174,254,0.65),
+        1878px 1012px 0 0 rgba(217,255,255,0.70),
+         /* Quelques étoiles "brillantes" (2px) */
+        548px 156px 1px 0.5px rgba(217,255,255,0.90),
+        1124px 378px 1px 0.5px rgba(55,174,254,0.85),
+        1756px 512px 1px 0.5px rgba(217,255,255,0.90),
+         312px 756px 1px 0.5px rgba(137,206,255,0.85),
+         934px 634px 1px 0.5px rgba(217,255,255,0.90),
+        1534px 878px 1px 0.5px rgba(55,174,254,0.85);
+    pointer-events: none;
+    z-index: 0;
+    animation: starTwinkle 8s ease-in-out infinite alternate;
 }
 
-.koh-santepheap-bold {
-  font-family: "Koh Santepheap", serif;
-  font-weight: 700;
-  font-style: normal;
+/* Halo ambiant cosmique */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 60% 40% at 30% 20%, rgba(55, 174, 254, 0.05) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 75% 80%, rgba(55, 174, 254, 0.04) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
 }
 
-.koh-santepheap-black {
-  font-family: "Koh Santepheap", serif;
-  font-weight: 900;
-  font-style: normal;
+@keyframes starTwinkle {
+    0%   { opacity: 0.75; }
+    50%  { opacity: 1.00; }
+    100% { opacity: 0.80; }
 }
 
+.container {
+    width: 100%;
+    height: calc(100vh - var(--nav-height));
+    position: relative;
+    z-index: 1;
+}
+
+.container-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+hr {
+    border: none;
+    border-top: 1.5px solid rgba(55, 174, 254, 0.25);
+    border-radius: 50px;
+    margin: 20px 0;
+}
+
+/* =================================================================
+   2. TYPOGRAPHIE
+   ================================================================= */
+h1, h2, h3, h4, h5, h6, p { margin-block-start: 0; margin-block-end: 0; }
+
+h1 { font-size: 32px; font-family: "Koh Santepheap", serif; }
+h2 { font-size: 24px; font-family: "Koh Santepheap", serif; }
+h3 { font-size: 18px; font-family: "Koh Santepheap", serif; }
+h4 { font-size: 16px; font-family: "Koh Santepheap", serif; }
+h5 { font-size: 14px; font-family: "Koh Santepheap", serif; }
+h6 { font-size: 12px; font-family: "Koh Santepheap", serif; }
+
+p { font-size: 14px; }
+
+a, a:visited, a:link {
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    background: linear-gradient(180deg, var(--c-accent-light) 0%, var(--c-accent) 190%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: opacity var(--t);
+}
+a:hover { opacity: 0.80; }
+
+label {
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+blockquote { font-size: 12px; }
+cite       { font-size: 12px; color: rgba(217, 255, 255, 0.55); font-style: italic; }
+
+.text-black { color: #000000; }
+.text-white { color: #FFFFFF; }
+
+.important-black {
+    background: linear-gradient(180deg, #111 0%, #777 190%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+.important-white {
+    background: linear-gradient(180deg, #FFF 0%, #AAAAAA 190%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+}
+
+/* =================================================================
+   3. INPUTS & BOUTONS
+   ================================================================= */
+input, select {
+    width: 480px;
+    max-width: 100%;
+    min-height: 50px;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid rgba(55, 174, 254, 0.45);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--c-panel-text);
+    font-size: 16px;
+    transition: border-color var(--t), background var(--t), box-shadow var(--t);
+    outline: none;
+}
+
+input:focus, select:focus {
+    background: rgba(55, 174, 254, 0.08);
+    border-bottom-color: var(--c-accent);
+    box-shadow: 0 3px 0 0 rgba(55, 174, 254, 0.12);
+}
+
+option { color: var(--c-panel-text); background: #1a2540; }
+
+input[type=checkbox] {
+    height: 20px;
+    width: 20px;
+    min-height: 0;
+    max-width: 20px;
+}
+
+input[type="submit"], input[type="button"], button {
+    min-height: 44px;
+    width: auto;
+    padding: 11px 22px;
+    border: none;
+    border-radius: var(--r-md);
+    background: rgba(255, 255, 255, 0.94);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    color: #0d1b36;
+    -webkit-text-fill-color: #0d1b36;
+    transition: background var(--t), transform var(--t), box-shadow var(--t);
+}
+
+input[type="submit"]:hover, input[type="button"]:hover, button:hover {
+    background: #E8E8E8;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.40);
+}
+
+input[type="submit"]:active, input[type="button"]:active, button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Checkbox personnalisée */
+label.checkbox {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    padding-top: 1px;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    user-select: none;
+    margin-bottom: 0;
+}
+label.checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    border-radius: 4px;
+    border: 2px solid rgba(55, 174, 254, 0.55);
+    background: rgba(55, 174, 254, 0.07);
+    transition: background var(--t), border-color var(--t);
+}
+.checkbox:hover input ~ .checkmark {
+    background: rgba(55, 174, 254, 0.18);
+    border-color: var(--c-accent);
+}
+.checkbox input:checked ~ .checkmark {
+    background: rgba(55, 174, 254, 0.25);
+    border-color: var(--c-accent);
+}
+.checkmark:after { content: ""; position: absolute; display: none; }
+.checkbox input:checked ~ .checkmark:after { display: block; }
+.checkbox .checkmark:after {
+    left: 4px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid var(--c-accent);
+    border-width: 0 2.5px 2.5px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 14px 16px;
+    border: none;
+    border-radius: 8px 8px 0 0;
+    border-bottom: 2px solid rgba(55, 174, 254, 0.45);
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--c-panel-text);
+    font-weight: 600;
+    font-size: 15px;
+    resize: vertical;
+    outline: none;
+    transition: border-color var(--t), background var(--t);
+    box-sizing: border-box;
+}
+textarea:focus {
+    background: rgba(55, 174, 254, 0.08);
+    border-bottom-color: var(--c-accent);
+}
+
+/* =================================================================
+   4. FLEX UTILITAIRES
+   ================================================================= */
+.flex-dir-row-left    { flex-direction: row; }
+.flex-dir-row-right   { flex-direction: row-reverse; }
+.flex-dir-column-down { flex-direction: column; }
+.flex-dir-column-up   { flex-direction: column-reverse; }
+
+/* =================================================================
+   5. NAVIGATION
+   ================================================================= */
+nav {
+    width: 100%;
+    height: var(--nav-height);
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr auto;
+    background: var(--c-nav);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(55, 174, 254, 0.18);
+    position: relative;
+    z-index: 100;
+    box-shadow:
+        0 2px 28px rgba(0, 0, 0, 0.55),
+        0 1px 0 rgba(55, 174, 254, 0.08) inset;
+}
+
+nav > section { margin: 0 10px; }
+
+nav > .navigation_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    padding: 0 25px;
+}
+
+nav > .navigation_info {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+}
+
+.nav-logo {
+    filter: drop-shadow(0 0 7px rgba(55, 174, 254, 0.45));
+    transition: filter var(--t);
+    display: block;
+}
+.nav-logo:hover { filter: drop-shadow(0 0 14px rgba(55, 174, 254, 0.75)); }
+
+.nav-button, .nav-button:link, .nav-button:visited {
+    font-size: 15px;
+    font-family: "Koh Santepheap", serif;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(180deg, #D9FFFF 0%, #89CEFF 180%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-decoration: none;
+    position: relative;
+    transition: opacity var(--t);
+}
+
+.nav-button:hover {
+    background: linear-gradient(180deg, #FFFFFF 0%, #AADEFF 180%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-active {
+    background: linear-gradient(180deg, var(--c-accent-light) 0%, var(--c-accent) 180%) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+}
+.nav-active::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0; right: 0;
+    height: 2px;
+    background: var(--c-accent);
+    border-radius: 1px;
+    box-shadow: var(--glow-accent-sm);
+}
+
+.nav-title, .nav-title:link, .nav-title:visited,
+.nav-title:hover, .nav-title:active {
+    background: linear-gradient(180deg, #FFF 0%, #AADEFF 190%) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+.nav-profil {
+    border-radius: var(--r-md);
+    background: rgba(55, 174, 254, 0.09) !important;
+    border: 1px solid rgba(55, 174, 254, 0.20);
+    padding: 6px 14px 6px 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: background var(--t), border-color var(--t), box-shadow var(--t);
+    width: auto;
+    min-width: 155px;
+    margin-right: 10px;
+    text-decoration: none;
+}
+.nav-profil:hover {
+    background: rgba(55, 174, 254, 0.18) !important;
+    border-color: rgba(55, 174, 254, 0.38);
+    box-shadow: var(--glow-accent-xs);
+}
+
+.nav-profil_text {
+    background: linear-gradient(180deg, #FFF 0%, #89CEFF 190%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 14px;
+    font-family: "Koh Santepheap", serif;
+    font-weight: 700;
+}
+
+/* Hamburger — mobile uniquement */
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 10px;
+    cursor: pointer;
+    background: rgba(55, 174, 254, 0.09);
+    border: 1px solid rgba(55, 174, 254, 0.20);
+    border-radius: var(--r-sm);
+    min-height: auto;
+    width: auto;
+    margin: auto 0 auto 10px;
+    transition: background var(--t), border-color var(--t);
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+}
+.nav-hamburger:hover {
+    background: rgba(55, 174, 254, 0.20);
+    border-color: rgba(55, 174, 254, 0.38);
+}
+.nav-hamburger span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--c-accent-light);
+    border-radius: 2px;
+    transition: all var(--t);
+    -webkit-text-fill-color: initial;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* =================================================================
+   6. CARDS (login & dashboard)
+   ================================================================= */
+.cards {
+    border-radius: var(--r-lg);
+    background: rgba(8, 20, 52, 0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(55, 174, 254, 0.20);
+    overflow: hidden;
+    box-shadow: 0 8px 36px rgba(0, 0, 0, 0.45);
+}
+
+.cards-login {
+    width: min(550px, 92vw);
+    box-shadow: 0 10px 52px rgba(0, 0, 0, 0.65), var(--glow-accent);
+    border-color: rgba(55, 174, 254, 0.35);
+}
+
+.container-logs {
+    height: calc(100% - (var(--nav-height) + var(--footer-height) + 30px));
+    display: grid;
+    column-gap: 20px;
+    row-gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    width: calc(100% - 60px);
+    padding: 15px 30px;
+    overflow-y: auto;
+}
+
+.cards-header {
+    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.90);
+    text-align: center;
+    border-bottom: 2px solid rgba(55, 174, 254, 0.30);
+}
+
+.cards-body { padding: 25px; }
+
+/* =================================================================
+   7. PAGE LOGIN
+   ================================================================= */
+.login_field {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin: 12px 0;
+    width: 100%;
+}
+.login_field input { width: 100%; max-width: 100%; }
+
+.login_label { font-size: 16px; }
+
+.login_help {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 25px;
+    gap: 10px;
+    align-items: center;
+}
+
+.login_lost_password {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* =================================================================
+   8. TABLES
+   ================================================================= */
+table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+thead tr {
+    background: rgba(55, 174, 254, 0.12) !important;
+    height: 42px;
+}
+
+thead td {
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-accent-light);
+    border-bottom: 1px solid rgba(55, 174, 254, 0.22);
+    padding: 10px 14px;
+}
+
+tr {
+    background: rgba(255, 255, 255, 0.03);
+    height: 46px;
+    transition: background var(--t);
+}
+tr:nth-child(even) { background: rgba(255, 255, 255, 0.07); }
+tbody tr:hover     { background: rgba(55, 174, 254, 0.09); }
+
+td {
+    padding: 10px 14px;
+    color: var(--c-panel-text);
+    vertical-align: middle;
+    font-size: 14px;
+}
+
+/* =================================================================
+   9. FOOTER
+   ================================================================= */
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #D9FFFF 0%, #89CEFF 190%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Koh Santepheap", serif;
+    font-size: 13px;
+    font-weight: 700;
+    height: var(--footer-height);
+    letter-spacing: 0.03em;
+}
+
+.footer_background {
+    width: 100%;
+    height: fit-content;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid rgba(55, 174, 254, 0.12);
+    bottom: 0;
+    position: absolute;
+}
+
+.right-menu > .footer_background > footer { width: 100%; }
+
+/* =================================================================
+   10. LAYOUT PRINCIPAL
+   ================================================================= */
+.container-menus {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== Sidebar gauche ===== */
+.left-menu {
+    background: var(--c-sidebar);
+    border-right: 1px solid rgba(55, 174, 254, 0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 50;
+    transition: transform var(--t-slow);
+}
+
+.left-menu_button, .left-menu_button:link, .left-menu_button:visited {
+    background: linear-gradient(135deg,
+        rgba(55, 174, 254, 0.22) 0%,
+        rgba(0, 105, 174, 0.30) 100%
+    );
+    border: 1px solid rgba(55, 174, 254, 0.28);
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: var(--r-md);
+    padding: 12px 18px;
+    margin: 16px 12px;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    display: block;
+    transition: background var(--t), box-shadow var(--t), border-color var(--t);
+}
+.left-menu_button:hover {
+    background: linear-gradient(135deg,
+        rgba(55, 174, 254, 0.38) 0%,
+        rgba(0, 105, 174, 0.48) 100%
+    );
+    box-shadow: var(--glow-accent-sm);
+    border-color: rgba(55, 174, 254, 0.48);
+}
+
+.left-menu_page, .left-menu_page:link, .left-menu_page:visited {
+    background: var(--c-sidebar-item);
+    width: 100%;
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 1fr 56px;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.025);
+    transition: background var(--t), border-color var(--t);
+}
+.left-menu_page:nth-child(even) { background: var(--c-sidebar-item-alt); }
+
+.left-menu_actif {
+    background: var(--c-sidebar-active) !important;
+    border-left-color: var(--c-accent) !important;
+    box-shadow: inset 3px 0 18px rgba(55, 174, 254, 0.14);
+}
+.left-menu_dead {
+    background: var(--c-sidebar-dead) !important;
+    border-left-color: #b83232 !important;
+}
+
+.left-menu_page_text, .left-menu_page_text:link, .left-menu_page_text:visited,
+.left-menu_page_text:hover, .left-menu_page_text:active {
+    font-size: 13px;
+    background: linear-gradient(180deg, #D9FFFF 0%, #7BB8D8 220%) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 8px;
+    text-align: center;
+    line-height: 1.35;
+}
+
+.left-menu_page:hover        { background: var(--c-sidebar-hover); }
+.left-menu_actif:hover       { background: #123870 !important; }
+.left-menu_dead:hover        { background: #361818 !important; }
+
+/* Zone droite */
+.right-menu {
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-right-container {
+    height: calc(100vh - var(--nav-height));
+    max-width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 70px;
+}
+
+/* =================================================================
+   11. ORV MENU — Interface système Dokkaebi
+   ================================================================= */
+.orv-menu {
+    width: min(1225px, calc(100% - 40px));
+    margin: 20px auto 40px;
+    border-radius: 16px 0;
+    border: 1px solid var(--c-panel-border);
+    background: var(--c-panel);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    color: var(--c-panel-text);
+    box-shadow:
+        0 10px 48px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(55, 174, 254, 0.06) inset,
+        var(--glow-accent-xs);
+    animation: panelFadeIn 0.28s ease forwards;
+}
+
+.orv-menu_header {
+    min-height: 60px;
+    width: 100%;
+    font-size: 20px;
+    font-family: "Koh Santepheap", serif;
+    font-weight: 700;
+    background: var(--c-panel-header);
+    border-bottom: 1px solid var(--c-panel-border);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    letter-spacing: 0.07em;
+    color: var(--c-panel-text);
+    text-shadow: 0 0 28px rgba(55, 174, 254, 0.65);
+}
+
+.orv-menu_double-grid {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.orv-menu_stats-general { padding: 20px; }
+
+.orv-menu_stats-personnals {
+    background: rgba(255, 255, 255, 0.035);
+    border-left: 1px solid rgba(55, 174, 254, 0.14);
+}
+.orv-menu_stats-personnals_content { padding: 20px; }
+
+.orv-menu_stats_list {
+    background: rgba(255, 255, 255, 0.045);
+    margin-top: 14px;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(55, 174, 254, 0.09);
+}
+.orv-menu_stats_list:nth-child(even) { background: rgba(255, 255, 255, 0.025); }
+
+.orv-menu_stats_header {
+    padding: 11px 16px;
+    font-weight: 700;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(55, 174, 254, 0.14);
+    color: var(--c-accent-light);
+    background: rgba(55, 174, 254, 0.055);
+}
+
+.orv-menu_stats_list_buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.orv-menu_stats_info {
+    min-height: 52px;
+    flex: 1 1 204px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--c-panel-text);
+    border: 1px solid rgba(55, 174, 254, 0.04);
+    transition: background var(--t);
+}
+.orv-menu_stats_info:nth-child(even) { background: rgba(255, 255, 255, 0.08); }
+.orv-menu_stats_info:hover           { background: rgba(55, 174, 254, 0.13); }
+
+/* =================================================================
+   12. POPUP
+   ================================================================= */
+.data-popup {
+    background: rgba(0, 0, 0, 0.68);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.data-popup_popup {
+    border-radius: 16px 0;
+    border: 1px solid var(--c-panel-border);
+    background: var(--c-panel);
+    color: var(--c-panel-text);
+    box-shadow: 0 10px 52px rgba(0, 0, 0, 0.75), var(--glow-accent);
+    max-width: min(850px, 94vw);
+    width: 100%;
+}
+
+.data-popup_popup-header {
+    background: var(--c-panel-header);
+    border-bottom: 1px solid var(--c-panel-border);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 20px;
+    font-family: "Koh Santepheap", serif;
+    position: relative;
+    color: var(--c-panel-text);
+    text-shadow: 0 0 22px rgba(55, 174, 254, 0.55);
+    letter-spacing: 0.05em;
+}
+
+.data-popup_popup-body_grid {
+    display: grid;
+    grid-template-columns: 400px 400px;
+}
+
+.data-popup_popup-body_content {
+    padding: 20px;
+    font-size: 16px;
+}
+
+.button-close {
+    width: 28px;
+    height: 28px;
+    min-height: 28px;
+    color: var(--c-panel-text);
+    -webkit-text-fill-color: var(--c-panel-text);
+    cursor: pointer;
+    border-radius: var(--r-sm);
+    border: 1px solid rgba(55, 174, 254, 0.32);
+    background: rgba(55, 174, 254, 0.09);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    font-size: 14px;
+    transition: background var(--t), box-shadow var(--t);
+}
+.button-close:hover {
+    background: rgba(55, 174, 254, 0.25);
+    box-shadow: var(--glow-accent-xs);
+}
+
+.data-popup_close-position {
+    position: absolute;
+    right: 20px;
+}
+
+.hidden { display: none !important; }
+
+/* =================================================================
+   13. SCROLLBAR
+   ================================================================= */
+::-webkit-scrollbar        { width: 6px; height: 6px; }
+::-webkit-scrollbar-track  { background: transparent; border-radius: 9px; }
+::-webkit-scrollbar-thumb  { background: rgba(55, 174, 254, 0.28); border-radius: 9px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(55, 174, 254, 0.52); }
+
+/* =================================================================
+   14. BOUTONS D'ACTION
+   ================================================================= */
+.orv-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    width: min(1300px, calc(100% - 40px));
+    animation: panelFadeIn 0.22s ease forwards;
+}
+
+.orv-edit {
+    font-size: 16px;
+    padding: 10px 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.button-actif {
+    background: linear-gradient(135deg,
+        var(--c-accent-light) 0%,
+        var(--c-accent) 100%
+    ) !important;
+    color: #061428;
+    -webkit-text-fill-color: #061428;
+    box-shadow: var(--glow-accent-sm);
+}
+.button-actif:hover {
+    background: linear-gradient(135deg, #AADDFF, #5DBEF5) !important;
+    box-shadow: var(--glow-accent);
+}
+
+/* =================================================================
+   15. ÉQUIPEMENT
+   ================================================================= */
+.orv-menu_equipement {}
+.orv-menu_equipement_title {
+    width: 100%;
+    min-height: 52px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(55, 174, 254, 0.07);
+    border-bottom: 1px solid rgba(55, 174, 254, 0.16);
+}
+.orv-menu_equipement_title > h2 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--c-panel-text);
+    font-size: 18px;
+}
+
+.orv-menu_equipement-item {
+    width: 100%;
+    min-height: 54px;
+    cursor: pointer;
+    color: var(--c-panel-text);
+    background: rgba(255, 255, 255, 0.055);
+    display: grid;
+    grid-template-columns: 60px auto;
+    border-bottom: 1px solid rgba(55, 174, 254, 0.04);
+    transition: background var(--t);
+}
+.orv-menu_equipement-item:nth-child(even) { background: rgba(255, 255, 255, 0.095); }
+.orv-menu_equipement-item:hover           { background: rgba(55, 174, 254, 0.14); }
+
+.orv-menu_content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.orv-menu_container {
+    padding: 30px 22px 22px;
+    position: relative;
+}
+
+.orv-menu_coins {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    padding: 10px 18px;
+    background: rgba(55, 174, 254, 0.09);
+    border: 1px solid rgba(55, 174, 254, 0.24);
+    border-radius: var(--r-sm);
+    color: var(--c-accent-light);
+    font-weight: 700;
+    font-size: 14px;
+}
+
+.classic-title {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--c-panel-text);
+}
+
+/* =================================================================
+   16. FORMULAIRES
+   ================================================================= */
+.orv-menu_form-elements {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: auto 150px;
+}
+
+.orv-menu_form-inputs-list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 15px;
+    row-gap: 15px;
+}
+
+.orv-menu_form-input {
+    width: 230px;
+    display: flex;
+    flex-direction: column;
+}
+.orv-menu_form-input > label {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--c-accent-light);
+    margin-bottom: 6px;
+}
+.orv-menu_form-input > input,
+.orv-menu_form-input > select {
+    width: 230px;
+    max-width: 100%;
+    color: var(--c-panel-text);
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.orv-menu_form-valid { padding-top: 20px; }
+
+.orv-menu_form-info {
+    margin-top: 15px;
+    width: 100%;
+    text-align: right;
+    font-size: 16px;
+    color: var(--c-panel-text);
+}
+
+/* =================================================================
+   17. ANIMATIONS
+   ================================================================= */
+@keyframes panelFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =================================================================
+   18. OVERLAY SIDEBAR (mobile)
+   ================================================================= */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.58);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 45;
+}
+.sidebar-overlay.active { display: block; }
+
+/* =================================================================
+   19. SESSIONS
+   ================================================================= */
+
+/* --- Badges de statut --- */
+.session-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+}
+.session-badge--planned {
+    background: rgba(55, 174, 254, 0.12);
+    color: var(--c-accent-light);
+    border: 1px solid rgba(55, 174, 254, 0.28);
+}
+.session-badge--active {
+    background: rgba(55, 220, 120, 0.12);
+    color: #7EFFA6;
+    border: 1px solid rgba(55, 220, 120, 0.30);
+}
+.session-badge--done {
+    background: rgba(120, 130, 160, 0.10);
+    color: #8899BB;
+    border: 1px solid rgba(120, 130, 160, 0.20);
+}
+
+/* --- Lignes de table selon statut --- */
+.session-row--active td { background: rgba(55, 220, 120, 0.03) !important; }
+.session-row--done      { opacity: 0.58; }
+
+/* --- Stepper de statut --- */
+.session-stepper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 18px 24px;
+    background: rgba(55, 174, 254, 0.04);
+    border-bottom: 1px solid var(--c-panel-border);
+}
+.session-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+    max-width: 160px;
+}
+.session-step__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    border: 2px solid rgba(55, 174, 254, 0.18);
+    color: rgba(55, 174, 254, 0.30);
+    background: rgba(55, 174, 254, 0.04);
+    transition: all var(--t);
+    position: relative;
+    z-index: 1;
+}
+.session-step__label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    color: rgba(137, 206, 255, 0.30);
+    font-weight: 600;
+    text-align: center;
+}
+.session-connector {
+    flex: 0.8;
+    height: 2px;
+    background: rgba(55, 174, 254, 0.12);
+    align-self: center;
+    position: relative;
+    top: -14px;
+    transition: background var(--t);
+}
+
+.session-step--done .session-step__icon  { border-color: rgba(55, 174, 254, 0.55); color: var(--c-accent); background: rgba(55, 174, 254, 0.10); }
+.session-step--done .session-step__label { color: var(--c-accent-light); }
+.session-connector--done                 { background: rgba(55, 174, 254, 0.40); }
+
+.session-step--current .session-step__icon  { border-color: #5DEBA0; color: #7EFFA6; background: rgba(55, 220, 120, 0.12); box-shadow: 0 0 16px rgba(55, 220, 120, 0.22); }
+.session-step--current .session-step__label { color: #7EFFA6; }
+
+.session-step--ended .session-step__icon  { border-color: rgba(150, 160, 200, 0.35); color: #8899BB; background: rgba(120, 130, 160, 0.07); }
+.session-step--ended .session-step__label { color: #8899BB; }
+.session-connector--ended                 { background: rgba(120, 130, 160, 0.25); }
+
+/* --- Zone de notes --- */
+.session-notes {
+    width: 100%;
+    min-height: 200px;
+    resize: vertical;
+    background: rgba(55, 174, 254, 0.04);
+    border: 1px solid rgba(55, 174, 254, 0.18);
+    border-radius: var(--r-md);
+    color: var(--c-panel-text);
+    font-size: 14px;
+    line-height: 1.65;
+    padding: 14px 16px;
+    font-family: 'Roboto', sans-serif;
+    transition: border-color var(--t), box-shadow var(--t);
+}
+.session-notes:focus {
+    outline: none;
+    border-color: rgba(55, 174, 254, 0.45);
+    box-shadow: var(--glow-accent-xs);
+}
+
+/* --- Boutons de changement de statut --- */
+.session-launch-btn {
+    background: linear-gradient(135deg, rgba(55, 220, 120, 0.20), rgba(20, 140, 70, 0.26));
+    border: 1px solid rgba(55, 220, 120, 0.35);
+    color: #7EFFA6;
+    -webkit-text-fill-color: #7EFFA6;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: var(--r-md);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background var(--t), box-shadow var(--t), border-color var(--t);
+    min-height: auto;
+}
+.session-launch-btn:hover {
+    background: linear-gradient(135deg, rgba(55, 220, 120, 0.34), rgba(20, 140, 70, 0.42));
+    box-shadow: 0 0 14px rgba(55, 220, 120, 0.25);
+    border-color: rgba(55, 220, 120, 0.55);
+    transform: none;
+}
+.session-end-btn {
+    background: linear-gradient(135deg, rgba(220, 175, 55, 0.16), rgba(160, 110, 20, 0.22));
+    border: 1px solid rgba(220, 175, 55, 0.32);
+    color: #FFD97E;
+    -webkit-text-fill-color: #FFD97E;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 10px 22px;
+    border-radius: var(--r-md);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: background var(--t), box-shadow var(--t), border-color var(--t);
+    min-height: auto;
+}
+.session-end-btn:hover {
+    background: linear-gradient(135deg, rgba(220, 175, 55, 0.28), rgba(180, 120, 20, 0.36));
+    box-shadow: 0 0 14px rgba(220, 175, 55, 0.22);
+    border-color: rgba(220, 175, 55, 0.52);
+    transform: none;
+}
+
+/* --- Onglets de session --- */
+.session-tabs {
+    display: flex;
+    gap: 2px;
+    padding: 12px 18px 0;
+    background: var(--c-panel-header);
+    border-bottom: 1px solid var(--c-panel-border);
+    flex-shrink: 0;
+}
+.session-tab {
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(137, 206, 255, 0.50);
+    -webkit-text-fill-color: rgba(137, 206, 255, 0.50);
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: var(--r-sm) var(--r-sm) 0 0;
+    cursor: pointer;
+    background: transparent;
+    transition: color var(--t), background var(--t), border-color var(--t);
+    min-height: auto;
+    letter-spacing: normal;
+    text-transform: none;
+    font-family: 'Roboto', sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+.session-tab:hover {
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    background: rgba(55, 174, 254, 0.07);
+    border-color: rgba(55, 174, 254, 0.16);
+    transform: none;
+    box-shadow: none;
+}
+.session-tab.button-actif {
+    background: rgba(6, 16, 42, 0.90) !important;
+    border-color: var(--c-panel-border) !important;
+    color: var(--c-accent-light) !important;
+    -webkit-text-fill-color: var(--c-accent-light) !important;
+    box-shadow: none !important;
+}
+.session-tab-panel.hidden { display: none; }
+
+/* =================================================================
+   20. PROFIL UTILISATEUR
+   ================================================================= */
+
+/* --- Sidebar profil --- */
+.profile-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 14px 24px;
+    gap: 0;
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: rgba(55, 174, 254, 0.10);
+    border: 3px solid rgba(55, 174, 254, 0.42);
+    box-shadow: 0 0 22px rgba(55, 174, 254, 0.16);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    flex-shrink: 0;
+}
+.profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.profile-name {
+    font-family: "Koh Santepheap", serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--c-panel-text);
+    margin-bottom: 6px;
+}
+
+.profile-role {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: var(--c-accent);
+    background: rgba(55, 174, 254, 0.10);
+    border: 1px solid rgba(55, 174, 254, 0.22);
+    border-radius: 10px;
+    padding: 3px 10px;
+    margin-bottom: 22px;
+    display: inline-block;
+}
+
+.profile-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(55, 174, 254, 0.10);
+    margin: 0 0 14px;
+}
+
+.profile-quick-stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: var(--r-sm);
+    transition: background var(--t);
+}
+.profile-quick-stat:hover { background: rgba(55, 174, 254, 0.07); }
+
+.profile-quick-stat__label {
+    font-size: 12px;
+    color: rgba(137, 206, 255, 0.55);
+    text-align: left;
+}
+.profile-quick-stat__value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--c-accent-light);
+}
+
+/* --- Cartes de statistiques --- */
+.profile-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+    width: 100%;
+}
+
+.profile-stat-card {
+    background: rgba(55, 174, 254, 0.05);
+    border: 1px solid rgba(55, 174, 254, 0.12);
+    border-radius: var(--r-md);
+    padding: 18px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    transition: background var(--t), border-color var(--t), box-shadow var(--t);
+}
+.profile-stat-card:hover {
+    background: rgba(55, 174, 254, 0.09);
+    border-color: rgba(55, 174, 254, 0.24);
+    box-shadow: var(--glow-accent-xs);
+}
+
+.profile-stat-card__icon {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+.profile-stat-card--combat  .profile-stat-card__icon { color: #FF8C69; }
+.profile-stat-card--defense .profile-stat-card__icon { color: #89CEFF; }
+.profile-stat-card--heal    .profile-stat-card__icon { color: #7EFFA6; }
+.profile-stat-card--session .profile-stat-card__icon { color: var(--c-accent); }
+.profile-stat-card--ko      .profile-stat-card__icon { color: #FFD97E; }
+
+.profile-stat-card__value {
+    font-size: 28px;
+    font-weight: 900;
+    font-family: "Koh Santepheap", serif;
+    color: var(--c-accent-xlight);
+    line-height: 1;
+}
+.profile-stat-card__label {
+    font-size: 11px;
+    color: rgba(137, 206, 255, 0.50);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    font-weight: 600;
+}
+
+/* --- Items sessions à venir --- */
+.profile-session-item {
+    display: grid;
+    grid-template-columns: 58px 1fr auto;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 16px;
+    border-radius: var(--r-md);
+    border: 1px solid rgba(55, 174, 254, 0.10);
+    background: rgba(55, 174, 254, 0.04);
+    margin-bottom: 8px;
+    transition: background var(--t), border-color var(--t);
+}
+.profile-session-item:hover {
+    background: rgba(55, 174, 254, 0.08);
+    border-color: rgba(55, 174, 254, 0.20);
+}
+
+.profile-session-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(55, 174, 254, 0.10);
+    border: 1px solid rgba(55, 174, 254, 0.20);
+    border-radius: var(--r-sm);
+    padding: 6px 4px;
+    flex-shrink: 0;
+}
+.profile-session-date__day {
+    font-size: 22px;
+    font-weight: 900;
+    font-family: "Koh Santepheap", serif;
+    color: var(--c-accent-light);
+    line-height: 1;
+}
+.profile-session-date__month {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: rgba(137, 206, 255, 0.55);
+    font-weight: 700;
+}
+
+.profile-session-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-panel-text);
+    margin-bottom: 4px;
+}
+.profile-session-meta {
+    font-size: 12px;
+    color: rgba(137, 206, 255, 0.45);
+    display: flex;
+    gap: 14px;
+}
+.profile-session-meta i { font-size: 11px; margin-right: 3px; }
+
+/* --- Notes MJ --- */
+.profile-mj-note {
+    background: rgba(55, 174, 254, 0.04);
+    border: 1px solid rgba(55, 174, 254, 0.16);
+    border-left: 3px solid rgba(55, 174, 254, 0.40);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+    padding: 18px 20px;
+    color: var(--c-panel-text);
+    font-size: 14px;
+    line-height: 1.75;
+    margin-bottom: 14px;
+    white-space: pre-line;
+}
+.profile-mj-note-header {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: rgba(137, 206, 255, 0.45);
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+/* =================================================================
+   22. BALUCHON DES DOKKAEBI — Boutique
+   ================================================================= */
+
+/* --- Layout spécifique du panel boutique --- */
+#baluch-dokka {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-bottom: 0;
+    position: relative;
+    overflow: hidden; /* contient la sidebar slide-in */
+}
+
+/* --- En-tête interne boutique --- */
+.shop-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 18px;
+    height: 60px;
+    flex-shrink: 0;
+    background: var(--c-panel-header);
+    border-bottom: 1px solid var(--c-panel-border);
+    position: relative;
+    z-index: 10;
+}
+
+.shop-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 10px;
+    cursor: pointer;
+    background: rgba(55, 174, 254, 0.10);
+    border: 1px solid rgba(55, 174, 254, 0.22);
+    border-radius: var(--r-sm);
+    min-height: auto;
+    width: auto;
+    flex-shrink: 0;
+    transition: background var(--t), border-color var(--t);
+}
+.shop-hamburger:hover {
+    background: rgba(55, 174, 254, 0.22);
+    border-color: rgba(55, 174, 254, 0.40);
+    transform: none;
+    box-shadow: none;
+}
+.shop-hamburger span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--c-accent-light);
+    border-radius: 2px;
+    transition: all var(--t);
+}
+.shop-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.shop-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.shop-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.shop-header-title {
+    flex: 1;
+    text-align: center;
+    font-family: "Koh Santepheap", serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--c-panel-text);
+    text-shadow: 0 0 28px rgba(55, 174, 254, 0.65);
+}
+
+.shop-header-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.shop-header-user-info { text-align: right; }
+
+.shop-header-user-name {
+    font-family: "Koh Santepheap", serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-panel-text);
+}
+
+.shop-header-user-rank {
+    font-size: 11px;
+    color: var(--c-accent);
+    opacity: 0.80;
+}
+
+.shop-header-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(55, 174, 254, 0.14);
+    border: 1.5px solid rgba(55, 174, 254, 0.42);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+/* --- Sidebar interne boutique --- */
+.shop-sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 265px;
+    background: rgba(3, 8, 22, 0.98);
+    border-right: 1px solid rgba(55, 174, 254, 0.18);
+    transform: translateX(-100%);
+    transition: transform var(--t-slow);
+    z-index: 55;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* empêche tout débordement à travers le bord */
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+}
+.shop-sidebar.open { transform: translateX(0); }
+
+.shop-sidebar-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 50;
+}
+.shop-sidebar-overlay.active { display: block; }
+
+.shop-nav-label {
+    padding: 18px 18px 10px;
+    font-family: "Koh Santepheap", serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--c-accent-light);
+    opacity: 0.50;
+    border-bottom: 1px solid rgba(55, 174, 254, 0.10);
+    margin-bottom: 6px;
+}
+
+.shop-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.shop-nav-item,
+.shop-nav-item:link,
+.shop-nav-item:visited {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-family: "Koh Santepheap", serif;
+    font-weight: 700;
+    color: rgba(217, 255, 255, 0.65);
+    -webkit-text-fill-color: rgba(217, 255, 255, 0.65);
+    background: transparent;
+    border-left: 3px solid transparent;
+    border-bottom: 1px solid rgba(55, 174, 254, 0.06);
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background var(--t), color var(--t), border-color var(--t);
+}
+.shop-nav-item:hover {
+    background: rgba(55, 174, 254, 0.08);
+    color: var(--c-panel-text);
+    -webkit-text-fill-color: var(--c-panel-text);
+    border-left-color: rgba(55, 174, 254, 0.35);
+}
+.shop-nav-active,
+.shop-nav-active:link,
+.shop-nav-active:visited {
+    background: rgba(55, 174, 254, 0.12);
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    border-left-color: var(--c-accent);
+}
+
+/* --- Carte profil utilisateur --- */
+.shop-profile-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(55, 174, 254, 0.05);
+    border: 1px solid rgba(55, 174, 254, 0.20);
+    border-radius: var(--r-md);
+}
+
+.shop-profile-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(55, 174, 254, 0.14);
+    border: 2px solid rgba(55, 174, 254, 0.42);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.shop-profile-name {
+    font-family: "Koh Santepheap", serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--c-panel-text);
+}
+
+.shop-profile-rank {
+    font-size: 12px;
+    color: var(--c-accent);
+    margin-top: 3px;
+}
+
+.shop-profile-stats {
+    display: flex;
+    gap: 22px;
+    margin-left: auto;
+}
+
+.shop-profile-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.shop-stat-value {
+    font-family: "Koh Santepheap", serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--c-panel-text);
+}
+
+.shop-stat-label {
+    font-size: 10px;
+    color: var(--c-accent-light);
+    opacity: 0.60;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.shop-profile-cart-btn {
+    background: rgba(55, 174, 254, 0.12);
+    border: 1px solid rgba(55, 174, 254, 0.32);
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    border-radius: var(--r-sm);
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: "Koh Santepheap", serif;
+    min-height: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    transition: background var(--t), box-shadow var(--t);
+}
+.shop-profile-cart-btn:hover {
+    background: rgba(55, 174, 254, 0.24);
+    box-shadow: var(--glow-accent-xs);
+    transform: none;
+}
+
+/* --- Layout contenu scrollable --- */
+.shop-layout {
+    padding: 22px 22px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.shop-section-title {
+    font-family: "Koh Santepheap", serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--c-accent-light);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(55, 174, 254, 0.15);
+}
+
+/* --- Grille vedettes (3 colonnes) --- */
+.shop-featured-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.shop-featured-card {
+    border: 1px solid rgba(55, 174, 254, 0.38);
+    border-radius: var(--r-md);
+    background: rgba(55, 174, 254, 0.04);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    transition: background var(--t), border-color var(--t), box-shadow var(--t);
+}
+.shop-featured-card:hover {
+    background: rgba(55, 174, 254, 0.10);
+    border-color: rgba(55, 174, 254, 0.65);
+    box-shadow: var(--glow-accent-xs);
+}
+
+.shop-card-category {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--c-accent);
+}
+
+.shop-card-name {
+    font-family: "Koh Santepheap", serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--c-panel-text);
+    margin: 3px 0 6px;
+}
+
+.shop-card-attr-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: var(--c-accent-light);
+    opacity: 0.80;
+}
+
+.shop-card-attr-value {
+    font-size: 13px;
+    color: rgba(217, 255, 255, 0.65);
+    margin-bottom: 10px;
+}
+
+.shop-card-price {
+    align-self: flex-start;
+    background: rgba(55, 174, 254, 0.15);
+    border: 1px solid rgba(55, 174, 254, 0.42);
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    border-radius: 50px;
+    padding: 5px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    min-height: auto;
+    cursor: pointer;
+    transition: background var(--t), box-shadow var(--t);
+}
+.shop-card-price:hover {
+    background: rgba(55, 174, 254, 0.28);
+    box-shadow: var(--glow-accent-xs);
+    transform: none;
+}
+
+/* --- Catalogue général (4 colonnes + actions) --- */
+.shop-catalog-layout {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: start;
+}
+
+.shop-catalog-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.shop-catalog-card {
+    background: rgba(4, 12, 34, 0.80);
+    border: 1px solid rgba(55, 174, 254, 0.20);
+    border-radius: var(--r-sm);
+    padding: 14px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    cursor: pointer;
+    transition: background var(--t), border-color var(--t);
+}
+.shop-catalog-card:hover {
+    background: rgba(55, 174, 254, 0.08);
+    border-color: rgba(55, 174, 254, 0.40);
+}
+
+.shop-catalog-card-subtitle {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(217, 255, 255, 0.45);
+}
+
+.shop-catalog-card-name {
+    font-family: "Koh Santepheap", serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-panel-text);
+    margin: 2px 0 8px;
+}
+
+.shop-catalog-card-price {
+    font-family: "Koh Santepheap", serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #F5D020;
+}
+
+/* Panel d'actions (panier + plus) */
+.shop-catalog-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.shop-action-btn {
+    background: rgba(55, 174, 254, 0.12);
+    border: 1px solid rgba(55, 174, 254, 0.30);
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    border-radius: var(--r-sm);
+    font-family: "Koh Santepheap", serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 22px;
+    min-height: auto;
+    cursor: pointer;
+    transition: background var(--t), box-shadow var(--t);
+    white-space: nowrap;
+}
+.shop-action-btn:hover {
+    background: rgba(55, 174, 254, 0.25);
+    box-shadow: var(--glow-accent-xs);
+    transform: none;
+}
+
+/* --- Barre basse de la boutique --- */
+.shop-footer-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 22px;
+    background: rgba(3, 8, 22, 0.97);
+    border-top: 1px solid rgba(55, 174, 254, 0.20);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    flex-shrink: 0;
+    border-radius: 0 0 16px 0;
+}
+
+.shop-coins-display {
+    background: rgba(55, 174, 254, 0.12);
+    border: 1px solid rgba(55, 174, 254, 0.38);
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-family: "Koh Santepheap", serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-accent-light);
+    white-space: nowrap;
+    letter-spacing: 0.05em;
+}
+
+.shop-search-input {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    min-height: auto;
+    height: 40px;
+    padding: 0 14px;
+    background: rgba(55, 174, 254, 0.07);
+    border: 1px solid rgba(55, 174, 254, 0.26);
+    border-bottom: 1px solid rgba(55, 174, 254, 0.26);
+    border-radius: var(--r-md);
+    color: var(--c-panel-text);
+    font-size: 13px;
+    transition: background var(--t), border-color var(--t);
+}
+.shop-search-input::placeholder {
+    color: rgba(217, 255, 255, 0.30);
+    font-style: italic;
+}
+.shop-search-input:focus {
+    background: rgba(55, 174, 254, 0.11);
+    border-color: rgba(55, 174, 254, 0.48);
+    box-shadow: 0 0 8px rgba(55, 174, 254, 0.14);
+}
+
+.shop-upgrade-btn {
+    flex-shrink: 0;
+    background: linear-gradient(135deg, #F5D020 0%, #E09A00 100%);
+    color: #1a0900;
+    -webkit-text-fill-color: #1a0900;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 18px;
+    font-family: "Koh Santepheap", serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    min-height: auto;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: opacity var(--t), box-shadow var(--t);
+}
+.shop-upgrade-btn:hover {
+    opacity: 0.88;
+    box-shadow: 0 0 22px rgba(245, 208, 32, 0.38);
+    transform: none;
+}
+
+.shop-search-btn {
+    background: rgba(55, 174, 254, 0.10);
+    border: 1px solid rgba(55, 174, 254, 0.26);
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    border-radius: var(--r-md);
+    width: 42px;
+    height: 42px;
+    min-height: auto;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background var(--t), box-shadow var(--t);
+}
+.shop-search-btn:hover {
+    background: rgba(55, 174, 254, 0.22);
+    box-shadow: var(--glow-accent-xs);
+    transform: none;
+}
+
+/* =================================================================
+   23. COMBATS
+   ================================================================= */
+
+/* --- Badges statut combat --- */
+.fight-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 11px;
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: "Koh Santepheap", serif;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+.fight-badge--prep {
+    background: rgba(255, 180, 50, 0.13);
+    border: 1px solid rgba(255, 180, 50, 0.35);
+    color: #FFD97E;
+}
+.fight-badge--active {
+    background: rgba(255, 80, 80, 0.13);
+    border: 1px solid rgba(255, 80, 80, 0.35);
+    color: #FF8888;
+    animation: pulse-fight 2s ease-in-out infinite;
+}
+.fight-badge--done {
+    background: rgba(126, 255, 166, 0.09);
+    border: 1px solid rgba(126, 255, 166, 0.28);
+    color: #7EFFA6;
+}
+@keyframes pulse-fight {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 80, 80, 0); }
+    50%       { box-shadow: 0 0 8px 2px rgba(255, 80, 80, 0.28); }
+}
+
+/* --- Badges type --- */
+.fight-type-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+}
+.fight-type-badge--pve   { background: rgba(126,255,166,0.10); border: 1px solid rgba(126,255,166,0.30); color: #7EFFA6; }
+.fight-type-badge--pvp   { background: rgba(200,120,255,0.10); border: 1px solid rgba(200,120,255,0.30); color: #D099FF; }
+.fight-type-badge--mixed { background: rgba(255,180, 50,0.10); border: 1px solid rgba(255,180, 50,0.30); color: #FFD97E; }
+
+/* --- En-tête combat lancé --- */
+.fight-combat-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 18px 22px;
+    background: rgba(255, 60, 60, 0.05);
+    border-bottom: 1px solid rgba(255, 80, 80, 0.18);
+    flex-wrap: wrap;
+}
+.fight-combat-title {
+    font-family: "Koh Santepheap", serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--c-panel-text);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.fight-combat-title i { color: #FF8888; }
+.fight-turn-counter {
+    background: rgba(255, 80, 80, 0.12);
+    border: 1px solid rgba(255, 80, 80, 0.30);
+    color: #FF8888;
+    border-radius: 50px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Koh Santepheap", serif;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.fight-next-btn {
+    background: rgba(55, 174, 254, 0.12);
+    border: 1px solid rgba(55, 174, 254, 0.32);
+    color: var(--c-accent-light);
+    -webkit-text-fill-color: var(--c-accent-light);
+    border-radius: var(--r-sm);
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Koh Santepheap", serif;
+    min-height: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: background var(--t), box-shadow var(--t);
+}
+.fight-next-btn:hover { background: rgba(55,174,254,0.24); box-shadow: var(--glow-accent-xs); transform: none; }
+.fight-end-btn {
+    background: rgba(255, 80, 80, 0.10);
+    border: 1px solid rgba(255, 80, 80, 0.30);
+    color: #FF8888;
+    -webkit-text-fill-color: #FF8888;
+    border-radius: var(--r-sm);
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: "Koh Santepheap", serif;
+    min-height: auto;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    transition: background var(--t), box-shadow var(--t);
+}
+.fight-end-btn:hover { background: rgba(255,80,80,0.22); box-shadow: 0 0 12px rgba(255,80,80,0.22); transform: none; }
+
+/* --- Barre d'initiative --- */
+.fight-initiative {
+    padding: 14px 22px;
+    background: rgba(3, 8, 22, 0.55);
+    border-bottom: 1px solid rgba(55, 174, 254, 0.10);
+}
+.fight-initiative-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(137, 206, 255, 0.38);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+.fight-initiative-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+}
+.fight-initiative-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 7px 13px;
+    border-radius: var(--r-sm);
+    border: 1px solid transparent;
+    cursor: default;
+    transition: all var(--t);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+.fight-initiative-item--player { background: rgba(55,174,254,0.07); border-color: rgba(55,174,254,0.18); color: var(--c-accent-light); }
+.fight-initiative-item--mob    { background: rgba(255,80,80,0.07);  border-color: rgba(255,80,80,0.18);  color: #FF8888; }
+.fight-initiative-item--current.fight-initiative-item--player { background: rgba(55,174,254,0.20) !important; border-color: var(--c-accent) !important; box-shadow: 0 0 12px rgba(55,174,254,0.28); }
+.fight-initiative-item--current.fight-initiative-item--mob    { background: rgba(255,80,80,0.22)  !important; border-color: #FF8888 !important;           box-shadow: 0 0 12px rgba(255,80,80,0.28); }
+.fight-initiative-item--ko { opacity: 0.30; text-decoration: line-through; }
+.fight-initiative-name  { font-size: 12px; font-weight: 700; font-family: "Koh Santepheap", serif; }
+.fight-initiative-score { font-size: 10px; opacity: 0.50; }
+.fight-initiative-arrow { color: rgba(137,206,255,0.20); font-size: 11px; padding: 0 4px; flex-shrink: 0; align-self: center; }
+
+/* --- Grille combat (2 colonnes) --- */
+.fight-combat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px 22px;
+}
+.fight-combat-side { display: flex; flex-direction: column; gap: 10px; }
+.fight-side-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Koh Santepheap", serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    padding-bottom: 8px;
+    border-bottom: 1px solid;
+}
+.fight-side-header--players { color: var(--c-accent-light); border-color: rgba(55,174,254,0.20); }
+.fight-side-header--mobs    { color: #FF8888;               border-color: rgba(255,80,80,0.20); }
+.fight-side-header i { font-size: 14px; }
+
+/* --- Carte participant --- */
+.fight-participant-card {
+    background: rgba(55, 174, 254, 0.04);
+    border: 1px solid rgba(55, 174, 254, 0.14);
+    border-radius: var(--r-md);
+    padding: 14px 15px;
+    transition: border-color var(--t), background var(--t), box-shadow var(--t);
+}
+.fight-participant-card--mob     { background: rgba(255,80,80,0.04); border-color: rgba(255,80,80,0.14); }
+.fight-participant-card--current.fight-participant-card         { border-color: var(--c-accent); box-shadow: 0 0 14px rgba(55,174,254,0.18); }
+.fight-participant-card--current.fight-participant-card--mob    { border-color: #FF8888;          box-shadow: 0 0 14px rgba(255,80,80,0.18); }
+.fight-participant-card--ko { opacity: 0.42; border-style: dashed; }
+
+.fight-participant-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 9px;
+}
+.fight-participant-name {
+    font-family: "Koh Santepheap", serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--c-panel-text);
+}
+.fight-participant-hp-text { font-size: 12px; color: rgba(137,206,255,0.48); font-family: "Koh Santepheap", serif; font-weight: 700; }
+.fight-participant-hp-text .hp-current { font-size: 15px; color: var(--c-accent-light); }
+
+/* Barre HP */
+.fight-hp-bar-wrap { width: 100%; height: 6px; background: rgba(255,255,255,0.06); border-radius: 50px; overflow: hidden; margin-bottom: 11px; }
+.fight-hp-bar-fill { height: 100%; border-radius: 50px; transition: width 0.4s ease, background-color 0.4s ease; background: #7EFFA6; }
+.fight-hp-bar-fill--mid  { background: #FFD97E; }
+.fight-hp-bar-fill--low  { background: #FF7070; }
+.fight-hp-bar-fill--dead { background: #444455; }
+
+/* Effets de statut */
+.fight-effects { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+.fight-effect-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 8px; border-radius: 50px; font-size: 10px; font-weight: 700;
+    background: rgba(200,120,255,0.12); border: 1px solid rgba(200,120,255,0.28); color: #D099FF;
+}
+
+/* Formulaire dégâts / soins */
+.fight-dmg-form { display: flex; gap: 5px; align-items: center; flex-wrap: wrap; }
+.fight-dmg-input {
+    width: 66px;
+    min-height: auto;
+    height: 32px;
+    padding: 0 8px;
+    font-size: 13px;
+    border-radius: var(--r-sm);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(55,174,254,0.22);
+    border-bottom: 2px solid rgba(55,174,254,0.40);
+    color: var(--c-panel-text);
+    text-align: center;
+}
+.fight-dmg-input:focus { background: rgba(55,174,254,0.08); border-color: var(--c-accent); outline: none; }
+.fight-apply-btn {
+    background: rgba(255,80,80,0.12); border: 1px solid rgba(255,80,80,0.32);
+    color: #FF8888; -webkit-text-fill-color: #FF8888;
+    border-radius: var(--r-sm); padding: 0 10px; height: 32px; font-size: 11px; font-weight: 700;
+    min-height: auto; cursor: pointer; display: flex; align-items: center; gap: 4px;
+    transition: background var(--t);
+}
+.fight-apply-btn:hover { background: rgba(255,80,80,0.24); transform: none; box-shadow: none; }
+.fight-heal-btn {
+    background: rgba(126,255,166,0.10); border: 1px solid rgba(126,255,166,0.30);
+    color: #7EFFA6; -webkit-text-fill-color: #7EFFA6;
+    border-radius: var(--r-sm); padding: 0 10px; height: 32px; font-size: 11px; font-weight: 700;
+    min-height: auto; cursor: pointer; display: flex; align-items: center; gap: 4px;
+    transition: background var(--t);
+}
+.fight-heal-btn:hover { background: rgba(126,255,166,0.22); transform: none; box-shadow: none; }
+.fight-ko-btn {
+    background: rgba(120,120,140,0.08); border: 1px solid rgba(120,120,140,0.22);
+    color: rgba(217,255,255,0.30); -webkit-text-fill-color: rgba(217,255,255,0.30);
+    border-radius: var(--r-sm); padding: 0 9px; height: 32px; font-size: 11px; font-weight: 700;
+    min-height: auto; cursor: pointer; display: flex; align-items: center; gap: 4px;
+    margin-left: auto; transition: background var(--t);
+}
+.fight-ko-btn:hover { background: rgba(120,120,140,0.20); transform: none; box-shadow: none; }
+.fight-ko-btn--restore { color: #7EFFA6 !important; -webkit-text-fill-color: #7EFFA6 !important; border-color: rgba(126,255,166,0.28) !important; }
+
+/* --- Actions rapides combat --- */
+.fight-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 0 22px 20px;
+}
+.fight-quick-label {
+    padding: 0 22px 8px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(137,206,255,0.30);
+    font-weight: 700;
+}
+.fight-quick-action-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    padding: 14px 10px; border-radius: var(--r-md);
+    font-size: 11px; font-weight: 700; font-family: "Koh Santepheap", serif;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    cursor: pointer; border: 1px solid; min-height: auto;
+    transition: background var(--t), box-shadow var(--t);
+}
+.fight-quick-action-btn i { font-size: 18px; }
+.fight-quick-action-btn--constellation {
+    background: rgba(245,208,32,0.07); border-color: rgba(245,208,32,0.28);
+    color: #F5D020; -webkit-text-fill-color: #F5D020;
+}
+.fight-quick-action-btn--constellation:hover { background: rgba(245,208,32,0.16); box-shadow: 0 0 14px rgba(245,208,32,0.20); transform: none; }
+.fight-quick-action-btn--system {
+    background: rgba(55,174,254,0.07); border-color: rgba(55,174,254,0.28);
+    color: var(--c-accent-light); -webkit-text-fill-color: var(--c-accent-light);
+}
+.fight-quick-action-btn--system:hover { background: rgba(55,174,254,0.16); box-shadow: var(--glow-accent-xs); transform: none; }
+.fight-quick-action-btn--effect {
+    background: rgba(200,120,255,0.07); border-color: rgba(200,120,255,0.28);
+    color: #D099FF; -webkit-text-fill-color: #D099FF;
+}
+.fight-quick-action-btn--effect:hover { background: rgba(200,120,255,0.16); box-shadow: 0 0 14px rgba(200,120,255,0.20); transform: none; }
+.fight-quick-action-btn--note {
+    background: rgba(126,255,166,0.05); border-color: rgba(126,255,166,0.22);
+    color: #7EFFA6; -webkit-text-fill-color: #7EFFA6;
+}
+.fight-quick-action-btn--note:hover { background: rgba(126,255,166,0.14); box-shadow: 0 0 12px rgba(126,255,166,0.16); transform: none; }
+
+/* --- Modals actions rapides --- */
+.fight-action-modal {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.70); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    z-index: 200; align-items: center; justify-content: center;
+}
+.fight-action-modal.open { display: flex; }
+.fight-action-modal-box {
+    background: rgba(5, 12, 30, 0.98);
+    border: 1px solid rgba(55, 174, 254, 0.28);
+    border-radius: var(--r-lg);
+    padding: 28px 30px;
+    min-width: 340px;
+    max-width: 480px;
+    width: 90%;
+    box-shadow: 0 0 60px rgba(55, 174, 254, 0.15);
+}
+.fight-action-modal-title {
+    font-family: "Koh Santepheap", serif;
+    font-size: 17px; font-weight: 700;
+    color: var(--c-panel-text);
+    margin-bottom: 18px;
+    display: flex; align-items: center; gap: 9px;
+}
+.fight-modal-close {
+    margin-left: auto; background: none; border: none;
+    color: rgba(137,206,255,0.40); -webkit-text-fill-color: rgba(137,206,255,0.40);
+    cursor: pointer; font-size: 18px; min-height: auto; padding: 0;
+    transition: color var(--t);
+}
+.fight-modal-close:hover { color: var(--c-panel-text); -webkit-text-fill-color: var(--c-panel-text); transform: none; box-shadow: none; }
+.fight-modal-confirm { width: 100%; justify-content: center; margin-top: 6px; }
+
+/* --- Journal de combat --- */
+.fight-log-section { padding: 0 22px 22px; }
+.fight-log-header {
+    display: flex; align-items: center; gap: 9px;
+    font-family: "Koh Santepheap", serif;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.10em; text-transform: uppercase;
+    color: rgba(137,206,255,0.35);
+    padding-bottom: 8px; border-bottom: 1px solid rgba(55,174,254,0.10); margin-bottom: 10px;
+}
+.fight-log-list {
+    display: flex; flex-direction: column; gap: 3px;
+    max-height: 220px; overflow-y: auto; padding-right: 4px;
+    scrollbar-width: thin; scrollbar-color: rgba(55,174,254,0.20) transparent;
+}
+.fight-log-list::-webkit-scrollbar { width: 4px; }
+.fight-log-list::-webkit-scrollbar-thumb { background: rgba(55,174,254,0.22); border-radius: 4px; }
+.fight-log-entry {
+    display: flex; gap: 10px; align-items: baseline;
+    padding: 5px 10px 5px 12px; border-radius: var(--r-sm);
+    border-left: 3px solid transparent;
+    font-size: 12px; color: rgba(217,255,255,0.60);
+    background: rgba(255,255,255,0.018);
+}
+.fight-log-entry--damage       { border-left-color: rgba(255,80,80,0.55); }
+.fight-log-entry--heal         { border-left-color: rgba(126,255,166,0.50); }
+.fight-log-entry--system       { border-left-color: rgba(55,174,254,0.48); }
+.fight-log-entry--constellation{ border-left-color: rgba(245,208,32,0.55); }
+.fight-log-entry--effect       { border-left-color: rgba(200,120,255,0.50); }
+.fight-log-entry--ko           { border-left-color: rgba(120,120,140,0.45); }
+.fight-log-entry--turn         { border-left-color: rgba(137,206,255,0.18); background: rgba(55,174,254,0.035); color: rgba(217,255,255,0.35); }
+.fight-log-turn { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; color: rgba(137,206,255,0.35); white-space: nowrap; flex-shrink: 0; }
+.fight-log-text { flex: 1; }
+
+/* --- Quicksetup mob (page création) --- */
+.fight-mob-quicksetup {
+    background: rgba(255,80,80,0.04);
+    border: 1px solid rgba(255,80,80,0.20);
+    border-radius: var(--r-md);
+    padding: 16px 18px;
+    margin-bottom: 10px;
+}
+.fight-mob-quicksetup-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.fight-mob-quicksetup-header input { flex: 1; }
+.fight-mob-remove {
+    background: rgba(255,80,80,0.10); border: 1px solid rgba(255,80,80,0.28);
+    color: #FF8888; -webkit-text-fill-color: #FF8888;
+    border-radius: var(--r-sm); width: 32px; height: 32px; min-height: auto; padding: 0;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 13px;
+    flex-shrink: 0; transition: background var(--t);
+}
+.fight-mob-remove:hover { background: rgba(255,80,80,0.24); transform: none; box-shadow: none; }
+.fight-mob-stats-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
+.fight-mob-stat-field { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 75px; }
+.fight-mob-stat-field label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.10em; color: rgba(137,206,255,0.40);
+}
+.fight-mob-stat-field input { width: 100%; min-width: 0; height: 36px; min-height: auto; text-align: center; padding: 0 8px; }
+.fight-add-mob-btn {
+    background: rgba(255,80,80,0.06); border: 1px dashed rgba(255,80,80,0.28);
+    color: #FF8888; -webkit-text-fill-color: #FF8888;
+    border-radius: var(--r-md); padding: 12px 18px;
+    font-size: 13px; font-weight: 700; font-family: "Koh Santepheap", serif;
+    min-height: auto; cursor: pointer; display: flex; align-items: center; gap: 8px;
+    width: 100%; justify-content: center; transition: background var(--t);
+}
+.fight-add-mob-btn:hover { background: rgba(255,80,80,0.14); transform: none; box-shadow: none; }
+
+/* --- Actions liste combats --- */
+.fight-list-actions { display: flex; align-items: center; gap: 8px; }
+.fight-list-link { text-decoration: none; font-size: 20px; transition: opacity var(--t); opacity: 0.75; }
+.fight-list-link:hover { opacity: 1; }
+.fight-list-link--edit   { color: var(--c-panel-text); }
+.fight-list-link--launch { color: #7EFFA6; }
+.fight-list-link--view   { color: var(--c-accent-light); }
+.fight-list-link--open   { color: #FF8888; }
+.fight-list-link--delete { color: rgba(255,120,120,0.55); }
+.fight-list-link--delete:hover { color: #FF8888; opacity: 1; }
+
+/* =================================================================
+   19. RESPONSIVE — Tablette (≤ 1100px)
+   ================================================================= */
+@media (max-width: 1100px) {
+    :root { --sidebar-width: 220px; }
+
+    nav { grid-template-columns: 220px 1fr auto; }
+
+    .nav-title { display: none; }
+
+    nav > .navigation_container { gap: 18px; padding: 0 14px; }
+
+    .nav-button { font-size: 13px; }
+
+    .container-logs {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+        width: calc(100% - 40px);
+        padding: 10px 20px;
+    }
+
+    .orv-menu_double-grid { grid-template-columns: 1fr; }
+
+    .orv-menu_stats-personnals {
+        border-left: none;
+        border-top: 1px solid var(--c-panel-border);
+    }
+
+    .data-popup_popup-body_grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Shop tablette */
+    .shop-featured-grid { grid-template-columns: repeat(2, 1fr); }
+    .shop-catalog-grid  { grid-template-columns: repeat(3, 1fr); }
+    .shop-profile-stats { gap: 14px; }
+    .shop-header-title  { font-size: 17px; }
+}
+
+/* =================================================================
+   20. RESPONSIVE — Mobile (≤ 768px)
+   ================================================================= */
+@media (max-width: 768px) {
+    :root { --sidebar-width: 265px; }
+
+    /* Navigation mobile */
+    nav {
+        grid-template-columns: auto 1fr auto;
+        padding: 0;
+    }
+    nav > .navigation_container { display: none; }
+    .nav-hamburger { display: flex; }
+
+    /* Profil compact */
+    .nav-profil    { min-width: auto; padding: 6px 10px; margin-right: 8px; }
+    .nav-profil_text { display: none; }
+
+    /* Sidebar : tiroir latéral */
+    .left-menu {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        height: calc(100vh - var(--nav-height));
+        width: var(--sidebar-width);
+        transform: translateX(-100%);
+        z-index: 60;
+        box-shadow: 4px 0 28px rgba(0, 0, 0, 0.65);
+    }
+    .left-menu.sidebar-open { transform: translateX(0); }
+
+    /* Grille principale */
+    .container-menus { grid-template-columns: 1fr; }
+
+    .menu-right-container {
+        max-width: 100vw;
+        height: calc(100vh - var(--nav-height));
+    }
+
+    /* Login */
+    .cards-login { width: 95vw; }
+
+    /* Tables scrollables */
+    .orv-menu_container { overflow-x: auto; }
+    table { min-width: 480px; }
+
+    /* Popup */
+    .data-popup_popup-body_grid { grid-template-columns: 1fr; }
+
+    /* Boutons */
+    .orv-buttons {
+        flex-direction: column;
+        width: calc(100% - 20px);
+    }
+    .orv-edit { justify-content: center; }
+
+    /* Formulaires */
+    .orv-menu_form-elements { grid-template-columns: 1fr; }
+    .orv-menu_form-input    { width: 100%; }
+    .orv-menu_form-input > input,
+    .orv-menu_form-input > select { width: 100%; }
+
+    /* Dashboard logs */
+    .container-logs {
+        width: calc(100% - 20px);
+        padding: 10px;
+        grid-template-columns: 1fr;
+    }
+
+    /* Double grid */
+    .orv-menu_double-grid { grid-template-columns: 1fr; }
+    .orv-menu_stats-personnals {
+        border-left: none;
+        border-top: 1px solid var(--c-panel-border);
+    }
+
+    .orv-menu { margin: 12px auto 40px; }
+
+    /* Shop mobile */
+    .shop-featured-grid  { grid-template-columns: 1fr; }
+    .shop-catalog-layout { grid-template-columns: 1fr; }
+    .shop-catalog-grid   { grid-template-columns: repeat(2, 1fr); }
+    .shop-catalog-actions { flex-direction: row; justify-content: flex-end; }
+    .shop-footer-bar { flex-wrap: wrap; padding: 10px 14px; gap: 8px; }
+    .shop-search-input { order: 1; flex: 1 1 100%; height: 36px; }
+    .shop-coins-display { order: 2; }
+    .shop-upgrade-btn { order: 3; flex: 1; }
+    .shop-search-btn { order: 4; }
+    .shop-profile-card { flex-wrap: wrap; }
+    .shop-profile-stats { margin-left: 0; }
+    .shop-header-title { font-size: 15px; }
+    .shop-header-user-info { display: none; }
+}
+
+/* =================================================================
+   21. RESPONSIVE — Très petits écrans (≤ 420px)
+   ================================================================= */
+@media (max-width: 420px) {
+    .nav-profil  { display: none; }
+    h1 { font-size: 24px; }
+    h2 { font-size: 18px; }
+    h3 { font-size: 15px; }
+    .orv-menu_header { font-size: 15px; letter-spacing: 0.03em; padding: 0 16px; text-align: center; }
+
+    /* Shop très petit écran */
+    .shop-catalog-grid { grid-template-columns: 1fr; }
+    .shop-footer-bar { border-radius: 0; }
+}
