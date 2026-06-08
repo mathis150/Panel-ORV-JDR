@@ -1,5 +1,5 @@
 <?php
-    require_once("./import/base.php");
+    require_once "./import/base.php";
 
     $bases = new WebPageBases();
 
@@ -55,7 +55,7 @@
                     <div class="left-menu_page_text">Gestion du baluchon du Dokkaebi</div>
                     <div class="left-menu_page_text" style="font-size: 24px;"><i class="fa-solid fa-bag-shopping"></i></div>
                 </a>
-                <a href="jdr-params?page=generals&sub-page=list" class="left-menu_page <?php if($currentPage == 'generals') echo 'left-menu_actif'; ?>">
+<a href="jdr-params?page=generals&sub-page=list" class="left-menu_page <?php if($currentPage == 'generals') echo 'left-menu_actif'; ?>">
                     <div class="left-menu_page_text">Paramètres généraux</div>
                     <div class="left-menu_page_text" style="font-size: 24px;"><i class="fa-solid fa-gear"></i></div>
                 </a>
@@ -64,7 +64,7 @@
                 <div class="menu-right-container">
                     <?php
                         try {
-                            require_once("./sub-pages/".$currentPage.".".$currentSubPage.".php");
+                            require_once "./sub-pages/".$currentPage.".".$currentSubPage.".php";
                         } catch(error) {
                             echo "<h3 style='color: #FFF'>Page introuvable.</h3>";
                         }

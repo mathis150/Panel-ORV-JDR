@@ -6,7 +6,8 @@
             "files" => "Vos fiches",
             "sessions" => "Gestion des sessions",
             "fights" => "Combats",
-            "jdr-params" => "Paramètres"
+            "jdr-params" => "Paramètres",
+            "profile" => "Mon profil"
         );
         private $pagesList = array(
             0 => array(
@@ -86,7 +87,7 @@
                     ?>
                 </section>
                 <section class="navigation_info">
-                    <a href="#" class="nav-profil">
+                    <a href="./profile" class="nav-profil">
                         <img src="./img/generic/LogoOrv.png" width="50px">
                         <div class="nav-profil_text">Administrateur</div>
                     </a>
