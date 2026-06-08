@@ -46,6 +46,7 @@
             <html lang="fr">
                 <head>
                     <meta charset="utf-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
                     <title><?php echo $page; ?> - ORV JDR</title>
                     <link rel="preconnect" href="https://fonts.googleapis.com">
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,6 +57,7 @@
 
                     <script src="https://kit.fontawesome.com/7f499188c8.js" crossorigin="anonymous"></script>
                     <script src="./js/multi-selecter.js"></script>
+                    <script src="./js/app.js" defer></script>
                 </head>
             <?php
         }
@@ -64,13 +66,16 @@
             $page = $this->getPage();
             ?>
             <nav>
-                <section  class="navigation_info">
-                    <a class="nav-button" href="./"><img src="./img/generic/LogoOrv.png" width="60px"></a>
+                <section class="navigation_info">
+                    <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+                        <span></span><span></span><span></span>
+                    </button>
+                    <a class="nav-button" href="./"><img class="nav-logo" src="./img/generic/LogoOrv.png" width="56px"></a>
                     <a class="nav-button nav-title" href="./">Panneau de gestion<br>du JDR ORV</a>
                 </section>
                 <section class="navigation_container">
                     <?php
-                        foreach($this->pagesList as $key => $values)
+                        foreach($this->pagesList as $values)
                         {
                             echo '<a class="nav-button ';
                             if($values["active"] == $page) {
@@ -81,9 +86,13 @@
                     ?>
                 </section>
                 <section class="navigation_info">
-                    <a href="#" class="nav-profil"><img src="./img/generic/LogoOrv.png" width="60px"> <div class="nav-profil_text">Administrateur</div></a>
+                    <a href="#" class="nav-profil">
+                        <img src="./img/generic/LogoOrv.png" width="50px">
+                        <div class="nav-profil_text">Administrateur</div>
+                    </a>
                 </section>
             </nav>
+            <div class="sidebar-overlay" id="sidebar-overlay"></div>
             <?php
         }
 
