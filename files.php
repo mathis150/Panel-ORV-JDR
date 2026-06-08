@@ -61,13 +61,13 @@
                 </div>
                 <div class="menu-right-container">
                     <div class="orv-buttons">
-                        <button class="orv-edit"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button class="button-actif">Votre fiche de personnage</button>
-                        <button>Inventaire du personnage</button>
-                        <button>Gestion du personnage</button>
-                        <button>Baluchon du Dokkaebi</button>
+                        <button class="orv-edit" data-target="edit-perso"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="button-actif" data-target="info-perso">Votre fiche de personnage</button>
+                        <button data-target="inv-perso">Inventaire du personnage</button>
+                        <button data-target="gest-perso">Gestion du personnage</button>
+                        <button data-target="baluch-dokka">Baluchon du Dokkaebi</button>
                     </div>
-                    <div class="orv-menu hidden" id="info-perso">
+                    <div class="orv-menu" id="info-perso">
                         <div class="orv-menu_header">&lt;Information du personnage&gt;</div>
                         <div class="orv-menu_double-grid">
                             <div class="orv-menu_stats-general">
@@ -331,12 +331,191 @@
                         </div>
                     </div>
                     <div class="orv-menu hidden" id="baluch-dokka">
-                        <div class="orv-menu_header">&lt;Baluchon des Dokkaebi&gt;</div>
-                        <div class="orv-menu_container">
-                            <center>Pas disponible.</center>
+
+                        <!-- Sidebar latérale (slide-in) -->
+                        <div class="shop-sidebar" id="shop-sidebar">
+                            <div class="shop-nav-label">Navigation</div>
+                            <nav class="shop-nav">
+                                <a href="#" class="shop-nav-item shop-nav-active">
+                                    <i class="fa-solid fa-house"></i> Accueil
+                                </a>
+                                <a href="#" class="shop-nav-item">
+                                    <i class="fa-solid fa-magnifying-glass"></i> Rechercher un item
+                                </a>
+                                <a href="#" class="shop-nav-item">
+                                    <i class="fa-solid fa-comments"></i> Chat des constellations
+                                </a>
+                                <a href="#" class="shop-nav-item">
+                                    <i class="fa-solid fa-tv"></i> Dokkaebi TV
+                                </a>
+                                <a href="#" class="shop-nav-item">
+                                    <i class="fa-solid fa-bag-shopping"></i> Mes achats
+                                </a>
+                                <a href="#" class="shop-nav-item">
+                                    <i class="fa-solid fa-star"></i> Favoris
+                                </a>
+                            </nav>
                         </div>
+                        <div class="shop-sidebar-overlay" id="shop-sidebar-overlay"></div>
+
+                        <!-- En-tête interne de la boutique -->
+                        <div class="shop-header">
+                            <button class="shop-hamburger" id="shop-hamburger" aria-label="Menu boutique">
+                                <span></span><span></span><span></span>
+                            </button>
+                            <div class="shop-header-title">Baluchon des Dokkaebi</div>
+                            <div class="shop-header-user">
+                                <div class="shop-header-user-info">
+                                    <div class="shop-header-user-name">Grégoire Carte</div>
+                                    <div class="shop-header-user-rank">Rang Iron</div>
+                                </div>
+                                <div class="shop-header-avatar">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contenu scrollable -->
+                        <div class="shop-layout">
+
+                            <!-- Carte profil utilisateur -->
+                            <div class="shop-profile-card">
+                                <div class="shop-profile-avatar">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div class="shop-profile-info">
+                                    <div class="shop-profile-name">Grégoire Carte</div>
+                                    <div class="shop-profile-rank">Rang Iron</div>
+                                </div>
+                                <div class="shop-profile-stats">
+                                    <div class="shop-profile-stat">
+                                        <span class="shop-stat-value">2 500</span>
+                                        <span class="shop-stat-label">Coins</span>
+                                    </div>
+                                    <div class="shop-profile-stat">
+                                        <span class="shop-stat-value">Iron</span>
+                                        <span class="shop-stat-label">Rang</span>
+                                    </div>
+                                    <button class="shop-profile-cart-btn">
+                                        <i class="fa-solid fa-bag-shopping"></i> Voir le panier
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Objets en vedette -->
+                            <div>
+                                <div class="shop-section-title">Objets en vedette</div>
+                                <div class="shop-featured-grid">
+                                    <div class="shop-featured-card">
+                                        <div class="shop-card-category">Équipement</div>
+                                        <div class="shop-card-name">Épée du Vide Céleste</div>
+                                        <div class="shop-card-attr-label">Force :</div>
+                                        <div class="shop-card-attr-value">Augmente les dégâts physiques</div>
+                                        <button class="shop-card-price">2 500 C</button>
+                                    </div>
+                                    <div class="shop-featured-card">
+                                        <div class="shop-card-category">Armure</div>
+                                        <div class="shop-card-name">Manteau de la Nuit</div>
+                                        <div class="shop-card-attr-label">Défense :</div>
+                                        <div class="shop-card-attr-value">Résistance aux dégâts magiques</div>
+                                        <button class="shop-card-price">2 500 C</button>
+                                    </div>
+                                    <div class="shop-featured-card">
+                                        <div class="shop-card-category">Consommable</div>
+                                        <div class="shop-card-name">Potion de Régénération</div>
+                                        <div class="shop-card-attr-label">Soin :</div>
+                                        <div class="shop-card-attr-value">Usage unique en combat</div>
+                                        <button class="shop-card-price">2 500 C</button>
+                                    </div>
+                                    <div class="shop-featured-card">
+                                        <div class="shop-card-category">Accessoire</div>
+                                        <div class="shop-card-name">Anneau de Mana Pur</div>
+                                        <div class="shop-card-attr-label">Mana :</div>
+                                        <div class="shop-card-attr-value">Régénération de mana passive</div>
+                                        <button class="shop-card-price">2 500 C</button>
+                                    </div>
+                                    <div class="shop-featured-card">
+                                        <div class="shop-card-category">Compétence</div>
+                                        <div class="shop-card-name">Parchemin de Maîtrise</div>
+                                        <div class="shop-card-attr-label">Expérience :</div>
+                                        <div class="shop-card-attr-value">Boost d'une compétence au choix</div>
+                                        <button class="shop-card-price">2 500 C</button>
+                                    </div>
+                                    <div class="shop-featured-card">
+                                        <div class="shop-card-category">Spécial</div>
+                                        <div class="shop-card-name">Fragment de Constellation</div>
+                                        <div class="shop-card-attr-label">Probabilité rare :</div>
+                                        <div class="shop-card-attr-value">Débloque une aptitude cachée</div>
+                                        <button class="shop-card-price">2 500 C</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Catalogue général -->
+                            <div>
+                                <div class="shop-section-title">Catalogue général</div>
+                                <div class="shop-catalog-layout">
+                                    <div class="shop-catalog-grid">
+                                        <div class="shop-catalog-card">
+                                            <div class="shop-catalog-card-subtitle">Consommable</div>
+                                            <div class="shop-catalog-card-name">Élixir de Force</div>
+                                            <div class="shop-catalog-card-price">2 500 C</div>
+                                        </div>
+                                        <div class="shop-catalog-card">
+                                            <div class="shop-catalog-card-subtitle">Consommable</div>
+                                            <div class="shop-catalog-card-name">Eau Sacrée</div>
+                                            <div class="shop-catalog-card-price">2 500 C</div>
+                                        </div>
+                                        <div class="shop-catalog-card">
+                                            <div class="shop-catalog-card-subtitle">Matériaux</div>
+                                            <div class="shop-catalog-card-name">Pierre de Mana</div>
+                                            <div class="shop-catalog-card-price">2 500 C</div>
+                                        </div>
+                                        <div class="shop-catalog-card">
+                                            <div class="shop-catalog-card-subtitle">Matériaux</div>
+                                            <div class="shop-catalog-card-name">Acier des Abysses</div>
+                                            <div class="shop-catalog-card-price">2 500 C</div>
+                                        </div>
+                                        <div class="shop-catalog-card">
+                                            <div class="shop-catalog-card-subtitle">Consommable</div>
+                                            <div class="shop-catalog-card-name">Potion d'Agilité</div>
+                                            <div class="shop-catalog-card-price">2 500 C</div>
+                                        </div>
+                                        <div class="shop-catalog-card">
+                                            <div class="shop-catalog-card-subtitle">Parchemin</div>
+                                            <div class="shop-catalog-card-name">Sceau d'Identification</div>
+                                            <div class="shop-catalog-card-price">2 500 C</div>
+                                        </div>
+                                        <div class="shop-catalog-card">
+                                            <div class="shop-catalog-card-subtitle">Objet clé</div>
+                                            <div class="shop-catalog-card-name">Clé du Donjon</div>
+                                            <div class="shop-catalog-card-price">2 500 C</div>
+                                        </div>
+                                        <div class="shop-catalog-card">
+                                            <div class="shop-catalog-card-subtitle">Objet clé</div>
+                                            <div class="shop-catalog-card-name">Sceau du Dokkaebi</div>
+                                            <div class="shop-catalog-card-price">2 500 C</div>
+                                        </div>
+                                    </div>
+                                    <div class="shop-catalog-actions">
+                                        <button class="shop-action-btn">Panier</button>
+                                        <button class="shop-action-btn">Plus</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Barre basse de la boutique -->
+                        <div class="shop-footer-bar">
+                            <div class="shop-coins-display">COINS : 100 000 000 000 C</div>
+                            <button class="shop-upgrade-btn">UPGRADE TO GOLD — 1 000 000 C</button>
+                            <input class="shop-search-input" type="text" placeholder="Rechercher un item...">
+                            <button class="shop-search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+
                     </div>
-                    <div class="orv-menu" id="edit-perso">
+                    <div class="orv-menu hidden" id="edit-perso">
                         <div class="orv-menu_header">&lt;Fenêtre d'édition du personnage&gt;</div>
                         <div class="orv-menu_container">
                             <div class="orv-menu_form">

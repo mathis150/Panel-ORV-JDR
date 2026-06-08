@@ -1,6 +1,7 @@
 <html lang="fr">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Connexion - ORV JDR</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -9,10 +10,10 @@
         <link href="./css/style.css" rel="stylesheet">
     </head>
     <body>
-        <nav>
-            <section  class="navigation_info"></section>
+        <nav style="grid-template-columns: 1fr auto 1fr;">
+            <section class="navigation_info"></section>
             <section class="navigation_container">
-                <a class="nav-button" href="./"><img src="./img/generic/LogoOrv.png" width="60px"></a>
+                <a class="nav-button" href="./"><img class="nav-logo" src="./img/generic/LogoOrv.png" width="56px"></a>
                 <a class="nav-button nav-title" href="./">Panneau de gestion du JDR ORV</a>
             </section>
             <section class="navigation_info"></section>
@@ -22,15 +23,15 @@
                 <div class="cards-header"><h2>Veuillez vous connecter.</h2></div>
                 <div class="cards-body container-center flex-dir-column-down">
                     <div class="login_field">
-                        <label class="important-black login_label">Identifiant (Pseudo ou E-Mail) :</label>
+                        <label class="important-white login_label">Identifiant (Pseudo ou E-Mail) :</label>
                         <input type="text" name="identifiant" placeholder="Pseudonyme OU e-mail@example.xyz">
                     </div>
                     <div class="login_field">
-                        <label class="important-black login_label">Mot de passe :</label>
+                        <label class="important-white login_label">Mot de passe :</label>
                         <input type="text" name="identifiant" placeholder="Votre mot de passe">
                     </div>
                     <div class="login_help">
-                        <div><label class="important-black checkbox">Se souvenir de moi
+                        <div><label class="important-white checkbox">Se souvenir de moi
                                 <input type="checkbox" name="remember">
                                 <span class="checkmark"></span>
                             </label>
