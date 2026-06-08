@@ -1,3 +1,4 @@
 /img/uploaded/*
 env.php
 .env
+logs/mail.log

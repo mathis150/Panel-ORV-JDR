@@ -77,18 +77,13 @@
                                 <b>Métier :</b> XXX<br>
                                 <b>Constellation sponsor :</b> XXXXXXXXX<br>
                                 <br>
-                                <b>Charactéristique spécial :</b> XXXXX (XXX)<br>
+                                <b>Psyché :</b><br>
+                                Lorem ipsum dolor sit amet.<br>
                                 <b>Vertu :</b> XXXXX<br>
                                 <b>Vice :</b> XXXXX<br>
                                 <br>
                                 <b>Apparence :</b><br>
                                 Lorem ipsum dolor sit amet.<br>
-                                <br>
-                                <b>Psyché :</b><br>
-                                Lorem ipsum dolor sit amet.<br>
-                                <br>
-                                <b>Vertu :</b> XXXXX<br>
-                                <b>Vice :</b> XXXXX<br>
                                 <br>
                                 <b>Histoire :</b><br>
                                 Lorem ipsum dolor sit amet.<br>
@@ -122,7 +117,7 @@
                                 </div>
 
                                 <div class="orv-menu_stats_list">
-                                    <div class="orv-menu_stats_header">Attribut personnels :</div>
+                                    <div class="orv-menu_stats_header">Compétences spécial :</div>
                                     <div class="orv-menu_stats_list_buttons">
                                         <div class="orv-menu_stats_info">[Compétence, Lv X]</div>
                                         <div class="orv-menu_stats_info">[Compétence, Lv X]</div>
@@ -132,7 +127,7 @@
                                 </div>
 
                                 <div class="orv-menu_stats_list">
-                                    <div class="orv-menu_stats_header">Attribut personnels :</div>
+                                    <div class="orv-menu_stats_header">Stigmates :</div>
                                     <div class="orv-menu_stats_list_buttons">
                                         <div class="orv-menu_stats_info">[Compétence, Lv X]</div>
                                         <div class="orv-menu_stats_info">[Compétence, Lv X]</div>
