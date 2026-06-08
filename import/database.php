@@ -1,5 +1,7 @@
 <?php
 
+    require_once __DIR__ . '/environnement.php';
+
     DEFINE("ORV_SQL_NOTHING", 0);
     DEFINE("ORV_SQL_FETCH_ONE", 1);
     DEFINE("ORV_SQL_FETCH_ALL", 2);
@@ -12,15 +14,28 @@
         public $hash;
 
         public function __construct() {
-            $this->hash = $this->ENV_ENCRYPT;
-            
-            try {
-                $this->connect = new PDO('mysql:host='.$this->ENV_DB_HOST.';dbname='.$this->ENV_DB_DATABASE, $this->ENV_DB_USER, $this->ENV_DB_PASSWORD);
-                $this->connect->exec('SET NAMES utf8');
+            parent::__construct();
 
-                $this->initializedDatabase();
+            $this->hash = $this->ENV_ENCRYPT;
+
+            try {
+                $dsn = 'mysql:host=' . $this->ENV_DB_HOST
+                     . ';port='   . $this->ENV_DB_PORT
+                     . ';dbname=' . $this->ENV_DB_DATABASE
+                     . ';charset=utf8mb4';
+
+                $this->connect = new PDO($dsn, $this->ENV_DB_USER, $this->ENV_DB_PASSWORD, [
+                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                ]);
+
+                $this->runMigrations();
             } catch (PDOException $e) {
-                echo "Une erreur est survenue... " . $e->getMessage() . "<br>" ;
+                $message = $this->isDevMode()
+                    ? $e->getMessage()
+                    : 'Impossible de se connecter à la base de données.';
+
+                echo "Une erreur est survenue... " . $message . "<br>";
                 die();
             }
         }
@@ -33,46 +48,66 @@
             $request = $this->connect->prepare($SQLRequest);
             $request->execute($values);
 
-            if($type = ORV_SQL_NOTHING) {
+            if ($type === ORV_SQL_NOTHING) {
                 return ($request->rowCount() > 0) ? true : false;
-            } elseif($type = ORV_SQL_FETCH_ONE) {
+            } elseif ($type === ORV_SQL_FETCH_ONE) {
                 return $request->fetch(PDO::FETCH_ASSOC);
-            } elseif($type = ORV_SQL_FETCH_ALL) {
+            } elseif ($type === ORV_SQL_FETCH_ALL) {
                 $table = array();
-
-                while($r = $request->fetch(PDO::FETCH_ASSOC)) {
+                while ($r = $request->fetch(PDO::FETCH_ASSOC)) {
                     $table[(isset($r['uuid'])) ? $r['uuid'] : $r['id']] = $r;
                 }
-
                 return $table;
-            } elseif($type = ORV_SQL_COUNT) {
+            } elseif ($type === ORV_SQL_COUNT) {
                 return $request->rowCount();
-            } elseif($type = ORV_SQL_REQUEST) {
+            } elseif ($type === ORV_SQL_REQUEST) {
                 return $request;
             }
         }
 
-        private function initializedDatabase() {
-            $this->makeSQLRequest("
-            --
-            -- Structure de la table `users`
-            --
+        // ─── Système de migrations ────────────────────────────────────────────────
 
-            CREATE TABLE IF NOT EXISTS `users` (
-            `uuid` varchar(64) COLLATE utf8mb3_bin NOT NULL,
-            `pseudonyme` varchar(64) COLLATE utf8mb3_bin NOT NULL,
-            `email` varchar(256) COLLATE utf8mb3_bin NOT NULL,
-            `password` text COLLATE utf8mb3_bin NOT NULL,
-            `admin` tinyint(1) NOT NULL DEFAULT '0',
-            `last_activity` int DEFAULT NULL,
-            `registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY (`uuid`)
-            ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
-            COMMIT;
+        private function runMigrations(): void {
+            // Table de suivi des migrations
+            $this->connect->exec("
+                CREATE TABLE IF NOT EXISTS `schema_migrations` (
+                    `version`     varchar(10)  COLLATE utf8mb3_bin NOT NULL,
+                    `description` varchar(255) COLLATE utf8mb3_bin NOT NULL DEFAULT '',
+                    `executed_at` timestamp    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                    PRIMARY KEY (`version`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin;
             ");
+
+            // Versions déjà appliquées
+            $applied = $this->connect->query("SELECT version FROM schema_migrations")
+                                     ->fetchAll(PDO::FETCH_COLUMN);
+
+            // Charger et trier les fichiers de migration
+            $files = glob(__DIR__ . '/../database/migrations/*.php');
+            sort($files);
+
+            foreach ($files as $file) {
+                $migration = require $file;
+
+                if (!in_array($migration['version'], $applied, true)) {
+                    $statements = is_array($migration['up']) ? $migration['up'] : [$migration['up']];
+                    foreach ($statements as $sql) {
+                        $sql = trim($sql);
+                        if ($sql === '') continue;
+                        $stmt = $this->connect->query($sql);
+                        if ($stmt) $stmt->closeCursor();
+                    }
+
+                    $this->connect->prepare(
+                        "INSERT INTO schema_migrations (version, description) VALUES (?, ?)"
+                    )->execute([$migration['version'], $migration['description']]);
+                }
+            }
         }
-        
-        function generateCustomUUID() {
+
+        // ─── Utilitaires ─────────────────────────────────────────────────────────
+
+        public function generateCustomUUID() {
             $date = date('ymd');
             $time = date('Hi');
 
@@ -81,8 +116,7 @@
             $random3 = strtoupper(bin2hex(random_bytes(3)));
             $random4 = strtoupper(bin2hex(random_bytes(3)));
 
-            // Créer l'UUID final
-            $uuid = sprintf(
+            return sprintf(
                 "%s-%s%s-%s-%s%s",
                 substr($random1, 0, 6),
                 $date,
@@ -91,24 +125,12 @@
                 substr($random4, 0, 6),
                 $time
             );
-
-            return $uuid;
         }
 
         public function filtrerTexteSQL(string $texte): string {
             $texte = trim($texte);
 
-            $caracteres_dangereux = [
-                "'",
-                '"', 
-                ';', 
-                '\\',
-                '--',
-                '#',
-                '/*', '*/',
-                '`'
-            ];
-
+            $caracteres_dangereux = ["'", '"', ';', '\\', '--', '#', '/*', '*/', '`'];
             $texte = str_replace($caracteres_dangereux, '', $texte);
 
             $mots_interdits = [
