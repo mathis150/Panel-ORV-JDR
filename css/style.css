@@ -1541,7 +1541,6 @@ footer {
     font-size: 14px;
     line-height: 1.75;
     margin-bottom: 14px;
-    white-space: pre-line;
 }
 .profile-mj-note-header {
     font-size: 11px;
@@ -2591,6 +2590,107 @@ footer {
     .shop-catalog-grid  { grid-template-columns: repeat(3, 1fr); }
     .shop-profile-stats { gap: 14px; }
     .shop-header-title  { font-size: 17px; }
+}
+
+/* =================================================================
+   24. UTILISATEURS
+   ================================================================= */
+
+/* --- Badges de rôle --- */
+.user-role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+}
+.user-role-badge--sudo {
+    background: rgba(255, 179, 71, 0.12);
+    color: #FFB347;
+    border: 1px solid rgba(255, 179, 71, 0.30);
+}
+.user-role-badge--admin {
+    background: rgba(55, 174, 254, 0.12);
+    color: var(--c-accent-light);
+    border: 1px solid rgba(55, 174, 254, 0.28);
+}
+.user-role-badge--player {
+    background: rgba(167, 139, 250, 0.12);
+    color: #C4B5FD;
+    border: 1px solid rgba(167, 139, 250, 0.28);
+}
+
+/* --- Badges de statut --- */
+.user-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    white-space: nowrap;
+}
+.user-status-badge--active {
+    background: rgba(74, 222, 128, 0.10);
+    color: #4ADE80;
+    border: 1px solid rgba(74, 222, 128, 0.25);
+}
+.user-status-badge--inactive {
+    background: rgba(107, 114, 128, 0.10);
+    color: #6B7280;
+    border: 1px solid rgba(107, 114, 128, 0.20);
+}
+.user-status-badge--temp {
+    background: rgba(251, 191, 36, 0.10);
+    color: #FBBF24;
+    border: 1px solid rgba(251, 191, 36, 0.25);
+}
+
+/* --- Ligne inactive dans le tableau --- */
+.user-row--inactive td { opacity: 0.50; }
+
+/* --- Message de confirmation / erreur --- */
+.user-notice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    margin-bottom: 12px;
+    border-radius: var(--r-md);
+    font-size: 13px;
+    font-weight: 500;
+    background: rgba(74, 222, 128, 0.08);
+    color: #4ADE80;
+    border: 1px solid rgba(74, 222, 128, 0.22);
+}
+.user-notice--error {
+    background: rgba(255, 107, 122, 0.08);
+    color: #FF6B7A;
+    border-color: rgba(255, 107, 122, 0.25);
+}
+
+/* --- Message d'erreur login --- */
+.login-error {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    margin-bottom: 8px;
+    border-radius: var(--r-md);
+    font-size: 13px;
+    background: rgba(255, 107, 122, 0.10);
+    color: #FF6B7A;
+    border: 1px solid rgba(255, 107, 122, 0.28);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* =================================================================
