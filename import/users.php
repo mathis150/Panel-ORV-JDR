@@ -42,7 +42,7 @@
 
             $this->sendWelcomeEmail($email, $dName, $pseudo, $tempPass);
 
-            return ['success' => true, 'message' => 'Compte créé. E-mail envoyé à ' . htmlspecialchars($email) . '.'];
+            return ['success' => true, 'message' => 'Compte créé. E-mail envoyé à ' . htmlspecialchars($email) . '.', 'temp_password' => $tempPass];
         }
 
         // ── Authentification ──────────────────────────────────────────────────────
