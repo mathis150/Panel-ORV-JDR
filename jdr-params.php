@@ -63,6 +63,470 @@
         }
     }
 
+    // ── Compétences ───────────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'capacities') {
+        require_once './import/capacities.php';
+        $capm = new CapacitiesManager();
+        $uuid = $_GET['uuid'] ?? '';
+        $tab  = $_GET['tab']  ?? 'cap-info';
+        $backModify = 'jdr-params?page=capacities&sub-page=modify&uuid=' . rawurlencode($uuid) . '&tab=' . rawurlencode($tab);
+
+        switch ($currentSubPage) {
+
+            case 'create':
+                $result = $capm->createCapacity($_POST);
+                if ($result['success']) {
+                    header('Location: jdr-params?page=capacities&sub-page=modify&uuid=' . rawurlencode($result['uuid']) . '&tab=cap-info&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                $formError = $result['message'];
+                $formData  = $_POST;
+                break;
+
+            case 'modify':
+                $action = $_POST['action'] ?? 'update';
+
+                if ($action === 'update') {
+                    $result = $capm->updateCapacity($uuid, $_POST);
+                    if ($result['success']) {
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                        exit;
+                    }
+                    $formError = $result['message'];
+                    $formData  = $_POST;
+                    break;
+                }
+
+                if ($action === 'add_levelup_condition') {
+                    $valeur = isset($_POST['condition_valeur']) && $_POST['condition_valeur'] !== '' ? (int)$_POST['condition_valeur'] : null;
+                    $result = $capm->addLevelupCondition(
+                        $uuid,
+                        (int)($_POST['niveau_cible']          ?? 2),
+                        $_POST['condition_type']               ?? 'usages',
+                        $_POST['condition_description']        ?? '',
+                        $valeur
+                    );
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'delete_levelup_condition') {
+                    $capm->deleteLevelupCondition((int)($_POST['condition_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Condition supprimée.'));
+                    exit;
+                }
+
+                if ($action === 'add_effect') {
+                    $duree  = isset($_POST['effect_duree']) && $_POST['effect_duree'] !== '' ? (int)$_POST['effect_duree'] : null;
+                    $result = $capm->addEffect(
+                        $uuid,
+                        $_POST['effect_nom']         ?? '',
+                        $_POST['effect_categorie']   ?? 'stat',
+                        $_POST['effect_sous_type']   ?? 'force',
+                        $_POST['effect_valeur']      ?? '',
+                        $_POST['effect_type_duree']  ?? 'tours',
+                        $duree,
+                        $_POST['effect_description'] ?? ''
+                    );
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'delete_effect') {
+                    $capm->deleteEffect((int)($_POST['effect_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Effet supprimé.'));
+                    exit;
+                }
+                break;
+
+            case 'delete':
+                $capm->deleteCapacity($uuid);
+                header('Location: jdr-params?page=capacities&sub-page=list&notice=' . rawurlencode('Compétence supprimée.'));
+                exit;
+        }
+    }
+
+    // ── Stigmates ─────────────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'stigmata') {
+        require_once './import/stigmates.php';
+        $sm   = new StigmataManager();
+        $uuid = $_GET['uuid'] ?? '';
+        $tab  = $_GET['tab']  ?? 'stig-info';
+        $backModify = 'jdr-params?page=stigmata&sub-page=modify&uuid=' . rawurlencode($uuid) . '&tab=' . rawurlencode($tab);
+
+        switch ($currentSubPage) {
+
+            case 'create':
+                $result = $sm->createStigma($_POST);
+                if ($result['success']) {
+                    header('Location: jdr-params?page=stigmata&sub-page=modify&uuid=' . rawurlencode($result['uuid']) . '&tab=stig-info&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                $formError = $result['message'];
+                $formData  = $_POST;
+                break;
+
+            case 'modify':
+                $action = $_POST['action'] ?? 'update';
+
+                if ($action === 'update') {
+                    $result = $sm->updateStigma($uuid, $_POST);
+                    if ($result['success']) {
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                        exit;
+                    }
+                    $formError = $result['message'];
+                    $formData  = $_POST;
+                    break;
+                }
+
+                if ($action === 'add_effect') {
+                    $duree  = isset($_POST['effect_duree']) && $_POST['effect_duree'] !== '' ? (int)$_POST['effect_duree'] : null;
+                    $result = $sm->addEffect(
+                        $uuid,
+                        $_POST['effect_nom']         ?? '',
+                        $_POST['effect_categorie']   ?? 'stat',
+                        $_POST['effect_sous_type']   ?? 'force',
+                        $_POST['effect_valeur']      ?? '',
+                        $_POST['effect_type_duree']  ?? 'tours',
+                        $duree,
+                        $_POST['effect_description'] ?? ''
+                    );
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'delete_effect') {
+                    $sm->deleteEffect((int)($_POST['effect_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Effet supprimé.'));
+                    exit;
+                }
+
+                if ($action === 'add_levelup_condition') {
+                    $valeur = isset($_POST['condition_valeur']) && $_POST['condition_valeur'] !== '' ? (int)$_POST['condition_valeur'] : null;
+                    $result = $sm->addLevelupCondition(
+                        $uuid,
+                        (int)($_POST['niveau_cible']       ?? 2),
+                        $_POST['condition_type']            ?? 'usages',
+                        $_POST['condition_description']     ?? '',
+                        $valeur
+                    );
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'delete_levelup_condition') {
+                    $sm->deleteLevelupCondition((int)($_POST['condition_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Condition supprimée.'));
+                    exit;
+                }
+
+                break;
+
+            case 'delete':
+                $sm->deleteStigma($uuid);
+                header('Location: jdr-params?page=stigmata&sub-page=list&notice=' . rawurlencode('Stigmate supprimé.'));
+                exit;
+        }
+    }
+
+    // ── Histoires ─────────────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'histories') {
+        require_once './import/histories.php';
+        $hm   = new HistoriesManager();
+        $uuid = $_GET['uuid'] ?? '';
+        $tab  = $_GET['tab']  ?? 'hist-info';
+        $backModify = 'jdr-params?page=histories&sub-page=modify&uuid=' . rawurlencode($uuid) . '&tab=' . rawurlencode($tab);
+
+        switch ($currentSubPage) {
+
+            case 'create':
+                $result = $hm->createHistory($_POST);
+                if ($result['success']) {
+                    header('Location: jdr-params?page=histories&sub-page=modify&uuid=' . rawurlencode($result['uuid']) . '&tab=hist-info&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                $formError = $result['message'];
+                $formData  = $_POST;
+                break;
+
+            case 'modify':
+                $action = $_POST['action'] ?? 'update';
+
+                if ($action === 'update') {
+                    $result = $hm->updateHistory($uuid, $_POST);
+                    if ($result['success']) {
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                        exit;
+                    }
+                    $formError = $result['message'];
+                    $formData  = $_POST;
+                    break;
+                }
+
+                if ($action === 'add_level_stat') {
+                    $result = $hm->addLevelStat(
+                        $uuid,
+                        (int)($_POST['niveau']      ?? 1),
+                        $_POST['stat_type']          ?? 'force',
+                        (int)($_POST['stat_valeur']  ?? 0)
+                    );
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'remove_level_stat') {
+                    $hm->removeLevelStat((int)($_POST['stat_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Statistique supprimée.'));
+                    exit;
+                }
+
+                if ($action === 'add_level_stigma') {
+                    $stigmaUuid = $_POST['stigma_uuid'] ?? '';
+                    if (empty($stigmaUuid)) {
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode('Aucun stigmate sélectionné.'));
+                        exit;
+                    }
+                    $result = $hm->addLevelStigma($uuid, (int)($_POST['niveau'] ?? 1), $stigmaUuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'remove_level_stigma') {
+                    $hm->removeLevelStigma((int)($_POST['relation_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Stigmate retiré.'));
+                    exit;
+                }
+                break;
+
+            case 'delete':
+                $hm->deleteHistory($uuid);
+                header('Location: jdr-params?page=histories&sub-page=list&notice=' . rawurlencode('Histoire supprimée.'));
+                exit;
+        }
+    }
+
+    // ── Attributs ─────────────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'attributes') {
+        require_once './import/attributs.php';
+        $am   = new AttributesManager();
+        $uuid = $_GET['uuid'] ?? '';
+        $tab  = $_GET['tab']  ?? 'attr-info';
+        $backModify = 'jdr-params?page=attributes&sub-page=modify&uuid=' . rawurlencode($uuid) . '&tab=' . rawurlencode($tab);
+
+        switch ($currentSubPage) {
+
+            case 'create':
+                $result = $am->createAttribute($_POST);
+                if ($result['success']) {
+                    header('Location: jdr-params?page=attributes&sub-page=modify&uuid=' . rawurlencode($result['uuid']) . '&tab=attr-info&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                $formError = $result['message'];
+                $formData  = $_POST;
+                break;
+
+            case 'modify':
+                $action = $_POST['action'] ?? 'update';
+
+                if ($action === 'update') {
+                    $result = $am->updateAttribute($uuid, $_POST);
+                    if ($result['success']) {
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                        exit;
+                    }
+                    $formError = $result['message'];
+                    $formData  = $_POST;
+                    break;
+                }
+
+                if ($action === 'add_effect') {
+                    $duree  = isset($_POST['effect_duree']) && $_POST['effect_duree'] !== '' ? (int)$_POST['effect_duree'] : null;
+                    $result = $am->addEffect(
+                        $uuid,
+                        $_POST['effect_nom']         ?? '',
+                        $_POST['effect_categorie']   ?? 'stat',
+                        $_POST['effect_sous_type']   ?? 'force',
+                        $_POST['effect_valeur']      ?? '',
+                        $_POST['effect_type_duree']  ?? 'passif',
+                        $duree,
+                        $_POST['effect_description'] ?? ''
+                    );
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'delete_effect') {
+                    $am->deleteEffect((int)($_POST['effect_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Effet supprimé.'));
+                    exit;
+                }
+                break;
+
+            case 'delete':
+                $am->deleteAttribute($uuid);
+                header('Location: jdr-params?page=attributes&sub-page=list&notice=' . rawurlencode('Attribut supprimé.'));
+                exit;
+        }
+    }
+
+    // ── Constellations ────────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'constellations') {
+        require_once './import/constellations.php';
+        $cm   = new ConstellationsManager();
+        $uuid = $_GET['uuid'] ?? '';
+        $tab  = $_GET['tab']  ?? 'cc-identity';
+        $backModify = 'jdr-params?page=constellations&sub-page=modify&uuid=' . rawurlencode($uuid) . '&tab=' . rawurlencode($tab);
+
+        switch ($currentSubPage) {
+
+            case 'create':
+                $result = $cm->createConstellation($_POST);
+                if ($result['success']) {
+                    header('Location: jdr-params?page=constellations&sub-page=modify&uuid=' . rawurlencode($result['uuid']) . '&tab=cc-identity&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                $formError = $result['message'];
+                $formData  = $_POST;
+                break;
+
+            case 'modify':
+                $action = $_POST['action'] ?? 'update';
+
+                if ($action === 'update') {
+                    $result = $cm->updateConstellation($uuid, $_POST);
+                    if ($result['success']) {
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                        exit;
+                    }
+                    $formError = $result['message'];
+                    $formData  = $_POST;
+                    break;
+                }
+
+                if ($action === 'add_title') {
+                    $result = $cm->addTitle($uuid, $_POST['title'] ?? '');
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'set_displayed_title') {
+                    $cm->setDisplayedTitle($uuid, (int)($_POST['title_id'] ?? 0));
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Titre affiché mis à jour.'));
+                    exit;
+                }
+                if ($action === 'delete_title') {
+                    $cm->deleteTitle((int)($_POST['title_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Titre supprimé.'));
+                    exit;
+                }
+
+                if ($action === 'add_attribute') {
+                    $result = $cm->addAttribute($uuid, $_POST['entity_uuid'] ?? '');
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'toggle_attribute_lock') {
+                    $cm->toggleAttributeLock((int)($_POST['relation_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify);
+                    exit;
+                }
+                if ($action === 'remove_attribute') {
+                    $cm->removeAttribute((int)($_POST['relation_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Attribut retiré.'));
+                    exit;
+                }
+
+                if ($action === 'add_skill') {
+                    $result = $cm->addSkill($uuid, $_POST['entity_uuid'] ?? '');
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'toggle_skill_lock') {
+                    $cm->toggleSkillLock((int)($_POST['relation_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify);
+                    exit;
+                }
+                if ($action === 'remove_skill') {
+                    $cm->removeSkill((int)($_POST['relation_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Compétence retirée.'));
+                    exit;
+                }
+
+                if ($action === 'add_stigma') {
+                    $result = $cm->addStigma($uuid, $_POST['entity_uuid'] ?? '');
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'toggle_stigma_lock') {
+                    $cm->toggleStigmaLock((int)($_POST['relation_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify);
+                    exit;
+                }
+                if ($action === 'remove_stigma') {
+                    $cm->removeStigma((int)($_POST['relation_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Stigmate retiré.'));
+                    exit;
+                }
+                break;
+
+            case 'delete':
+                $cm->deleteConstellation($uuid);
+                header('Location: jdr-params?page=constellations&sub-page=list&notice=' . rawurlencode('Constellation supprimée.'));
+                exit;
+        }
+    }
+
+    // ── Monstres ──────────────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'monsters') {
+        require_once './import/monsters.php';
+        $mm   = new MonstersManager();
+        $uuid = $_GET['uuid'] ?? '';
+        $tab  = $_GET['tab']  ?? 'mm-identity';
+        $backModify = 'jdr-params?page=monsters&sub-page=modify&uuid=' . rawurlencode($uuid) . '&tab=' . rawurlencode($tab);
+
+        switch ($currentSubPage) {
+
+            case 'create':
+                $result = $mm->createMonster($_POST);
+                if ($result['success']) {
+                    header('Location: jdr-params?page=monsters&sub-page=modify&uuid=' . rawurlencode($result['uuid']) . '&tab=mm-identity&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                $formError = $result['message'];
+                $formData  = $_POST;
+                break;
+
+            case 'modify':
+                $action = $_POST['action'] ?? 'update';
+
+                if ($action === 'update') {
+                    $result = $mm->updateMonster($uuid, $_POST);
+                    if ($result['success']) {
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                        exit;
+                    }
+                    $formError = $result['message'];
+                    $formData  = $_POST;
+                    break;
+                }
+
+                if ($action === 'add_equipped') {
+                    $result = $mm->addEquipped($uuid, $_POST['item_uuid'] ?? '', $_POST['slot'] ?? '', (int)($_POST['quantity'] ?? 1));
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'update_equipped_qty') {
+                    $mm->updateEquippedQuantity((int)($_POST['relation_id'] ?? 0), $uuid, (int)($_POST['quantity'] ?? 1));
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Quantité mise à jour.'));
+                    exit;
+                }
+                if ($action === 'remove_equipped') {
+                    $mm->removeEquipped((int)($_POST['relation_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Élément déséquipé.'));
+                    exit;
+                }
+                break;
+
+            case 'delete':
+                $mm->deleteMonster($uuid);
+                header('Location: jdr-params?page=monsters&sub-page=list&notice=' . rawurlencode('Monstre supprimé.'));
+                exit;
+        }
+    }
+
     // ── Personnages ───────────────────────────────────────────────────────────
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'characters') {
         require_once './import/characters.php';
