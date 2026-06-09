@@ -1,18 +1,56 @@
-<div class="orv-buttons" style="justify-content: flex-end;">
-    <button class="orv-edit"><i class="fa-solid fa-trash"></i> <span style="font-size: 18px;">Confirmer</span></button>
-    <button class="orv-edit"><i class="fa-solid fa-xmark"></i> <span style="font-size: 18px;">Annuler</span></button>
-</div>
-<div class="orv-menu" id="gest-perso">
-    <div class="orv-menu_header">&lt;Suppression d'un personnage&gt;</div>
-    <div class="orv-menu_container">
-        <div class="orv-menu_form">
-            <div>
-                <h2 class="classic-title">Attention :</h2>
-                <br>
-                <h4 class="classic-title">Vous vous apprétez à supprimer un personnage !</h4>
-                <br>
-                <cite style="font-size: 16px;">Cette action est irréversible et tout les éléments propre au personnage (Inventaire, niveaux, etc.) seront PERDU à jamais !<br>Vous ne pourrez pas les récupérer ou les sauver !</cite>
+<?php
+    require_once './import/capacities.php';
+    $cm   = new CapacitiesManager();
+    $uuid = $_GET['uuid'] ?? '';
+    $cap  = $cm->getCapacityByUUID($uuid);
+
+    if (!$cap) {
+        echo '<div class="user-notice user-notice--error">Compétence introuvable.</div>';
+        return;
+    }
+?>
+
+<form method="POST" action="jdr-params?page=capacities&sub-page=delete&uuid=<?php echo urlencode($uuid); ?>">
+    <div class="orv-buttons" style="justify-content:flex-end;">
+        <button type="submit" class="orv-edit" style="background:linear-gradient(135deg,#8B2020,#C0392B);">
+            <i class="fa-solid fa-trash"></i>
+            <span style="font-size:18px;">Confirmer la suppression</span>
+        </button>
+        <button type="button" class="orv-edit" onclick="window.location.href='jdr-params?page=capacities&sub-page=list';">
+            <i class="fa-solid fa-xmark"></i>
+            <span style="font-size:18px;">Annuler</span>
+        </button>
+    </div>
+
+    <div class="orv-menu">
+        <div class="orv-menu_header">&lt;Suppression d'une compétence&gt;</div>
+        <div class="orv-menu_container">
+            <div class="orv-menu_form">
+                <div>
+                    <h2 class="classic-title">Attention :</h2>
+                    <br>
+                    <div class="user-notice user-notice--error" style="margin-bottom:20px;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Cette action est <strong>irréversible</strong>. La compétence, ses actions de combat et toutes ses conditions de level-up seront définitivement supprimées.
+                    </div>
+                    <table style="width:auto; margin-top:8px;">
+                        <tbody>
+                            <tr>
+                                <td style="padding:6px 16px 6px 0; color:rgba(137,206,255,0.5); font-size:12px;">Nom</td>
+                                <td style="font-weight:700;"><?php echo htmlspecialchars($cap['nom']); ?></td>
+                            </tr>
+                            <tr>
+                                <td style="padding:6px 16px 6px 0; color:rgba(137,206,255,0.5); font-size:12px;">Rang</td>
+                                <td>Rang <?php echo htmlspecialchars($cap['rang']); ?></td>
+                            </tr>
+                            <tr>
+                                <td style="padding:6px 16px 6px 0; color:rgba(137,206,255,0.5); font-size:12px;">Créée le</td>
+                                <td><?php echo date('d/m/Y à H:i', strtotime($cap['created_at'])); ?></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>

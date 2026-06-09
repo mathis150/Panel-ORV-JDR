@@ -1,48 +1,86 @@
+<?php
+    require_once './import/capacities.php';
+    $cm         = new CapacitiesManager();
+    $capacities = $cm->getCapacities();
 
-<div class="orv-buttons" style="justify-content: flex-end;">
-    <button class="orv-edit" onclick="window.location.href='jdr-params?page=capacities&sub-page=create';"><i class="fa-solid fa-plus"></i> <span style="font-size: 18px;">Créer une capacité</span></button>
+    $rangColors = [
+        'E'   => '#7F8C8D', 'D' => '#27AE60', 'C'  => '#2980B9',
+        'B'   => '#8E44AD', 'A' => '#E67E22', 'S'  => '#E74C3C',
+        'SS'  => '#C0392B', 'SSS' => '#FFD700',
+    ];
+?>
+
+<?php if ($notice ?? ''): ?>
+<div class="user-notice" style="margin-bottom:12px;">
+    <i class="fa-solid fa-circle-check"></i> <?php echo $notice; ?>
 </div>
-<div class="orv-menu" id="edit-perso">
-    <div class="orv-menu_header">&lt;Liste des Capacités&gt;</div>
-    <div class="orv-menu_container" style="padding: 0;">
+<?php endif; ?>
+
+<div class="orv-buttons" style="justify-content:flex-end;">
+    <button class="orv-edit" onclick="window.location.href='jdr-params?page=capacities&sub-page=create';">
+        <i class="fa-solid fa-plus"></i>
+        <span style="font-size:18px;">Créer une compétence</span>
+    </button>
+</div>
+
+<div class="orv-menu">
+    <div class="orv-menu_header">&lt;Liste des Compétences&gt;</div>
+    <div class="orv-menu_container" style="padding:0;">
+        <?php if (empty($capacities)): ?>
+        <div style="padding:40px; text-align:center; color:rgba(137,206,255,0.4); font-size:13px;">
+            <i class="fa-solid fa-bolt" style="font-size:24px; display:block; margin-bottom:10px;"></i>
+            Aucune compétence enregistrée pour l'instant.
+        </div>
+        <?php else: ?>
         <table>
             <thead>
                 <tr>
                     <td>Nom</td>
-                    <td>Stats</td>
-                    <td>Description</td>
+                    <td style="text-align:center;">Rang</td>
+                    <td>Histoire liée</td>
+                    <td>Statut</td>
                     <td width="80px">Actions</td>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>eeeeee</td>
-                    <td>eeeee</td>
-                    <td>ee</td>
+                <?php foreach ($capacities as $cap): ?>
+                <tr class="<?php echo $cap['is_active'] ? '' : 'user-row--inactive'; ?>">
+                    <td><strong><?php echo htmlspecialchars($cap['nom']); ?></strong></td>
+                    <td style="text-align:center;">
+                        <?php
+                            $rang  = $cap['rang'];
+                            $color = $rangColors[$rang] ?? '#89CEFF';
+                        ?>
+                        <span style="display:inline-block; padding:2px 10px; border-radius:12px; font-size:11px; font-weight:700;
+                                     background:<?php echo $color; ?>22; color:<?php echo $color; ?>;
+                                     border:1px solid <?php echo $color; ?>55;">
+                            Rang <?php echo htmlspecialchars($rang); ?>
+                        </span>
+                    </td>
+                    <td style="font-size:12px; color:rgba(137,206,255,0.6);">
+                        <?php echo $cap['histoire_titre'] ? htmlspecialchars($cap['histoire_titre']) : '<span style="opacity:0.4;">—</span>'; ?>
+                    </td>
                     <td>
-                        <a href="jdr-params?page=capacities&sub-page=modify&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-pen"></i></a> 
-                        <a href="jdr-params?page=capacities&sub-page=delete&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-trash"></i></a>
+                        <?php if ($cap['is_active']): ?>
+                        <span class="user-status-badge user-status-badge--active">Active</span>
+                        <?php else: ?>
+                        <span class="user-status-badge user-status-badge--inactive">Inactive</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <a href="jdr-params?page=capacities&sub-page=modify&uuid=<?php echo urlencode($cap['uuid']); ?>"
+                           style="background:#FFF; font-size:22px; background-clip:text !important; -webkit-background-clip:text !important; margin-right:8px;">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                        <a href="jdr-params?page=capacities&sub-page=delete&uuid=<?php echo urlencode($cap['uuid']); ?>"
+                           style="background:#FFF; font-size:22px; background-clip:text !important; -webkit-background-clip:text !important;">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
-                <tr>
-                    <td>eeeeeeeee</td>
-                    <td>eeeeee</td>
-                    <td>ee</td>
-                    <td>
-                        <a href="jdr-params?page=capacities&sub-page=modify&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-pen"></i></a> 
-                        <a href="jdr-params?page=capacities&sub-page=delete&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>eeeeeeeee</td>
-                    <td>eeeeeeeee</td>
-                    <td>ee</td>
-                    <td>
-                        <a href="jdr-params?page=capacities&sub-page=modify&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-pen"></i></a> 
-                        <a href="jdr-params?page=capacities&sub-page=delete&uuid=" style="background: #FFF; font-size: 24px; background-clip: text !important; -webkit-background-clip: text !important;"><i class="fa-solid fa-trash"></i></a>
-                    </td>
-                </tr>
+                <?php endforeach; ?>
             </tbody>
         </table>
+        <?php endif; ?>
     </div>
 </div>

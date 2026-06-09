@@ -1,161 +1,111 @@
-<div class="orv-buttons" style="justify-content: flex-end;">
-    <button class="orv-edit"><i class="fa-solid fa-check"></i> <span style="font-size: 18px;">Sauvegarder</span></button>
-    <button class="orv-edit"><i class="fa-solid fa-xmark"></i> <span style="font-size: 18px;">Annuler</span></button>
+<?php
+    require_once './import/capacities.php';
+    $cm        = new CapacitiesManager();
+    $histories = $cm->getAvailableHistories();
+    $fd        = $formData ?? [];
+?>
+
+<?php if ($formError ?? null): ?>
+<div class="user-notice user-notice--error" style="margin-bottom:12px;">
+    <i class="fa-solid fa-circle-xmark"></i> <?php echo htmlspecialchars($formError); ?>
 </div>
-<div class="orv-menu" id="gest-perso">
-    <div class="orv-menu_header">&lt;Création d'une capacité&gt;</div>
-    <div class="orv-menu_container">
-        <div class="orv-menu_form">
-            <div>
-                <h2 class="classic-title">Informations générales de la capacité :</h2>
-                <cite>Quel est sont identité ?</cite>
-            </div>
-            <div class="orv-menu_form-elements">
-                <div class="orv-menu_form-inputs-list">
-                    <div class="orv-menu_form-input">
-                        <label>Nom de la compétence :</label>
-                        <input type="number">
-                    </div>
-                    <div class="orv-menu_form-input" style="width: 300px;">
-                        <label>Rang de la compétence :</label>
-                        <select style="width: 300px;">
-                            <option value="option1">Rang E</option>
-                            <option value="option1">Rang D</option>
-                            <option value="option1">Rang C</option>
-                            <option value="option1">Rang B</option>
-                            <option value="option1">Rang A</option>
-                            <option value="option1">Rang S</option>
-                        </select>
-                    </div>
-                    <div class="orv-menu_form-input">
-                        <label>Effets de la compétence :</label>
-                        <select id="example-multi-select2" data-placeholder="Select options" multiple="multiple">
-                            <option value="option1">Damage</option>
-                            <option value="option2">Boost</option>
-                            <option value="option2">Analyse</option>
-                            <option value="option2">Soin</option>
-                            <option value="option2">Debuffs</option>
-                        </select>
+<?php endif; ?>
+
+<form method="POST" action="jdr-params?page=capacities&sub-page=create">
+    <div class="orv-buttons" style="justify-content:flex-end;">
+        <button type="submit" class="orv-edit">
+            <i class="fa-solid fa-check"></i>
+            <span style="font-size:18px;">Créer la compétence</span>
+        </button>
+        <button type="button" class="orv-edit" onclick="window.location.href='jdr-params?page=capacities&sub-page=list';">
+            <i class="fa-solid fa-xmark"></i>
+            <span style="font-size:18px;">Annuler</span>
+        </button>
+    </div>
+
+    <div class="orv-menu">
+        <div class="orv-menu_header">&lt;Création d'une compétence&gt;</div>
+        <div class="orv-menu_container">
+
+            <!-- Informations générales -->
+            <div class="orv-menu_form">
+                <div>
+                    <h2 class="classic-title">Informations générales :</h2>
+                    <cite>Identité et classification de la compétence.</cite>
+                </div>
+                <div class="orv-menu_form-elements">
+                    <div class="orv-menu_form-inputs-list">
+                        <div class="orv-menu_form-input" style="width:280px;">
+                            <label>Nom <span style="color:#FF6B7A;">*</span></label>
+                            <input type="text" name="nom" value="<?php echo htmlspecialchars($fd['nom'] ?? ''); ?>" required style="width:280px;">
+                        </div>
+                        <div class="orv-menu_form-input" style="width:180px;">
+                            <label>Rang <span style="color:#FF6B7A;">*</span></label>
+                            <select name="rang" style="width:180px;">
+                                <?php foreach (CapacitiesManager::RANGS as $r): ?>
+                                <option value="<?php echo $r; ?>" <?php echo ($fd['rang'] ?? 'E') === $r ? 'selected' : ''; ?>>
+                                    Rang <?php echo $r; ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="orv-menu_form-input" style="width:260px;">
+                            <label>Histoire liée</label>
+                            <?php if (!empty($histories)): ?>
+                            <select name="histoire_uuid" style="width:260px;">
+                                <option value="">— Aucune —</option>
+                                <?php foreach ($histories as $h): ?>
+                                <option value="<?php echo htmlspecialchars($h['uuid']); ?>"
+                                    <?php echo ($fd['histoire_uuid'] ?? '') === $h['uuid'] ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($h['titre']); ?>
+                                </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <?php else: ?>
+                            <input type="text" name="histoire_uuid" value="" placeholder="Aucune histoire disponible" style="width:260px;" disabled>
+                            <small style="color:rgba(137,206,255,0.4); font-size:11px;">Créez des histoires dans "Gestion des histoires".</small>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="orv-menu_form">
-            <div>
-                <h2 class="classic-title">Gestion des effets :</h2>
-                <cite>Effets réelles de la compétence ?</cite>
-            </div>
-            <div class="orv-menu_form-elements">
-                <div class="orv-menu_form-inputs-list">
-                    <div class="orv-menu_form-input" style="width: 300px;">
-                        <label>Dégâts générés par la compétences :</label>
+
+            <hr>
+
+            <!-- Description générale -->
+            <div class="orv-menu_form">
+                <div>
+                    <h2 class="classic-title">Description :</h2>
+                    <cite>Présentation générale de la compétence.</cite>
+                </div>
+                <div class="orv-menu_form-elements">
+                    <div class="orv-menu_form-inputs-list">
+                        <div class="orv-menu_form-input" style="width:100%; max-width:700px;">
+                            <label>Description générale</label>
+                            <textarea name="description" rows="5" style="width:100%;"><?php echo htmlspecialchars($fd['description'] ?? ''); ?></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="orv-menu_form-elements">
-                <div class="orv-menu_form-inputs-list">
-                    <div class="orv-menu_form-input" style="width: 200px;">
-                        <label>Type :</label>
-                        <select style="width: 200px;">
-                            <option value="option1">Addition</option>
-                            <option value="option1">Jet de dès</option>
-                        </select>
-                    </div>
-                    <div class="orv-menu_form-input" style="width: 325px;">
-                        <label>Psyché du personnage :</label>
-                        <textarea></textarea>
-                    </div>
-                    <div class="orv-menu_form-input" style="width: 325px;">
-                        <label>Vertu du personnage :</label>
-                        <textarea></textarea>
-                    </div>
-                    <div class="orv-menu_form-input" style="width: 325px;">
-                        <label>Vice du personnage :</label>
-                        <textarea></textarea>
+
+            <hr>
+
+            <!-- Effets visuels -->
+            <div class="orv-menu_form">
+                <div>
+                    <h2 class="classic-title">Effets visuels :</h2>
+                    <cite>Description de ce que la compétence produit visuellement lors de son activation.</cite>
+                </div>
+                <div class="orv-menu_form-elements">
+                    <div class="orv-menu_form-inputs-list">
+                        <div class="orv-menu_form-input" style="width:100%; max-width:700px;">
+                            <label>Description des effets visuels</label>
+                            <textarea name="effets_visuels" rows="5" style="width:100%;"><?php echo htmlspecialchars($fd['effets_visuels'] ?? ''); ?></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <hr>
-        <div class="orv-menu_form">
-            <div>
-                <h2 class="classic-title">Informations relatifs au JDR :</h2>
-                <cite>Comment est votre personnage ?</cite>
-            </div>
-            <div class="orv-menu_form-elements">
-                <div class="orv-menu_form-inputs-list">
-                    <div class="orv-menu_form-input">
-                        <label>Force vital :</label>
-                        <input type="number">
-                    </div>
-                    <div class="orv-menu_form-input">
-                        <label>Force physique :</label>
-                        <input type="number">
-                    </div>
-                    <div class="orv-menu_form-input">
-                        <label>Agilité :</label>
-                        <input type="number">
-                    </div>
-                    <div class="orv-menu_form-input">
-                        <label>Puissance magique :</label>
-                        <input type="number">
-                    </div>
-                </div>
-            </div>
-            <div class="orv-menu_form-elements">
-                <div class="orv-menu_form-inputs-list">
-                    <div class="orv-menu_form-input" style="width: 325px;">
-                        <label>Constellation sponsor :</label>
-                        <select style="width: 300px;">
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
-                    </div>
-                    <div class="orv-menu_form-input" style="width: 325px;">
-                        <label>Charactéristiques spéciales :</label>
-                        <select id="example-multi-select2" data-placeholder="Select options" multiple="multiple">
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
-                    </div>
-                    <div class="orv-menu_form-input" style="width: 325px;">
-                        <label>Compétences :</label>
-                        <select id="example-multi-select3" data-placeholder="Select options" multiple="multiple">
-                            <option value="option1">Option 1</option>
-                            <option value="option2">Option 2</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="orv-menu_form">
-            <div>
-                <h2 class="classic-title">Description de la compétence :</h2>
-                <cite>Décrivez la compétence en détail.</cite>
-            </div>
-            <div class="orv-menu_form-elements">
-                <div class="orv-menu_form-inputs-list">
-                    <textarea style="width: calc(100% - 20px); height: 200px;"></textarea>
-                </div>
-            </div>
-        </div>
-        <hr>
-        <div class="orv-menu_form">
-            <div>
-                <h2 class="classic-title">Estimations générales :</h2>
-                <cite>Qu'a-t-il vécu ?</cite>
-            </div>
-            <div class="orv-menu_form-elements">
-                <div class="orv-menu_form-inputs-list">
-                    <textarea style="width: calc(100% - 20px); height: 200px;"></textarea>
-                </div>
-            </div>
+
         </div>
     </div>
-</div>
-<script>
-    new MultiSelect(document.getElementById('example-multi-select2'));
-    new MultiSelect(document.getElementById('example-multi-select3'));
-</script>
+</form>
