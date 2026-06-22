@@ -796,7 +796,8 @@ footer {
    11. ORV MENU — Interface système Dokkaebi
    ================================================================= */
 .orv-menu {
-    width: min(1225px, calc(100% - 40px));
+    min-width: 1225px;
+    width: calc(100% - 40px);
     margin: 20px auto 40px;
     border-radius: 16px 0;
     border: 1px solid var(--c-panel-border);
@@ -2118,6 +2119,80 @@ footer {
     box-shadow: var(--glow-accent-xs);
     transform: none;
 }
+
+/* =================================================================
+   SHOP — THÈMES PAR RANG
+   Sélecteurs basés sur data-rank sur #baluch-dokka
+   ================================================================= */
+
+/* ── GOLD ──────────────────────────────────────────────────────── */
+#baluch-dokka[data-rank="gold"] .shop-header-title               { text-shadow: 0 0 28px rgba(218,165,32,.65); }
+#baluch-dokka[data-rank="gold"] .shop-hamburger:hover            { background: rgba(218,165,32,.22); border-color: rgba(218,165,32,.40); }
+#baluch-dokka[data-rank="gold"] .shop-nav-item:hover             { background: rgba(218,165,32,.08); border-left-color: rgba(218,165,32,.35); }
+#baluch-dokka[data-rank="gold"] .shop-nav-active,
+#baluch-dokka[data-rank="gold"] .shop-nav-active:link,
+#baluch-dokka[data-rank="gold"] .shop-nav-active:visited         { background: rgba(218,165,32,.14); border-left-color: rgba(218,165,32,.70); }
+#baluch-dokka[data-rank="gold"] .shop-profile-cart-btn           { background: rgba(218,165,32,.12); border-color: rgba(218,165,32,.32); }
+#baluch-dokka[data-rank="gold"] .shop-profile-cart-btn:hover     { background: rgba(218,165,32,.24); }
+#baluch-dokka[data-rank="gold"] .shop-featured-card              { border-color: rgba(218,165,32,.38); background: rgba(218,165,32,.05); }
+#baluch-dokka[data-rank="gold"] .shop-featured-card:hover        { background: rgba(218,165,32,.12); border-color: rgba(218,165,32,.65); }
+#baluch-dokka[data-rank="gold"] .shop-card-price                 { background: rgba(218,165,32,.15); border-color: rgba(218,165,32,.42); }
+#baluch-dokka[data-rank="gold"] .shop-card-price:hover           { background: rgba(218,165,32,.28); }
+#baluch-dokka[data-rank="gold"] .shop-catalog-card               { border-color: rgba(218,165,32,.20); }
+#baluch-dokka[data-rank="gold"] .shop-catalog-card:hover         { background: rgba(218,165,32,.08); border-color: rgba(218,165,32,.40); }
+#baluch-dokka[data-rank="gold"] .shop-action-btn                 { background: rgba(218,165,32,.12); border-color: rgba(218,165,32,.30); }
+#baluch-dokka[data-rank="gold"] .shop-action-btn:hover           { background: rgba(218,165,32,.25); }
+#baluch-dokka[data-rank="gold"] .shop-coins-display              { background: rgba(218,165,32,.12); border-color: rgba(218,165,32,.38); }
+#baluch-dokka[data-rank="gold"] .shop-search-input:focus         { background: rgba(218,165,32,.11); border-color: rgba(218,165,32,.48); box-shadow: 0 0 8px rgba(218,165,32,.14); }
+#baluch-dokka[data-rank="gold"] .shop-search-btn                 { background: rgba(218,165,32,.10); border-color: rgba(218,165,32,.26); }
+#baluch-dokka[data-rank="gold"] .shop-search-btn:hover           { background: rgba(218,165,32,.22); }
+#baluch-dokka[data-rank="gold"] .shop-upgrade-btn                { background: linear-gradient(135deg, #e8c84a 0%, #b8860b 100%); }
+
+/* ── PLATINIUM ─────────────────────────────────────────────────── */
+#baluch-dokka[data-rank="platinium"] .shop-header-title               { text-shadow: 0 0 28px rgba(180,196,210,.55); }
+#baluch-dokka[data-rank="platinium"] .shop-hamburger:hover            { background: rgba(180,196,210,.20); border-color: rgba(180,196,210,.38); }
+#baluch-dokka[data-rank="platinium"] .shop-nav-item:hover             { background: rgba(180,196,210,.08); border-left-color: rgba(180,196,210,.35); }
+#baluch-dokka[data-rank="platinium"] .shop-nav-active,
+#baluch-dokka[data-rank="platinium"] .shop-nav-active:link,
+#baluch-dokka[data-rank="platinium"] .shop-nav-active:visited         { background: rgba(180,196,210,.13); border-left-color: rgba(180,196,210,.65); }
+#baluch-dokka[data-rank="platinium"] .shop-profile-cart-btn           { background: rgba(180,196,210,.10); border-color: rgba(180,196,210,.30); }
+#baluch-dokka[data-rank="platinium"] .shop-profile-cart-btn:hover     { background: rgba(180,196,210,.22); }
+#baluch-dokka[data-rank="platinium"] .shop-featured-card              { border-color: rgba(180,196,210,.35); background: rgba(180,196,210,.04); }
+#baluch-dokka[data-rank="platinium"] .shop-featured-card:hover        { background: rgba(180,196,210,.10); border-color: rgba(180,196,210,.60); }
+#baluch-dokka[data-rank="platinium"] .shop-card-price                 { background: rgba(180,196,210,.14); border-color: rgba(180,196,210,.40); }
+#baluch-dokka[data-rank="platinium"] .shop-card-price:hover           { background: rgba(180,196,210,.26); }
+#baluch-dokka[data-rank="platinium"] .shop-catalog-card               { border-color: rgba(180,196,210,.18); }
+#baluch-dokka[data-rank="platinium"] .shop-catalog-card:hover         { background: rgba(180,196,210,.07); border-color: rgba(180,196,210,.38); }
+#baluch-dokka[data-rank="platinium"] .shop-action-btn                 { background: rgba(180,196,210,.10); border-color: rgba(180,196,210,.28); }
+#baluch-dokka[data-rank="platinium"] .shop-action-btn:hover           { background: rgba(180,196,210,.22); }
+#baluch-dokka[data-rank="platinium"] .shop-coins-display              { background: rgba(180,196,210,.10); border-color: rgba(180,196,210,.35); }
+#baluch-dokka[data-rank="platinium"] .shop-search-input:focus         { background: rgba(180,196,210,.10); border-color: rgba(180,196,210,.45); box-shadow: 0 0 8px rgba(180,196,210,.12); }
+#baluch-dokka[data-rank="platinium"] .shop-search-btn                 { background: rgba(180,196,210,.09); border-color: rgba(180,196,210,.24); }
+#baluch-dokka[data-rank="platinium"] .shop-search-btn:hover           { background: rgba(180,196,210,.20); }
+#baluch-dokka[data-rank="platinium"] .shop-upgrade-btn                { background: linear-gradient(135deg, #d4dde5 0%, #8899a8 100%); color: #0d1b36; -webkit-text-fill-color: #0d1b36; }
+
+/* ── DIAMOND ───────────────────────────────────────────────────── */
+#baluch-dokka[data-rank="diamond"] .shop-header-title               { text-shadow: 0 0 28px rgba(200,80,255,.70); }
+#baluch-dokka[data-rank="diamond"] .shop-hamburger:hover            { background: rgba(200,80,255,.22); border-color: rgba(200,80,255,.40); }
+#baluch-dokka[data-rank="diamond"] .shop-nav-item:hover             { background: rgba(200,80,255,.08); border-left-color: rgba(200,80,255,.35); }
+#baluch-dokka[data-rank="diamond"] .shop-nav-active,
+#baluch-dokka[data-rank="diamond"] .shop-nav-active:link,
+#baluch-dokka[data-rank="diamond"] .shop-nav-active:visited         { background: rgba(200,80,255,.14); border-left-color: rgba(200,80,255,.70); }
+#baluch-dokka[data-rank="diamond"] .shop-profile-cart-btn           { background: rgba(200,80,255,.12); border-color: rgba(200,80,255,.32); }
+#baluch-dokka[data-rank="diamond"] .shop-profile-cart-btn:hover     { background: rgba(200,80,255,.24); }
+#baluch-dokka[data-rank="diamond"] .shop-featured-card              { border-color: rgba(200,80,255,.38); background: rgba(200,80,255,.05); }
+#baluch-dokka[data-rank="diamond"] .shop-featured-card:hover        { background: rgba(200,80,255,.12); border-color: rgba(200,80,255,.65); }
+#baluch-dokka[data-rank="diamond"] .shop-card-price                 { background: rgba(200,80,255,.15); border-color: rgba(200,80,255,.42); }
+#baluch-dokka[data-rank="diamond"] .shop-card-price:hover           { background: rgba(200,80,255,.28); }
+#baluch-dokka[data-rank="diamond"] .shop-catalog-card               { border-color: rgba(200,80,255,.20); }
+#baluch-dokka[data-rank="diamond"] .shop-catalog-card:hover         { background: rgba(200,80,255,.08); border-color: rgba(200,80,255,.42); }
+#baluch-dokka[data-rank="diamond"] .shop-action-btn                 { background: rgba(200,80,255,.12); border-color: rgba(200,80,255,.30); }
+#baluch-dokka[data-rank="diamond"] .shop-action-btn:hover           { background: rgba(200,80,255,.25); }
+#baluch-dokka[data-rank="diamond"] .shop-coins-display              { background: rgba(200,80,255,.12); border-color: rgba(200,80,255,.38); }
+#baluch-dokka[data-rank="diamond"] .shop-search-input:focus         { background: rgba(200,80,255,.11); border-color: rgba(200,80,255,.48); box-shadow: 0 0 8px rgba(200,80,255,.14); }
+#baluch-dokka[data-rank="diamond"] .shop-search-btn                 { background: rgba(200,80,255,.10); border-color: rgba(200,80,255,.26); }
+#baluch-dokka[data-rank="diamond"] .shop-search-btn:hover           { background: rgba(200,80,255,.22); }
+#baluch-dokka[data-rank="diamond"] .shop-upgrade-btn                { background: linear-gradient(135deg, #c850ff 0%, #6c00a8 100%); color: #fff; -webkit-text-fill-color: #fff; }
 
 /* =================================================================
    23. COMBATS

@@ -300,6 +300,138 @@
         }
     }
 
+    // ── Modificateurs ─────────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'modifiers') {
+        require_once './import/modifiers.php';
+        $mm   = new ModifiersManager();
+        $uuid = $_GET['uuid'] ?? '';
+        $tab  = $_GET['tab']  ?? 'mod-info';
+        $backModify = 'jdr-params?page=modifiers&sub-page=modify&uuid=' . rawurlencode($uuid) . '&tab=' . rawurlencode($tab);
+
+        switch ($currentSubPage) {
+
+            case 'create':
+                $result = $mm->createModifier($_POST);
+                if ($result['success']) {
+                    header('Location: jdr-params?page=modifiers&sub-page=modify&uuid=' . rawurlencode($result['uuid']) . '&tab=mod-info&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                $formError = $result['message'];
+                $formData  = $_POST;
+                break;
+
+            case 'modify':
+                $action = $_POST['action'] ?? 'update';
+
+                if ($action === 'update') {
+                    $result = $mm->updateModifier($uuid, $_POST);
+                    if ($result['success']) {
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                        exit;
+                    }
+                    $formError = $result['message'];
+                    $formData  = $_POST;
+                    break;
+                }
+
+                if ($action === 'add_stat') {
+                    $result = $mm->addModifierStat(
+                        $uuid,
+                        $_POST['stat_type']   ?? 'force',
+                        (int)($_POST['stat_valeur'] ?? 0)
+                    );
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'remove_stat') {
+                    $mm->removeModifierStat((int)($_POST['stat_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Statistique supprimée.'));
+                    exit;
+                }
+
+                if ($action === 'add_effect') {
+                    $result = $mm->addModifierEffect(
+                        $uuid,
+                        $_POST['effect_nom']         ?? '',
+                        $_POST['effect_description'] ?? ''
+                    );
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'remove_effect') {
+                    $mm->removeModifierEffect((int)($_POST['effect_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Effet supprimé.'));
+                    exit;
+                }
+                break;
+
+            case 'delete':
+                $mm->deleteModifier($uuid);
+                header('Location: jdr-params?page=modifiers&sub-page=list&notice=' . rawurlencode('Modificateur supprimé.'));
+                exit;
+        }
+    }
+
+    // ── Scénarios ─────────────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'scenarios') {
+        require_once './import/scenarios.php';
+        $sm   = new ScenariosManager();
+        $uuid = $_GET['uuid'] ?? '';
+        $tab  = $_GET['tab']  ?? 'sc-info';
+        $backModify = 'jdr-params?page=scenarios&sub-page=modify&uuid=' . rawurlencode($uuid) . '&tab=' . rawurlencode($tab);
+
+        switch ($currentSubPage) {
+
+            case 'create':
+                $result = $sm->createScenario($_POST);
+                if ($result['success']) {
+                    header('Location: jdr-params?page=scenarios&sub-page=modify&uuid=' . rawurlencode($result['uuid']) . '&tab=sc-info&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                $formError = $result['message'];
+                $formData  = $_POST;
+                break;
+
+            case 'modify':
+                $action = $_POST['action'] ?? 'update';
+
+                if ($action === 'update') {
+                    $result = $sm->updateScenario($uuid, $_POST);
+                    if ($result['success']) {
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                        exit;
+                    }
+                    $formError = $result['message'];
+                    $formData  = $_POST;
+                    break;
+                }
+
+                if ($action === 'add_reward') {
+                    $qty = is_numeric($_POST['reward_quantite'] ?? '') && (int)$_POST['reward_quantite'] > 0
+                           ? (int)$_POST['reward_quantite'] : null;
+                    $result = $sm->addScenarioReward(
+                        $uuid,
+                        $_POST['reward_type']    ?? 'autre',
+                        $_POST['reward_nom']     ?? '',
+                        $qty
+                    );
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                if ($action === 'remove_reward') {
+                    $sm->removeScenarioReward((int)($_POST['reward_id'] ?? 0), $uuid);
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode('Récompense supprimée.'));
+                    exit;
+                }
+                break;
+
+            case 'delete':
+                $sm->deleteScenario($uuid);
+                header('Location: jdr-params?page=scenarios&sub-page=list&notice=' . rawurlencode('Scénario supprimé.'));
+                exit;
+        }
+    }
+
     // ── Attributs ─────────────────────────────────────────────────────────────
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'attributes') {
         require_once './import/attributs.php';
@@ -578,7 +710,7 @@
                             }
                         }
                     }
-                    $result = $cm->updateCharacter($uuid, array_merge($_POST, ['apparence_image' => $imagePath]));
+                    $result = $cm->updateCharacter($uuid, array_merge($char, $_POST, ['apparence_image' => $imagePath]));
                     if ($result['success']) {
                         header('Location: ' . $backModify . '&notice=' . rawurlencode($result['message']));
                         exit;
@@ -673,6 +805,19 @@
                     exit;
                 }
 
+                // ── Baluchon du Dokkaebi ──
+                if ($action === 'toggle_dokkaebi_bag') {
+                    $current = $cm->getCharacterByUUID($uuid);
+                    if ($current) {
+                        $cm->setDokkaebiBag($uuid, !(bool)$current['has_dokkaebi_bag']);
+                        $msg = $current['has_dokkaebi_bag'] ? 'Baluchon désactivé.' : 'Baluchon activé.';
+                    } else {
+                        $msg = 'Personnage introuvable.';
+                    }
+                    header('Location: ' . $backModify . '&notice=' . rawurlencode($msg));
+                    exit;
+                }
+
                 // ── Équipement ──
                 if ($action === 'add_equipped') {
                     $result = $cm->addEquipped($uuid, $_POST['item_uuid'] ?? '', $_POST['slot'] ?? '');
@@ -691,6 +836,153 @@
                 header('Location: jdr-params?page=characters&sub-page=list&notice=' . rawurlencode('Personnage supprimé.'));
                 exit;
         }
+    }
+
+    // ── Objets ────────────────────────────────────────────────────────────────────
+    if ($currentPage === 'items') {
+        require_once './import/items.php';
+        $im   = new ItemsManager();
+        $uuid = $_GET['uuid'] ?? '';
+        $tab  = $_GET['tab']  ?? 'item-info';
+        $backModify = 'jdr-params?page=items&sub-page=modify&uuid=' . rawurlencode($uuid) . '&tab=' . rawurlencode($tab);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentSubPage === 'list') {
+            if (($_POST['action'] ?? '') === 'toggle_active') {
+                $tUuid = $_POST['uuid'] ?? '';
+                $t = $im->getItemByUUID($tUuid);
+                if ($t) {
+                    $im->updateItem($tUuid, array_merge((array)$t, ['is_active' => $t['is_active'] ? 0 : 1]));
+                }
+                $srch = trim($_POST['search'] ?? '');
+                header('Location: jdr-params?page=items&sub-page=list' . ($srch !== '' ? '&search=' . rawurlencode($srch) : ''));
+                exit;
+            }
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            switch ($currentSubPage) {
+                case 'create':
+                    $result = $im->createItem($_POST);
+                    if ($result['success']) {
+                        header('Location: jdr-params?page=items&sub-page=modify&uuid=' . rawurlencode($result['uuid']) . '&tab=item-info&notice=' . rawurlencode($result['message']));
+                        exit;
+                    }
+                    $formError = $result['message'];
+                    $formData  = $_POST;
+                    break;
+
+                case 'modify':
+                    $action = $_POST['action'] ?? '';
+                    if ($action === 'update') {
+                        $im->updateItem($uuid, $_POST);
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode('Objet mis à jour.'));
+                        exit;
+                    }
+                    if ($action === 'add_stat') {
+                        $statType = $_POST['stat_type'] ?? '';
+                        $valeur   = (int)($_POST['valeur'] ?? 0);
+                        if (in_array($statType, ItemsManager::STAT_TYPES) && $valeur > 0) {
+                            $im->addItemStat($uuid, $statType, $valeur);
+                        }
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode('Statistique ajoutée.'));
+                        exit;
+                    }
+                    if ($action === 'remove_stat') {
+                        $im->removeItemStat((int)($_POST['stat_id'] ?? 0));
+                        header('Location: ' . $backModify . '&notice=' . rawurlencode('Statistique retirée.'));
+                        exit;
+                    }
+                    break;
+
+                case 'delete':
+                    $nom = $im->getItemByUUID($uuid)['nom'] ?? 'Objet';
+                    $im->deleteItem($uuid);
+                    header('Location: jdr-params?page=items&sub-page=list&notice=' . rawurlencode('« ' . $nom . ' » supprimé.'));
+                    exit;
+            }
+        }
+    }
+
+    // ── Dokkaebi Shop ─────────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'dokkaebi_bag') {
+        require_once './import/dokkaebi_shop.php';
+        $dsm    = new DokkaebiShopManager();
+        $id     = (int)($_GET['id'] ?? 0);
+        $search = trim($_POST['search'] ?? '');
+        $backList = 'jdr-params?page=dokkaebi_bag&sub-page=list' . ($search !== '' ? '&search=' . rawurlencode($search) : '');
+
+        switch ($currentSubPage) {
+
+            case 'create':
+                $result = $dsm->addToShop($_POST['item_uuid'] ?? '', $_POST);
+                if ($result['success']) {
+                    header('Location: jdr-params?page=dokkaebi_bag&sub-page=list&notice=' . rawurlencode($result['message']));
+                    exit;
+                }
+                $formError = $result['message'];
+                $formData  = $_POST;
+                break;
+
+            case 'list':
+                $action = $_POST['action'] ?? '';
+                $lid    = (int)($_POST['id'] ?? 0);
+                if ($action === 'toggle_vedette') {
+                    $dsm->toggleVedette($lid);
+                    header('Location: ' . $backList);
+                    exit;
+                }
+                if ($action === 'toggle_actif') {
+                    $dsm->toggleActif($lid);
+                    header('Location: ' . $backList);
+                    exit;
+                }
+                break;
+
+            case 'modify':
+                $result = $dsm->updateShopListing($id, $_POST);
+                header('Location: jdr-params?page=dokkaebi_bag&sub-page=modify&id=' . $id . '&notice=' . rawurlencode($result['message']));
+                exit;
+
+            case 'delete':
+                $dsm->removeFromShop($id);
+                header('Location: jdr-params?page=dokkaebi_bag&sub-page=list&notice=' . rawurlencode('Objet retiré du shop.'));
+                exit;
+        }
+    }
+
+    // ── Paramètres généraux ───────────────────────────────────────────────────────
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $currentPage === 'generals') {
+        require_once './import/generals.php';
+        $gm = new GeneralsManager();
+
+        $gm->setMany([
+            'app_name'          => trim($_POST['app_name']       ?? ''),
+            'app_subtitle'      => trim($_POST['app_subtitle']   ?? ''),
+            'app_status'        => in_array($_POST['app_status'] ?? '', ['active','maintenance','pause'])
+                                       ? $_POST['app_status'] : 'active',
+            'app_status_msg'    => trim($_POST['app_status_msg'] ?? ''),
+
+            'announce_active'   => isset($_POST['announce_active'])  ? '1' : '0',
+            'announce_type'     => array_key_exists($_POST['announce_type'] ?? '', GeneralsManager::ANNOUNCE_TYPES)
+                                       ? $_POST['announce_type'] : 'info',
+            'announce_text'     => trim($_POST['announce_text']  ?? ''),
+
+            'world_arc'         => trim($_POST['world_arc']      ?? ''),
+            'world_season'      => trim($_POST['world_season']   ?? ''),
+            'world_session'     => (string)max(1, (int)($_POST['world_session'] ?? 1)),
+            'world_date'        => trim($_POST['world_date']     ?? ''),
+
+            'eco_currency'      => trim($_POST['eco_currency']   ?? '') ?: 'Coins',
+            'eco_symbol'        => trim($_POST['eco_symbol']     ?? '') ?: 'C',
+            'eco_start_coins'   => (string)max(0, (int)($_POST['eco_start_coins'] ?? 0)),
+
+            'rules_max_players' => (string)max(1, (int)($_POST['rules_max_players'] ?? 6)),
+            'rules_pvp'         => isset($_POST['rules_pvp']) ? '1' : '0',
+            'rules_notes'       => trim($_POST['rules_notes']    ?? ''),
+        ]);
+
+        header('Location: jdr-params?page=generals&sub-page=list&notice=' . rawurlencode('Paramètres sauvegardés avec succès.'));
+        exit;
     }
 
 ?>

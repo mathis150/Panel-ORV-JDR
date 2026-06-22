@@ -139,9 +139,6 @@
                                        style="width:180px;">
                             </div>
 
-                        </div>
-                        <div class="orv-menu_form-inputs-list" style="margin-top:10px;">
-
                             <div class="orv-menu_form-input" style="width:120px;">
                                 <label>Niveau actuel</label>
                                 <select name="niveau_actuel" style="width:120px;">
@@ -156,20 +153,22 @@
                                 </select>
                             </div>
 
-                            <div class="orv-menu_form-input" style="display:flex; flex-direction:row; align-items:center; gap:8px; padding-top:22px;">
-                                <input type="checkbox" name="is_active" id="is_active_hist" value="1"
-                                    <?php echo (!empty($fd) ? !empty($fd['is_active']) : $hist['is_active']) ? 'checked' : ''; ?>>
-                                <label for="is_active_hist" style="cursor:pointer;">Histoire active</label>
-                            </div>
-                            <div class="orv-menu_form-input" style="display:flex; flex-direction:row; align-items:center; gap:8px; padding-top:22px;">
-                                <input type="checkbox" name="is_perso" id="is_perso_hist" value="1"
-                                    <?php echo (!empty($fd) ? !empty($fd['is_perso']) : $hist['is_perso']) ? 'checked' : ''; ?>>
-                                <label for="is_perso_hist" style="cursor:pointer;">Histoire du personnage</label>
-                            </div>
-                            <div class="orv-menu_form-input" style="display:flex; flex-direction:row; align-items:center; gap:8px; padding-top:22px;">
-                                <input type="checkbox" name="is_fondatrice" id="is_fondatrice_hist" value="1"
-                                    <?php echo (!empty($fd) ? !empty($fd['is_fondatrice']) : $hist['is_fondatrice']) ? 'checked' : ''; ?>>
-                                <label for="is_fondatrice_hist" style="cursor:pointer;">Histoire fondatrice</label>
+                            <div style="display:flex; align-items:center; gap:24px; flex-wrap:wrap; padding-top:22px;">
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <input type="checkbox" name="is_active" id="is_active_hist" value="1"
+                                        <?php echo (!empty($fd) ? !empty($fd['is_active']) : $hist['is_active']) ? 'checked' : ''; ?>>
+                                    <label for="is_active_hist" style="cursor:pointer;">Histoire active</label>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <input type="checkbox" name="is_perso" id="is_perso_hist" value="1"
+                                        <?php echo (!empty($fd) ? !empty($fd['is_perso']) : $hist['is_perso']) ? 'checked' : ''; ?>>
+                                    <label for="is_perso_hist" style="cursor:pointer;">Histoire du personnage</label>
+                                </div>
+                                <div style="display:flex; align-items:center; gap:8px;">
+                                    <input type="checkbox" name="is_fondatrice" id="is_fondatrice_hist" value="1"
+                                        <?php echo (!empty($fd) ? !empty($fd['is_fondatrice']) : $hist['is_fondatrice']) ? 'checked' : ''; ?>>
+                                    <label for="is_fondatrice_hist" style="cursor:pointer;">Histoire fondatrice</label>
+                                </div>
                             </div>
 
                         </div>

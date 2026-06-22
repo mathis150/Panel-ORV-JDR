@@ -66,16 +66,20 @@
 
                     <div class="orv-menu_form-inputs-list" style="margin-top:10px;">
 
-                        <div class="orv-menu_form-input" style="display:flex; flex-direction:row; align-items:center; gap:8px; padding-top:22px;">
-                            <input type="checkbox" name="is_perso" id="is_perso_create" value="1"
-                                   <?php echo !empty($fd['is_perso']) ? 'checked' : ''; ?>>
-                            <label for="is_perso_create" style="cursor:pointer;">Histoire du personnage</label>
-                        </div>
+                        <div style="display:flex; flex-direction:row; flex-wrap:wrap; gap:24px; padding-top:22px;">
 
-                        <div class="orv-menu_form-input" style="display:flex; flex-direction:row; align-items:center; gap:8px; padding-top:22px;">
-                            <input type="checkbox" name="is_fondatrice" id="is_fondatrice_create" value="1"
-                                   <?php echo !empty($fd['is_fondatrice']) ? 'checked' : ''; ?>>
-                            <label for="is_fondatrice_create" style="cursor:pointer;">Histoire fondatrice</label>
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <input type="checkbox" name="is_perso" id="is_perso_create" value="1"
+                                       <?php echo !empty($fd['is_perso']) ? 'checked' : ''; ?>>
+                                <label for="is_perso_create" style="cursor:pointer;">Histoire du personnage</label>
+                            </div>
+
+                            <div style="display:flex; align-items:center; gap:8px;">
+                                <input type="checkbox" name="is_fondatrice" id="is_fondatrice_create" value="1"
+                                       <?php echo !empty($fd['is_fondatrice']) ? 'checked' : ''; ?>>
+                                <label for="is_fondatrice_create" style="cursor:pointer;">Histoire fondatrice</label>
+                            </div>
+
                         </div>
 
                     </div>

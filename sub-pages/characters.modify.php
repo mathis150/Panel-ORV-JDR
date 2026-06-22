@@ -156,6 +156,42 @@
                     </div>
                 </div>
             </form>
+
+            <!-- Baluchon du Dokkaebi (form séparé pour éviter l'imbrication) -->
+            <hr style="margin:0 24px;">
+            <div class="orv-menu_form" style="padding:20px 24px;">
+                <div>
+                    <h2 class="classic-title">Baluchon du Dokkaebi :</h2>
+                    <cite>Donne accès au shop du Dokkaebi dans l'espace joueur.</cite>
+                </div>
+                <div class="orv-menu_form-elements">
+                    <div style="display:flex; align-items:center; gap:14px; padding-top:4px;">
+                        <?php if (!empty($char['has_dokkaebi_bag'])): ?>
+                        <span style="display:inline-flex; align-items:center; gap:7px; padding:5px 14px;
+                                     border-radius:8px; background:rgba(46,204,113,0.14);
+                                     border:1px solid rgba(46,204,113,0.35); color:#2ECC71; font-size:13px; font-weight:600;">
+                            <i class="fa-solid fa-bag-shopping"></i> Actif
+                        </span>
+                        <?php else: ?>
+                        <span style="display:inline-flex; align-items:center; gap:7px; padding:5px 14px;
+                                     border-radius:8px; background:rgba(255,255,255,0.04);
+                                     border:1px solid rgba(255,255,255,0.1); color:rgba(137,206,255,0.4); font-size:13px;">
+                            <i class="fa-solid fa-bag-shopping"></i> Inactif
+                        </span>
+                        <?php endif; ?>
+                        <form method="POST" action="<?php echo $baseUrl; ?>&tab=cm-identity" style="margin:0;">
+                            <input type="hidden" name="action" value="toggle_dokkaebi_bag">
+                            <button type="submit" class="orv-edit" style="font-size:13px; padding:7px 16px;">
+                                <?php if (!empty($char['has_dokkaebi_bag'])): ?>
+                                <i class="fa-solid fa-lock"></i> Désactiver
+                                <?php else: ?>
+                                <i class="fa-solid fa-unlock"></i> Activer
+                                <?php endif; ?>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ══════════════════════════════════════════════════════
